@@ -1,0 +1,7 @@
+Connecteur VGA
+GND
+R 
+G 
+B 
+H_sync
+V_sync
