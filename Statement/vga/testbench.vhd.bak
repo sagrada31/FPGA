@@ -1,0 +1,22 @@
+library ieee;
+library std;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_textio.all;
+use ieee.std_logic_unsigned.all;
+use std.textio.all;
+
+entity test_vga is
+end;
+
+architecture test_arch of test_vga is
+	signal CLOCK_50 : std_logic;
+	signal GPIO_1_D : std_logic_vector(33 downto 0);
+	constant frames : integer := 2;
+	
+	-- Description of vga
+	component vga
+	port(
+		CLOCK_50		: in std_logic;µ
+		GPIO_1_D		: out 
+		
+	)

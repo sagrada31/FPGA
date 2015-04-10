@@ -1,0 +1,28 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_arith.all;
+use ieee.std_logic.UNSIGNED.all;
+
+entity vga is
+Port(
+	CLOCK_50		: in std_logic;
+	GPIO_I_D		: out std_logic_vector(33 downto 0)	
+	);
+end entity vga;
+
+architecture vga_arch of vga is
+	-- Sync signal
+	signal h_sync			: std_logic;
+	signal h_sync			: std_logic;
+	-- Video Enables
+	signal video_en		: std_logic;
+	signal horizontal_en	: std_logic;
+	signal vertical_en	: std_logic;
+	-- Color signal
+	signal red_signal		: std_logic;
+	signal green_signal	: std_logic;
+	signal blue_signal	: std_logic;
+	-- Sync Counters
+	signal h_sync			: std_logic;
+	signal h_sync			: std_logic;
+	

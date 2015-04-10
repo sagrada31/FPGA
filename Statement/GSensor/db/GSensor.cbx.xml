@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="GSensor">
+		<CBX_INST_ENTRY INSTANCE_NAME="|Gsensor|spipll:u_spipll|altpll:altpll_component" CBX_FILE_NAME="spipll_altpll.v"/>
+	</PROJECT>
+</LOG_ROOT>

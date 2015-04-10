@@ -1,0 +1,41 @@
+------------------------------------------------------------
+TimeQuest Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1200mV 85C Model Setup 'DEO_CLOCK'
+Slack : 13.723
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'DEO_CLOCK'
+Slack : 0.357
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'DEO_CLOCK'
+Slack : 9.593
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Setup 'DEO_CLOCK'
+Slack : 14.290
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'DEO_CLOCK'
+Slack : 0.312
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'DEO_CLOCK'
+Slack : 9.592
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Setup 'DEO_CLOCK'
+Slack : 16.323
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'DEO_CLOCK'
+Slack : 0.186
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'DEO_CLOCK'
+Slack : 9.271
+TNS   : 0.000
+
+------------------------------------------------------------

@@ -1,0 +1,43 @@
+|vga
+CLOCK_50 => out_v_sync~reg0.CLK
+CLOCK_50 => out_h_sync~reg0.CLK
+CLOCK_50 => out_blue~reg0.CLK
+CLOCK_50 => out_green~reg0.CLK
+CLOCK_50 => out_red~reg0.CLK
+CLOCK_50 => video_en.CLK
+CLOCK_50 => vertical_en.CLK
+CLOCK_50 => horizontal_en.CLK
+CLOCK_50 => v_sync.CLK
+CLOCK_50 => v_cnt[0].CLK
+CLOCK_50 => v_cnt[1].CLK
+CLOCK_50 => v_cnt[2].CLK
+CLOCK_50 => v_cnt[3].CLK
+CLOCK_50 => v_cnt[4].CLK
+CLOCK_50 => v_cnt[5].CLK
+CLOCK_50 => v_cnt[6].CLK
+CLOCK_50 => v_cnt[7].CLK
+CLOCK_50 => v_cnt[8].CLK
+CLOCK_50 => v_cnt[9].CLK
+CLOCK_50 => v_cnt[10].CLK
+CLOCK_50 => h_cnt[0].CLK
+CLOCK_50 => h_cnt[1].CLK
+CLOCK_50 => h_cnt[2].CLK
+CLOCK_50 => h_cnt[3].CLK
+CLOCK_50 => h_cnt[4].CLK
+CLOCK_50 => h_cnt[5].CLK
+CLOCK_50 => h_cnt[6].CLK
+CLOCK_50 => h_cnt[7].CLK
+CLOCK_50 => h_cnt[8].CLK
+CLOCK_50 => h_cnt[9].CLK
+CLOCK_50 => h_cnt[10].CLK
+CLOCK_50 => h_sync.CLK
+CLOCK_50 => blue_signal.CLK
+CLOCK_50 => green_signal.CLK
+CLOCK_50 => red_signal.CLK
+out_red <= out_red~reg0.DB_MAX_OUTPUT_PORT_TYPE
+out_green <= out_green~reg0.DB_MAX_OUTPUT_PORT_TYPE
+out_blue <= out_blue~reg0.DB_MAX_OUTPUT_PORT_TYPE
+out_h_sync <= out_h_sync~reg0.DB_MAX_OUTPUT_PORT_TYPE
+out_v_sync <= out_v_sync~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
