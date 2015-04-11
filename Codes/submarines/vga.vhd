@@ -55,9 +55,9 @@ architecture vga_arch of vga is
 	type Rocket_tab is array(74 downto 0) of std_logic_vector(49 downto 0);
 	shared variable rockets : Rocket_tab;
 	
-	shared variable index : integer;
-	shared variable i_loop : integer;
-	shared variable init : integer := 0;
+	shared variable index : integer range 0 to 200; -- normally 75 enough
+	shared variable i_loop : integer range 0 to 200;
+	shared variable init : integer range 0 to 1 := 0;
 	
 	shared variable cnt_fast 				: integer range 0 to 5000 := 0;
 	shared variable cnt_slow 				: integer range 0 to 100 := 0;
@@ -66,7 +66,8 @@ architecture vga_arch of vga is
 	shared variable index_submarine		: integer range 0 to 49;
 	shared variable shooter 				: integer range 0 to 9 :=0;
 	shared variable tmp 						: integer;
-	
+	shared variable tmp_random		    	: integer;
+	shared variable nb_submarines    	: integer range 0 to 15 :=0; -- To count the number of submarines
 begin
 	
 	update_submarines : process (CLOCK_50)
@@ -80,6 +81,7 @@ begin
 				submarines(30) := "11" & (std_logic_vector(to_unsigned(380,10)));
 				submarines(40) := "11" & (std_logic_vector(to_unsigned(480,10)));
 				init := 1;
+				nb_submarines := 4;
 			end if;
 			
 			if(cnt_slow = 100 and v_sync = '0') then
@@ -103,8 +105,26 @@ begin
 				end loop;
 				
 				-- Generate rockets
-				if(timer_lauch_rockets = 100) then
+				if(timer_lauch_rockets = 100) then -- 1 second ellapsed
 				
+					-- Try to add a submarine every second if there is less than 8 submarines
+--					if(nb_submarines < 8) then -- if there is less than 8 submarines, we add one every second
+--						tmp_random := to_integer(unsigned(magn_g_y)) mod 50; -- to get a "random" position in the table
+--						i_loop := 0;
+--						while(submarines(tmp_random)(11) = '1' AND i_loop < 50) loop -- to get a line with no other submarines
+--							tmp_random := tmp_random +1;
+--							i_loop := i_loop +1;
+--						end loop;
+--						submarines(tmp_random)(11) := '1';
+--						submarines(tmp_random)(10) := magn_g_y(6); -- On prend ce bit pour choisir la direction
+--						if(magn_g_y(6) = '1') then -- if it goes to the right, we initialize the position to the left
+--							submarines(tmp_random)(9 downto 0) := std_logic_vector(to_unsigned(0,10));
+--						else
+--							submarines(tmp_random)(9 downto 0) := std_logic_vector(to_unsigned(760,10));
+--						end if;
+--						nb_submarines := nb_submarines + 1;
+--					end if;
+					
 					--for i_loop in 0 to 4 loop
 					for i_loop in 0 to 49 loop
 					
