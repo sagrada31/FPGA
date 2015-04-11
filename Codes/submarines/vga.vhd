@@ -59,12 +59,13 @@ architecture vga_arch of vga is
 	shared variable i_loop : integer;
 	shared variable init : integer := 0;
 	
-	shared variable cnt_fast 			: integer range 0 to 5000 := 0;
-	shared variable cnt_slow 			: integer range 0 to 100 := 0;
-	shared variable timer_rockets 	: integer range 0 to 100 := 0;
-	shared variable index_submarine	: integer range 0 to 49;
-	shared variable shooter 			: integer range 0 to 9 :=0;
-	shared variable tmp 					: integer;
+	shared variable cnt_fast 				: integer range 0 to 5000 := 0;
+	shared variable cnt_slow 				: integer range 0 to 100 := 0;
+	shared variable timer_lauch_rockets : integer range 0 to 100 := 0;
+	shared variable timer_update_rockets: integer range 0 to 1 := 0;
+	shared variable index_submarine		: integer range 0 to 49;
+	shared variable shooter 				: integer range 0 to 9 :=0;
+	shared variable tmp 						: integer;
 	
 begin
 	
@@ -102,7 +103,7 @@ begin
 				end loop;
 				
 				-- Generate rockets
-				if(timer_rockets = 100) then
+				if(timer_lauch_rockets = 100) then
 				
 					--for i_loop in 0 to 4 loop
 					for i_loop in 0 to 49 loop
@@ -111,7 +112,7 @@ begin
 						--if( submarines(index_submarine)(11) = '1' ) then -- if there is a submarine at this line, it shoots
 						if( submarines(i_loop)(11) = '1' ) then -- if there is a submarine at this line, it shoots
 							--rockets(index_submarine + 25)(to_integer(unsigned(submarines(index_submarine)(9 downto 0) + 12) srl 4)) := '1';
-							rockets(index_submarine + 25)(to_integer(unsigned(submarines(i_loop)(9 downto 0) + 12) srl 4)) := '1';
+							rockets(i_loop + 25)(to_integer(unsigned(submarines(i_loop)(9 downto 0) + 12) srl 4)) := '1';
 						end if;
 					end loop;
 					
@@ -121,17 +122,22 @@ begin
 --						shooter := shooter + 1;
 --					end if;
 					
-					timer_rockets := 0;
+					timer_lauch_rockets := 0;
 				
 				else
-					timer_rockets := timer_rockets + 1;
+					timer_lauch_rockets := timer_lauch_rockets + 1;
 				end if;
 				
 				-- Update rockets
-				for i_loop in 1 to 74 loop
-					rockets(i_loop-1) := rockets(i_loop);
-				end loop;
-				rockets(74) := std_logic_vector(to_unsigned(0,50));
+				if(timer_update_rockets = 1) then
+					for i_loop in 1 to 74 loop
+						rockets(i_loop-1) := rockets(i_loop);
+					end loop;
+					rockets(74) := std_logic_vector(to_unsigned(0,50));
+					timer_update_rockets := 0;
+				else
+					timer_update_rockets := 1;
+				end if;
 				
 				cnt_fast := 0;
 				cnt_slow := 0;
@@ -228,8 +234,11 @@ begin
 						green_signal <= '0';
 					end if;
 				end if;
-				
-				-- Rockets
+			end if;
+			
+			-- Rockets
+			if( (v_cnt >= 0) and (v_cnt <= 599) and (h_cnt >= 0) and (h_cnt <= 799) ) then
+
 				index := to_integer(unsigned(v_cnt) srl 3);
 				tmp := to_integer(unsigned(h_cnt) srl 4);
 				
