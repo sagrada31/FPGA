@@ -66,7 +66,7 @@ architecture vga_arch of vga is
 	shared variable index_submarine		: integer range 0 to 49;
 	shared variable shooter 				: integer range 0 to 9 :=0;
 	shared variable tmp 						: integer;
-	shared variable tmp_random		    	: integer;
+	shared variable tmp_random		    	: integer range 0 to 49 := 0;
 	shared variable nb_submarines    	: integer range 0 to 15 :=0; -- To count the number of submarines
 begin
 	
@@ -113,28 +113,47 @@ begin
 --						i_loop := 0;
 --						while(submarines(tmp_random)(11) = '1' AND i_loop < 50) loop -- to get a line with no other submarines
 --							tmp_random := tmp_random +1;
+--							if (tmp_random = 50 ) then
+--								tmp_random := 0;
+--							end if;
 --							i_loop := i_loop +1;
---						end loop;
---						submarines(tmp_random)(11) := '1';
---						submarines(tmp_random)(10) := magn_g_y(6); -- On prend ce bit pour choisir la direction
---						if(magn_g_y(6) = '1') then -- if it goes to the right, we initialize the position to the left
---							submarines(tmp_random)(9 downto 0) := std_logic_vector(to_unsigned(0,10));
+--						end loop;	
+--
+--						if ( magn_g_y(6) = '0') then
+--							submarines(tmp_random)(11 downto 0) := "10" & (std_logic_vector(to_unsigned(760,10)));
 --						else
---							submarines(tmp_random)(9 downto 0) := std_logic_vector(to_unsigned(760,10));
+--							submarines(tmp_random)(11 downto 0) := "11" & (std_logic_vector(to_unsigned(0,10)));
 --						end if;
 --						nb_submarines := nb_submarines + 1;
 --					end if;
 					
-					--for i_loop in 0 to 4 loop
+					tmp_random := 0;
 					for i_loop in 0 to 49 loop
+						if( submarines(i_loop)(11) = '1' ) then
+							rockets(i_loop + 25)(to_integer(unsigned(submarines(i_loop)(9 downto 0) + 12) srl 4)) := '1';
+						elsif( submarines((i_loop + to_integer(unsigned(magn_g_y))) mod 50)(11) = '0' AND tmp_random = 0 AND nb_submarines < 8) then
+							if ( magn_g_y(6) = '0') then
+								submarines(tmp_random)(11 downto 0) := "10" & (std_logic_vector(to_unsigned(760,10)));
+							else
+								submarines(tmp_random)(11 downto 0) := "11" & (std_logic_vector(to_unsigned(0,10)));
+							tmp_random := 1;
+							end if;
+						end if;
+					end loop;
+					tmp_random :=0;
+					nb_submarines := nb_submarines +1;
+					
+					
+					-- Here : if -- is to the left, was used before, else was on comment before
+					--for i_loop in 0 to 4 loop
+--					for i_loop in 0 to 49 loop
 					
 						--index_submarine := shooter + i_loop * 10;
 						--if( submarines(index_submarine)(11) = '1' ) then -- if there is a submarine at this line, it shoots
-						if( submarines(i_loop)(11) = '1' ) then -- if there is a submarine at this line, it shoots
-							--rockets(index_submarine + 25)(to_integer(unsigned(submarines(index_submarine)(9 downto 0) + 12) srl 4)) := '1';
-							rockets(i_loop + 25)(to_integer(unsigned(submarines(i_loop)(9 downto 0) + 12) srl 4)) := '1';
-						end if;
-					end loop;
+--						if( submarines(i_loop)(11) = '1' ) then -- if there is a submarine at this line, it shoots
+--							rockets(i_loop + 25)(to_integer(unsigned(submarines(i_loop)(9 downto 0) + 12) srl 4)) := '1';
+--						end if;
+--					end loop;
 					
 --					if(shooter = 9) then
 --						shooter := 0;
@@ -194,6 +213,7 @@ begin
 			tmp_magn_g_y := tmp_magn_g_y + tmp_magn_g_y + tmp_magn_g_y + ("00" & magn_g_y);
 			magn_g_y := tmp_magn_g_y(10 downto 2); -- Division by 4
 
+			
 			-- Compute the horizontal position of the square
 			if(sign_g_y = '0') then -- si positif
 				left_bound <= std_logic_vector(to_unsigned(380-((380*(to_integer(unsigned(magn_g_y))))/256),10));

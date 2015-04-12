@@ -1,14 +1,14 @@
-Fitter Status : Successful - Sat Apr 11 23:20:35 2015
+Fitter Status : Successful - Sun Apr 12 17:26:55 2015
 Quartus II 64-Bit Version : 12.1 Build 243 01/31/2013 SP 1 SJ Web Edition
 Revision Name : GSensor
 Top-level Entity Name : gsensor
 Family : Cyclone IV E
 Device : EP4CE22F17C6
 Timing Models : Final
-Total logic elements : 5,211 / 22,320 ( 23 % )
-    Total combinational functions : 3,453 / 22,320 ( 15 % )
-    Dedicated logic registers : 3,538 / 22,320 ( 16 % )
-Total registers : 3538
+Total logic elements : 11,754 / 22,320 ( 53 % )
+    Total combinational functions : 9,916 / 22,320 ( 44 % )
+    Dedicated logic registers : 3,551 / 22,320 ( 16 % )
+Total registers : 3551
 Total pins : 12 / 154 ( 8 % )
 Total virtual pins : 0
 Total memory bits : 0 / 608,256 ( 0 % )
