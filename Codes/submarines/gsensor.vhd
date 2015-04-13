@@ -45,6 +45,13 @@ architecture synth of gsensor is
    SIGNAL G_SENSOR_CS_N_xhdl2      :  std_logic;   
    SIGNAL I2C_SCLK_xhdl3           :  std_logic;   
 
+	-- SIGNALS FOR RAM_SUBMARINES
+	SIGNAL wire_data			: STD_LOGIC_VECTOR (15 DOWNTO 0);
+	SIGNAL wire_rdaddress	: STD_LOGIC_VECTOR (5 DOWNTO 0);
+	SIGNAL wire_wraddress	: STD_LOGIC_VECTOR (5 DOWNTO 0);
+	SIGNAL wire_wren			: STD_LOGIC;
+	SIGNAL wire_q				: STD_LOGIC_VECTOR (15 DOWNTO 0);
+	
 BEGIN
    --LED <= LED_xhdl1;
    G_SENSOR_CS_N <= G_SENSOR_CS_N_xhdl2;
@@ -90,6 +97,23 @@ BEGIN
 			out_blue		=> out_blue,
 			out_green	=> out_green,
 			out_h_sync	=> out_h_sync,
-			out_v_sync	=> out_v_sync);
-
+			out_v_sync	=> out_v_sync,
+			
+			-- FOR THE RAM
+			data			=> wire_data,
+			rdaddress	=> wire_rdaddress,
+			wraddress	=> wire_wraddress,
+			wren			=> wire_wren,
+			q				=> wire_q);
+			
+	u_ram_1 : entity work.ram
+	PORT MAP(
+		clock			=> CLOCK_50,
+		data			=> wire_data,
+		rdaddress	=> wire_rdaddress,
+		wraddress	=> wire_wraddress,
+		wren			=> wire_wren,
+		q				=> wire_q
+	);
+	
 end synth;
