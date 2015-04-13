@@ -66,7 +66,7 @@ architecture vga_arch of vga is
 	shared variable index_submarine		: integer range 0 to 49;
 	shared variable shooter 				: integer range 0 to 9 :=0;
 	shared variable tmp 						: integer;
-	shared variable tmp_random		    	: integer range 0 to 49 := 0;
+	shared variable tmp_random		    	: integer range 0 to 65 := 0;
 	shared variable nb_submarines    	: integer range 0 to 15 :=0; -- To count the number of submarines
 begin
 	
@@ -75,14 +75,40 @@ begin
 		if(CLOCK_50 = '1') then
 			
 			-- Generate submarines
-			if(init = 0) then
-				submarines(0) := "10" & (std_logic_vector(to_unsigned(280,10)));
-				submarines(20) := "10" & (std_logic_vector(to_unsigned(380,10)));
-				submarines(30) := "11" & (std_logic_vector(to_unsigned(380,10)));
-				submarines(40) := "11" & (std_logic_vector(to_unsigned(480,10)));
-				init := 1;
-				nb_submarines := 4;
+--			if(init = 0) then
+--				submarines(0) := "10" & (std_logic_vector(to_unsigned(280,10)));
+--				submarines(20) := "10" & (std_logic_vector(to_unsigned(380,10)));
+--				submarines(30) := "11" & (std_logic_vector(to_unsigned(380,10)));
+--				submarines(40) := "11" & (std_logic_vector(to_unsigned(480,10)));
+--				init := 1;
+--				nb_submarines := 4;
+--			end if;
+			
+			if(tmp_random = 1) then
+				tmp_random := to_integer(unsigned(magn_g_y(5 downto 0))); -- to take a random number
+				if (tmp_random >= 50) then -- 2^6 can be greater than 50
+					tmp_random := tmp_random - 15;
+				end if;
+				for i_loop in 0 to 49 loop
+					if(submarines(tmp_random)(11) = '0') then -- No submarine in this line => create one
+						if ( magn_g_y(6) = '0') then -- too choose the direction
+							submarines(tmp_random)(11 downto 0) := "10" & (std_logic_vector(to_unsigned(760,10)));
+						else
+							submarines(tmp_random)(11 downto 0) := "11" & (std_logic_vector(to_unsigned(0,10)));
+						end if;
+						nb_submarines := nb_submarines +1;
+						exit;
+					else
+						tmp_random := tmp_random +1;
+						if (tmp_random > 49) then 
+							tmp_random := 0;
+						end if;
+					end if;
+				end loop;
+				tmp_random := 0;
 			end if;
+			
+			
 			
 			if(cnt_slow = 100 and v_sync = '0') then
 				-- Update submarines position
@@ -108,7 +134,7 @@ begin
 				if(timer_lauch_rockets = 100) then -- 1 second ellapsed
 				
 					-- Try to add a submarine every second if there is less than 8 submarines
---					if(nb_submarines < 8) then -- if there is less than 8 submarines, we add one every second
+					if(nb_submarines < 8) then -- if there is less than 8 submarines, we add one every second
 --						tmp_random := to_integer(unsigned(magn_g_y)) mod 50; -- to get a "random" position in the table
 --						i_loop := 0;
 --						while(submarines(tmp_random)(11) = '1' AND i_loop < 50) loop -- to get a line with no other submarines
@@ -125,35 +151,18 @@ begin
 --							submarines(tmp_random)(11 downto 0) := "11" & (std_logic_vector(to_unsigned(0,10)));
 --						end if;
 --						nb_submarines := nb_submarines + 1;
---					end if;
-					
-					tmp_random := 0;
-					for i_loop in 0 to 49 loop
-						if( submarines(i_loop)(11) = '1' ) then
-							rockets(i_loop + 25)(to_integer(unsigned(submarines(i_loop)(9 downto 0) + 12) srl 4)) := '1';
-						elsif( submarines((i_loop + to_integer(unsigned(magn_g_y))) mod 50)(11) = '0' AND tmp_random = 0 AND nb_submarines < 8) then
-							if ( magn_g_y(6) = '0') then
-								submarines(tmp_random)(11 downto 0) := "10" & (std_logic_vector(to_unsigned(760,10)));
-							else
-								submarines(tmp_random)(11 downto 0) := "11" & (std_logic_vector(to_unsigned(0,10)));
-							tmp_random := 1;
-							end if;
-						end if;
-					end loop;
-					tmp_random :=0;
-					nb_submarines := nb_submarines +1;
-					
-					
-					-- Here : if -- is to the left, was used before, else was on comment before
+					tmp_random :=1;
+					end if;
+
 					--for i_loop in 0 to 4 loop
---					for i_loop in 0 to 49 loop
+					for i_loop in 0 to 49 loop
 					
 						--index_submarine := shooter + i_loop * 10;
 						--if( submarines(index_submarine)(11) = '1' ) then -- if there is a submarine at this line, it shoots
---						if( submarines(i_loop)(11) = '1' ) then -- if there is a submarine at this line, it shoots
---							rockets(i_loop + 25)(to_integer(unsigned(submarines(i_loop)(9 downto 0) + 12) srl 4)) := '1';
---						end if;
---					end loop;
+						if( submarines(i_loop)(11) = '1' ) then -- if there is a submarine at this line, it shoots
+							rockets(i_loop + 25)(to_integer(unsigned(submarines(i_loop)(9 downto 0) + 12) srl 4)) := '1';
+						end if;
+					end loop;
 					
 --					if(shooter = 9) then
 --						shooter := 0;
