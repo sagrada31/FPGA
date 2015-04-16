@@ -90,7 +90,7 @@ architecture vga_arch of vga is
 	shared variable index_submarine		: integer range 0 to 49;
 	shared variable shooter 				: integer range 0 to 9 := 0;
 	shared variable tmp 						: integer;
-	shared variable tmp_random		    	: integer range 0 to 65 := 0;
+	shared variable tmp_random		    	: integer range -2 to 65 := -2;
 	shared variable nb_submarines    	: integer range 0 to 15 := 0; -- To count the number of submarines
 	
 	shared variable current_submarine_line	: integer range 0 to 615 := 0;
@@ -118,7 +118,7 @@ begin
 --			end if;
 			
 			-- Prepare to load the first line of submarines from memory (just before the v_sync)
-			if(v_cnt = 635 and h_cnt = 1039) then
+			if(v_cnt = 635 and h_cnt = 799) then
 				update_submarines := '1';
 				update_rockets := '0';
 				new_elements := '0';
@@ -126,7 +126,8 @@ begin
 				
 				address_a <= "00000";
 				rd_en_a <= '1';
-					
+				wr_en_a <= '0';
+				
 				if(cycle_cnt = 100) then
 					cycle_cnt := 0;
 					bit_test := '0';
@@ -134,37 +135,38 @@ begin
 					cycle_cnt := cycle_cnt + 1;
 				end if;
 								
-			elsif(v_sync = '0' and (cycle_cnt = 50 or cycle_cnt = 100) ) then
+			elsif(v_sync = '0') then
 				
 				-- Update submarines position	
 				if (update_submarines = '1') then
 					
-					if(first_part = '1') then										-- first part
+					if(first_part = '1') then									-- first part
 						first_data(15 downto 0) := q_a(31 downto 16);
 						second_data(15 downto 0) := q_a(15 downto 0);
 						
-						if(q_a(11) = '1') then 		-- if there is a submarine on this line
-							if(q_a(10) = '1') then 						-- if it goes to the right
-								if(q_a(9 downto 0) = 760)then			-- if max at right
-									first_data(10) := not q_a(10);		-- reverse direction
+						if(first_data(11) = '1') then 									-- if there is a submarine on this line
+							if(first_data(10) = '1') then 								-- if it goes to the right
+								if(first_data(9 downto 0) = 760)then					-- if max at right
+									first_data(10) := not first_data(10);			-- reverse direction
 								else
-									first_data(15 downto 0) := q_a(15 downto 0) + 1; -- go to right
+									first_data(15 downto 0) := first_data(15 downto 0) + 1;	-- go to right
 								end if;
-							else 															-- if it goes to the left
-								if(q_a(9 downto 0) = 0)then				-- if max at left
-									first_data(10) := not q_a(10);		-- reverse direction
+							else 														-- if it goes to the left
+								if(first_data(9 downto 0) = 0)then					-- if max at left
+									first_data(10) := not first_data(10);			-- reverse direction
 								else
-									first_data(15 downto 0) := q_a(15 downto 0) - 1;	-- go to left
+									first_data(15 downto 0) := first_data(15 downto 0) - 1;	-- go to left
 								end if;
 							end if;
 						end if;
 						-- prepare to load the next line from memory 
 						address_a <= std_logic_vector(to_unsigned((current_submarine/2) + 1,5)); 
 						rd_en_a <= '1';
+						wr_en_a <= '0';
 						
 					else																	-- second part
 					
-						if(second_data(11) = '1') then 		-- if there is a submarine on this line
+						if(second_data(11) = '1') then 							-- if there is a submarine on this line
 							if(second_data(10) = '1') then 						-- if it goes to the right
 								if(second_data(9 downto 0) = 760)then			-- if max at right
 									second_data(10) := not second_data(10);	-- reverse direction
@@ -234,6 +236,7 @@ begin
 								if(submarines(tmp_random) = '0') then -- No submarine in this line => create one
 									address_a <= std_logic_vector(to_unsigned(tmp_random/2,5));
 									rd_en_a <= '1';
+									wr_en_a <= '0';
 									ask_read := '1';
 									submarines(tmp_random) := '1';
 								else						 -- There is a submarine
@@ -266,6 +269,7 @@ begin
 							nb_submarines := nb_submarines +1;
 							data_a <= first_data & second_data;
 							wr_en_a <= '1';
+							rd_en_a <= '0';
 							new_elements := '0';
 							ask_read := '0';
 							bit_test := '1';
@@ -368,9 +372,13 @@ begin
 --			end if;
 
 			-- DEBUG
-			if(v_cnt >= 10 and v_cnt <= 15 and h_cnt >= 0 and h_cnt <= 49) then
-				if (submarines(to_integer(unsigned(h_cnt))) = '1') then
+			if(v_cnt >= 10 and v_cnt <= 30 and h_cnt >= 0 and h_cnt <= 199) then
+				if (submarines(to_integer(unsigned(h_cnt) srl 2)) = '1') then
 					red_signal <= '1';
+					green_signal <= '0';
+					blue_signal <= '0';
+				else
+					red_signal <= '0';
 					green_signal <= '0';
 					blue_signal <= '0';
 				end if;
@@ -402,6 +410,7 @@ begin
 			if( v_cnt = 199 and h_cnt = 799 ) then
 				address_b <= "00000"; 
 				rd_en_b <= '1';
+				wr_en_b <= '0';
 				current_submarine_line := 199;
 			end if;
 			
@@ -439,6 +448,7 @@ begin
 				if( (v_cnt - current_submarine_line) = 16 and h_cnt = 799) then
 					address_b <= address_b + 1;
 					rd_en_b <= '1';
+					wr_en_b <= '0';
 					current_submarine_line := current_submarine_line + 16;
 				end if;
 				
