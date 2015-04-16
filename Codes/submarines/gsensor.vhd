@@ -45,12 +45,17 @@ architecture synth of gsensor is
    SIGNAL G_SENSOR_CS_N_xhdl2      :  std_logic;   
    SIGNAL I2C_SCLK_xhdl3           :  std_logic;   
 
-	-- SIGNALS FOR RAM_SUBMARINES
-	SIGNAL wire_data			: STD_LOGIC_VECTOR (15 DOWNTO 0);
-	SIGNAL wire_rdaddress	: STD_LOGIC_VECTOR (5 DOWNTO 0);
-	SIGNAL wire_wraddress	: STD_LOGIC_VECTOR (5 DOWNTO 0);
-	SIGNAL wire_wren			: STD_LOGIC;
-	SIGNAL wire_q				: STD_LOGIC_VECTOR (15 DOWNTO 0);
+	-- SIGNALS FOR RAM_SUBMARINES (RAM2)
+	SIGNAL wire_data_a			: STD_LOGIC_VECTOR (15 DOWNTO 0);
+	SIGNAL wire_data_b			: STD_LOGIC_VECTOR (15 DOWNTO 0);
+	SIGNAL wire_address_a		: STD_LOGIC_VECTOR (5 DOWNTO 0);
+	SIGNAL wire_address_b		: STD_LOGIC_VECTOR (5 DOWNTO 0);
+	SIGNAL wire_wr_en_a			: STD_LOGIC;
+	SIGNAL wire_wr_en_b			: STD_LOGIC;
+	SIGNAL wire_rd_en_a			: STD_LOGIC;
+	SIGNAL wire_rd_en_b			: STD_LOGIC;
+	SIGNAL wire_q_a				: STD_LOGIC_VECTOR (15 DOWNTO 0);
+	SIGNAL wire_q_b				: STD_LOGIC_VECTOR (15 DOWNTO 0);
 	
 BEGIN
    --LED <= LED_xhdl1;
@@ -100,20 +105,31 @@ BEGIN
 			out_v_sync	=> out_v_sync,
 			
 			-- FOR THE RAM
-			data			=> wire_data,
-			rdaddress	=> wire_rdaddress,
-			wraddress	=> wire_wraddress,
-			wren			=> wire_wren,
-			q				=> wire_q);
+			data_a		=> wire_data_a,
+			data_b		=> wire_data_b,
+			address_a	=> wire_address_a,
+			address_b	=> wire_address_b,
+			wr_en_a		=> wire_wr_en_a,
+			wr_en_b		=> wire_wr_en_b,
+			rd_en_a		=> wire_rd_en_a,
+			rd_en_b		=> wire_rd_en_b,
+			q_a				=> wire_q_a,
+			q_b				=> wire_q_b);
 			
-	u_ram_1 : entity work.ram
+	u_ram_2 : entity work.ram2
 	PORT MAP(
-		clock			=> CLOCK_50,
-		data			=> wire_data,
-		rdaddress	=> wire_rdaddress,
-		wraddress	=> wire_wraddress,
-		wren			=> wire_wren,
-		q				=> wire_q
+		clock				=> CLOCK_50,
+		data_a			=> wire_data_a,
+		data_b			=> wire_data_b,
+		address_a		=> wire_address_a,
+		address_b		=> wire_address_b,
+		wren_a			=> wire_wr_en_a,
+		wren_b			=> wire_wr_en_b,
+		rden_a			=> wire_rd_en_a,
+		rden_b			=> wire_rd_en_b,
+		q_a				=> wire_q_a,
+		q_b				=> wire_q_b
 	);
+	
 	
 end synth;
