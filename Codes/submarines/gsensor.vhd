@@ -46,16 +46,16 @@ architecture synth of gsensor is
    SIGNAL I2C_SCLK_xhdl3           :  std_logic;   
 
 	-- SIGNALS FOR RAM_SUBMARINES (RAM2)
-	SIGNAL wire_data_a			: STD_LOGIC_VECTOR (15 DOWNTO 0);
-	SIGNAL wire_data_b			: STD_LOGIC_VECTOR (15 DOWNTO 0);
-	SIGNAL wire_address_a		: STD_LOGIC_VECTOR (5 DOWNTO 0);
-	SIGNAL wire_address_b		: STD_LOGIC_VECTOR (5 DOWNTO 0);
+	SIGNAL wire_data_a			: STD_LOGIC_VECTOR (31 DOWNTO 0);
+	SIGNAL wire_data_b			: STD_LOGIC_VECTOR (31 DOWNTO 0);
+	SIGNAL wire_address_a		: STD_LOGIC_VECTOR (4 DOWNTO 0);
+	SIGNAL wire_address_b		: STD_LOGIC_VECTOR (4 DOWNTO 0);
 	SIGNAL wire_wr_en_a			: STD_LOGIC;
 	SIGNAL wire_wr_en_b			: STD_LOGIC;
 	SIGNAL wire_rd_en_a			: STD_LOGIC;
 	SIGNAL wire_rd_en_b			: STD_LOGIC;
-	SIGNAL wire_q_a				: STD_LOGIC_VECTOR (15 DOWNTO 0);
-	SIGNAL wire_q_b				: STD_LOGIC_VECTOR (15 DOWNTO 0);
+	SIGNAL wire_q_a				: STD_LOGIC_VECTOR (31 DOWNTO 0);
+	SIGNAL wire_q_b				: STD_LOGIC_VECTOR (31 DOWNTO 0);
 	
 BEGIN
    --LED <= LED_xhdl1;
@@ -116,7 +116,7 @@ BEGIN
 			q_a				=> wire_q_a,
 			q_b				=> wire_q_b);
 			
-	u_ram_2 : entity work.ram2
+	u_ram1_submarine : entity work.ram1_submarine
 	PORT MAP(
 		clock				=> CLOCK_50,
 		data_a			=> wire_data_a,
