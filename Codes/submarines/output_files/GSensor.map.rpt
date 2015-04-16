@@ -1,5 +1,5 @@
 Analysis & Synthesis report for GSensor
-Thu Apr 16 15:41:52 2015
+Thu Apr 16 18:03:17 2015
 Quartus II 64-Bit Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
 
 
@@ -59,15 +59,15 @@ agreement for further details.
 +---------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                    ;
 +------------------------------------+--------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Thu Apr 16 15:41:52 2015      ;
+; Analysis & Synthesis Status        ; Successful - Thu Apr 16 18:03:17 2015      ;
 ; Quartus II 64-Bit Version          ; 14.1.0 Build 186 12/03/2014 SJ Web Edition ;
 ; Revision Name                      ; GSensor                                    ;
 ; Top-level Entity Name              ; gsensor                                    ;
 ; Family                             ; Cyclone IV E                               ;
-; Total logic elements               ; 793                                        ;
-;     Total combinational functions  ; 730                                        ;
-;     Dedicated logic registers      ; 335                                        ;
-; Total registers                    ; 335                                        ;
+; Total logic elements               ; 944                                        ;
+;     Total combinational functions  ; 880                                        ;
+;     Dedicated logic registers      ; 368                                        ;
+; Total registers                    ; 368                                        ;
 ; Total pins                         ; 12                                         ;
 ; Total virtual pins                 ; 0                                          ;
 ; Total memory bits                  ; 768                                        ;
@@ -238,20 +238,20 @@ agreement for further details.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimated Total logic elements              ; 793            ;
+; Estimated Total logic elements              ; 944            ;
 ;                                             ;                ;
-; Total combinational functions               ; 730            ;
+; Total combinational functions               ; 880            ;
 ; Logic element usage by number of LUT inputs ;                ;
-;     -- 4 input functions                    ; 251            ;
-;     -- 3 input functions                    ; 234            ;
-;     -- <=2 input functions                  ; 245            ;
+;     -- 4 input functions                    ; 374            ;
+;     -- 3 input functions                    ; 237            ;
+;     -- <=2 input functions                  ; 269            ;
 ;                                             ;                ;
 ; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 462            ;
-;     -- arithmetic mode                      ; 268            ;
+;     -- normal mode                          ; 595            ;
+;     -- arithmetic mode                      ; 285            ;
 ;                                             ;                ;
-; Total registers                             ; 335            ;
-;     -- Dedicated logic registers            ; 335            ;
+; Total registers                             ; 368            ;
+;     -- Dedicated logic registers            ; 368            ;
 ;     -- I/O registers                        ; 0              ;
 ;                                             ;                ;
 ; I/O pins                                    ; 12             ;
@@ -263,9 +263,9 @@ agreement for further details.
 ;     -- PLLs                                 ; 1              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 255            ;
-; Total fan-out                               ; 3632           ;
-; Average fan-out                             ; 3.26           ;
+; Maximum fan-out                             ; 288            ;
+; Total fan-out                               ; 4238           ;
+; Average fan-out                             ; 3.27           ;
 +---------------------------------------------+----------------+
 
 
@@ -274,7 +274,7 @@ agreement for further details.
 +---------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------------------------------------------------------+--------------+
 ; Compilation Hierarchy Node                        ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                       ; Library Name ;
 +---------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------------------------------------------------------+--------------+
-; |gsensor                                          ; 730 (1)           ; 335 (0)      ; 768         ; 0            ; 0       ; 0         ; 12   ; 0            ; |gsensor                                                                                                                                  ; work         ;
+; |gsensor                                          ; 880 (1)           ; 368 (0)      ; 768         ; 0            ; 0       ; 0         ; 12   ; 0            ; |gsensor                                                                                                                                  ; work         ;
 ;    |ram1_submarine:u_ram1_submarine|              ; 0 (0)             ; 0 (0)        ; 768         ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|ram1_submarine:u_ram1_submarine                                                                                                  ; work         ;
 ;       |altsyncram:altsyncram_component|           ; 0 (0)             ; 0 (0)        ; 768         ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component                                                                  ; work         ;
 ;          |altsyncram_b3o3:auto_generated|         ; 0 (0)             ; 0 (0)        ; 768         ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated                                   ; work         ;
@@ -284,7 +284,7 @@ agreement for further details.
 ;    |spipll:u_spipll|                              ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|spipll:u_spipll                                                                                                                  ; work         ;
 ;       |altpll:altpll_component|                   ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|spipll:u_spipll|altpll:altpll_component                                                                                          ; work         ;
 ;          |spipll_altpll:auto_generated|           ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|spipll:u_spipll|altpll:altpll_component|spipll_altpll:auto_generated                                                             ; work         ;
-;    |vga:u_vga|                                    ; 633 (597)         ; 238 (238)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga                                                                                                                        ; work         ;
+;    |vga:u_vga|                                    ; 783 (747)         ; 271 (271)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga                                                                                                                        ; work         ;
 ;       |lpm_mult:Mult0|                            ; 36 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_mult:Mult0                                                                                                         ; work         ;
 ;          |multcore:mult_core|                     ; 36 (17)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_mult:Mult0|multcore:mult_core                                                                                      ; work         ;
 ;             |mpar_add:padder|                     ; 19 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder                                                                      ; work         ;
@@ -315,27 +315,31 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------+--------------+---------+--------------+--------------+------------------------------------------+--------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                                                                                           ;
-+-------------------------------------------------------------------------------------------+--------------------------------------------------+
-; Register name                                                                             ; Reason for Removal                               ;
-+-------------------------------------------------------------------------------------------+--------------------------------------------------+
-; spi_ee_config:u_spi_ee_config|p2s_data[7]                                                 ; Stuck at GND due to stuck port data_in           ;
-; vga:u_vga|current_submarine_line[0,1]                                                     ; Merged with vga:u_vga|current_submarine_line[2]  ;
-; vga:u_vga|submarines[3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49] ; Merged with vga:u_vga|submarines[1]              ;
-; spi_ee_config:u_spi_ee_config|spi_state                                                   ; Merged with spi_ee_config:u_spi_ee_config|spi_go ;
-; vga:u_vga|current_submarine_line[3]                                                       ; Stuck at GND due to stuck port data_in           ;
-; vga:u_vga|submarines[1]                                                                   ; Stuck at GND due to stuck port data_in           ;
-; vga:u_vga|wr_en_b                                                                         ; Stuck at GND due to stuck port data_in           ;
-; spi_ee_config:u_spi_ee_config|p2s_data[14]                                                ; Stuck at GND due to stuck port data_in           ;
-; spi_ee_config:u_spi_ee_config|p2s_data[13]                                                ; Stuck at VCC due to stuck port data_in           ;
-; vga:u_vga|tmp_random[6,7]                                                                 ; Lost fanout                                      ;
-; vga:u_vga|second_data[12..15]                                                             ; Lost fanout                                      ;
-; vga:u_vga|tmp_read_data[12..15,28..31]                                                    ; Lost fanout                                      ;
-; vga:u_vga|data_a[12..15,28..31]                                                           ; Lost fanout                                      ;
-; vga:u_vga|first_data[12..15]                                                              ; Lost fanout                                      ;
-; Total Number of Removed Registers = 59                                                    ;                                                  ;
-+-------------------------------------------------------------------------------------------+--------------------------------------------------+
++-----------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                            ;
++--------------------------------------------+--------------------------------------------------+
+; Register name                              ; Reason for Removal                               ;
++--------------------------------------------+--------------------------------------------------+
+; spi_ee_config:u_spi_ee_config|p2s_data[7]  ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|current_submarine_line[0,1]      ; Merged with vga:u_vga|current_submarine_line[2]  ;
+; spi_ee_config:u_spi_ee_config|spi_state    ; Merged with spi_ee_config:u_spi_ee_config|spi_go ;
+; vga:u_vga|old_magn_g_y[5]                  ; Merged with vga:u_vga|magn_g_y[5]                ;
+; vga:u_vga|old_magn_g_y[0]                  ; Merged with vga:u_vga|magn_g_y[0]                ;
+; vga:u_vga|old_magn_g_y[1]                  ; Merged with vga:u_vga|magn_g_y[1]                ;
+; vga:u_vga|old_magn_g_y[2]                  ; Merged with vga:u_vga|magn_g_y[2]                ;
+; vga:u_vga|old_magn_g_y[3]                  ; Merged with vga:u_vga|magn_g_y[3]                ;
+; vga:u_vga|old_magn_g_y[4]                  ; Merged with vga:u_vga|magn_g_y[4]                ;
+; vga:u_vga|current_submarine_line[3]        ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|submarines[49]                   ; Stuck at GND due to stuck port clock_enable      ;
+; vga:u_vga|wr_en_b                          ; Stuck at GND due to stuck port data_in           ;
+; spi_ee_config:u_spi_ee_config|p2s_data[14] ; Stuck at GND due to stuck port data_in           ;
+; spi_ee_config:u_spi_ee_config|p2s_data[13] ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|second_data[12..15]              ; Lost fanout                                      ;
+; vga:u_vga|tmp_read_data[12..15,28..31]     ; Lost fanout                                      ;
+; vga:u_vga|data_a[12..15,28..31]            ; Lost fanout                                      ;
+; vga:u_vga|first_data[12..15]               ; Lost fanout                                      ;
+; Total Number of Removed Registers = 39     ;                                                  ;
++--------------------------------------------+--------------------------------------------------+
 
 
 +-----------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -343,14 +347,14 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-------------------------------------+---------------------------+-----------------------------------------------------------------------------------------+
 ; Register name                       ; Reason for Removal        ; Registers Removed due to This Register                                                  ;
 +-------------------------------------+---------------------------+-----------------------------------------------------------------------------------------+
-; vga:u_vga|current_submarine_line[3] ; Stuck at GND              ; vga:u_vga|wr_en_b, vga:u_vga|second_data[15], vga:u_vga|second_data[14],                ;
-;                                     ; due to stuck port data_in ; vga:u_vga|second_data[13], vga:u_vga|second_data[12], vga:u_vga|tmp_read_data[15],      ;
-;                                     ;                           ; vga:u_vga|tmp_read_data[14], vga:u_vga|tmp_read_data[13],                               ;
-;                                     ;                           ; vga:u_vga|tmp_read_data[12], vga:u_vga|data_a[15], vga:u_vga|data_a[14],                ;
-;                                     ;                           ; vga:u_vga|data_a[13], vga:u_vga|data_a[12], vga:u_vga|data_a[28], vga:u_vga|data_a[29], ;
-;                                     ;                           ; vga:u_vga|data_a[30], vga:u_vga|data_a[31], vga:u_vga|first_data[12],                   ;
-;                                     ;                           ; vga:u_vga|first_data[13], vga:u_vga|first_data[14], vga:u_vga|first_data[15]            ;
-; vga:u_vga|tmp_random[7]             ; Lost Fanouts              ; vga:u_vga|tmp_random[6]                                                                 ;
+; vga:u_vga|current_submarine_line[3] ; Stuck at GND              ; vga:u_vga|wr_en_b, vga:u_vga|tmp_read_data[30], vga:u_vga|tmp_read_data[31],            ;
+;                                     ; due to stuck port data_in ; vga:u_vga|data_a[28], vga:u_vga|data_a[30], vga:u_vga|data_a[31], vga:u_vga|data_a[15], ;
+;                                     ;                           ; vga:u_vga|data_a[14], vga:u_vga|data_a[13], vga:u_vga|data_a[12],                       ;
+;                                     ;                           ; vga:u_vga|first_data[12], vga:u_vga|first_data[14], vga:u_vga|first_data[15]            ;
+; vga:u_vga|second_data[15]           ; Lost Fanouts              ; vga:u_vga|second_data[14], vga:u_vga|second_data[13], vga:u_vga|second_data[12],        ;
+;                                     ;                           ; vga:u_vga|tmp_read_data[15], vga:u_vga|tmp_read_data[14],                               ;
+;                                     ;                           ; vga:u_vga|tmp_read_data[13], vga:u_vga|tmp_read_data[12]                                ;
+; vga:u_vga|tmp_read_data[29]         ; Lost Fanouts              ; vga:u_vga|data_a[29], vga:u_vga|first_data[13]                                          ;
 +-------------------------------------+---------------------------+-----------------------------------------------------------------------------------------+
 
 
@@ -359,12 +363,12 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 335   ;
-; Number of registers using Synchronous Clear  ; 36    ;
-; Number of registers using Synchronous Load   ; 38    ;
+; Total registers                              ; 368   ;
+; Number of registers using Synchronous Clear  ; 32    ;
+; Number of registers using Synchronous Load   ; 33    ;
 ; Number of registers using Asynchronous Clear ; 56    ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 225   ;
+; Number of registers using Clock Enable       ; 233   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -379,14 +383,17 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; spi_ee_config:u_spi_ee_config|spi_controller:u_spi_controller|spi_count[0] ; 11      ;
 ; spi_ee_config:u_spi_ee_config|spi_controller:u_spi_controller|spi_count[2] ; 5       ;
 ; spi_ee_config:u_spi_ee_config|spi_controller:u_spi_controller|spi_count[1] ; 5       ;
-; vga:u_vga|tmp_random[2]                                                    ; 1       ;
-; vga:u_vga|tmp_random[1]                                                    ; 1       ;
-; vga:u_vga|tmp_random[3]                                                    ; 1       ;
-; vga:u_vga|tmp_random[4]                                                    ; 1       ;
-; vga:u_vga|new_elements                                                     ; 3       ;
-; vga:u_vga|tmp_random[5]                                                    ; 1       ;
-; vga:u_vga|first_part                                                       ; 19      ;
-; Total number of inverted registers = 12                                    ;         ;
+; vga:u_vga|new_elements                                                     ; 5       ;
+; vga:u_vga|old_random[0]                                                    ; 4       ;
+; vga:u_vga|old_random[1]                                                    ; 3       ;
+; vga:u_vga|old_random[2]                                                    ; 3       ;
+; vga:u_vga|old_random[3]                                                    ; 3       ;
+; vga:u_vga|old_random[5]                                                    ; 3       ;
+; vga:u_vga|old_random[4]                                                    ; 3       ;
+; vga:u_vga|old_random[7]                                                    ; 5       ;
+; vga:u_vga|old_random[6]                                                    ; 3       ;
+; vga:u_vga|first_part                                                       ; 11      ;
+; Total number of inverted registers = 15                                    ;         ;
 +----------------------------------------------------------------------------+---------+
 
 
@@ -396,22 +403,20 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                 ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------+
 ; 3:1                ; 11 bits   ; 22 LEs        ; 11 LEs               ; 11 LEs                 ; Yes        ; |gsensor|vga:u_vga|v_cnt[3]                                ;
-; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |gsensor|vga:u_vga|current_submarine_line[6]               ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |gsensor|vga:u_vga|current_submarine_line[8]               ;
 ; 4:1                ; 15 bits   ; 30 LEs        ; 15 LEs               ; 15 LEs                 ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|read_idle_count[12] ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 0 LEs                ; 4 LEs                  ; Yes        ; |gsensor|vga:u_vga|wr_en_b                                 ;
 ; 3:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |gsensor|vga:u_vga|address_b[4]                            ;
-; 5:1                ; 6 bits    ; 18 LEs        ; 6 LEs                ; 12 LEs                 ; Yes        ; |gsensor|vga:u_vga|current_submarine[1]                    ;
-; 7:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|p2s_data[13]        ;
-; 7:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|p2s_data[8]         ;
-; 7:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|p2s_data[9]         ;
-; 7:1                ; 9 bits    ; 36 LEs        ; 9 LEs                ; 27 LEs                 ; Yes        ; |gsensor|vga:u_vga|data_a[28]                              ;
-; 7:1                ; 23 bits   ; 92 LEs        ; 23 LEs               ; 69 LEs                 ; Yes        ; |gsensor|vga:u_vga|data_a[5]                               ;
-; 7:1                ; 16 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |gsensor|vga:u_vga|second_data[4]                          ;
-; 10:1               ; 2 bits    ; 12 LEs        ; 4 LEs                ; 8 LEs                  ; Yes        ; |gsensor|vga:u_vga|wr_en_a                                 ;
-; 10:1               ; 5 bits    ; 30 LEs        ; 10 LEs               ; 20 LEs                 ; Yes        ; |gsensor|vga:u_vga|address_a[1]                            ;
-; 11:1               ; 8 bits    ; 56 LEs        ; 16 LEs               ; 40 LEs                 ; Yes        ; |gsensor|vga:u_vga|first_data[2]                           ;
-; 11:1               ; 6 bits    ; 42 LEs        ; 12 LEs               ; 30 LEs                 ; Yes        ; |gsensor|vga:u_vga|first_data[9]                           ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 8 LEs                ; 2 LEs                  ; Yes        ; |gsensor|vga:u_vga|blue_signal                             ;
+; 5:1                ; 6 bits    ; 18 LEs        ; 6 LEs                ; 12 LEs                 ; Yes        ; |gsensor|vga:u_vga|current_submarine[0]                    ;
+; 7:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|p2s_data[15]        ;
+; 7:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|p2s_data[12]        ;
+; 7:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|p2s_data[10]        ;
+; 7:1                ; 32 bits   ; 128 LEs       ; 32 LEs               ; 96 LEs                 ; Yes        ; |gsensor|vga:u_vga|data_a[3]                               ;
+; 8:1                ; 16 bits   ; 80 LEs        ; 32 LEs               ; 48 LEs                 ; Yes        ; |gsensor|vga:u_vga|second_data[9]                          ;
+; 11:1               ; 2 bits    ; 14 LEs        ; 4 LEs                ; 10 LEs                 ; Yes        ; |gsensor|vga:u_vga|rd_en_a                                 ;
+; 11:1               ; 5 bits    ; 35 LEs        ; 10 LEs               ; 25 LEs                 ; Yes        ; |gsensor|vga:u_vga|address_a[4]                            ;
+; 11:1               ; 14 bits   ; 98 LEs        ; 28 LEs               ; 70 LEs                 ; Yes        ; |gsensor|vga:u_vga|first_data[5]                           ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 8 LEs                ; 2 LEs                  ; Yes        ; |gsensor|vga:u_vga|green_signal                            ;
 ; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |gsensor|vga:u_vga|second_data                             ;
 ; 5:1                ; 10 bits   ; 30 LEs        ; 20 LEs               ; 10 LEs                 ; No         ; |gsensor|vga:u_vga|second_data                             ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------+
@@ -1039,32 +1044,32 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 12                          ;
-; cycloneiii_ff         ; 335                         ;
+; cycloneiii_ff         ; 368                         ;
 ;     CLR               ; 21                          ;
-;     ENA               ; 146                         ;
+;     ENA               ; 163                         ;
 ;     ENA CLR           ; 20                          ;
 ;     ENA CLR SCLR      ; 15                          ;
-;     ENA SCLR          ; 16                          ;
+;     ENA SCLR          ; 12                          ;
 ;     ENA SCLR SLD      ; 5                           ;
-;     ENA SLD           ; 23                          ;
+;     ENA SLD           ; 18                          ;
 ;     SLD               ; 10                          ;
-;     plain             ; 79                          ;
+;     plain             ; 104                         ;
 ; cycloneiii_io_obuf    ; 1                           ;
-; cycloneiii_lcell_comb ; 731                         ;
-;     arith             ; 268                         ;
-;         2 data inputs ; 157                         ;
-;         3 data inputs ; 111                         ;
-;     normal            ; 463                         ;
-;         0 data inputs ; 3                           ;
+; cycloneiii_lcell_comb ; 881                         ;
+;     arith             ; 285                         ;
+;         2 data inputs ; 171                         ;
+;         3 data inputs ; 114                         ;
+;     normal            ; 596                         ;
+;         0 data inputs ; 4                           ;
 ;         1 data inputs ; 31                          ;
-;         2 data inputs ; 55                          ;
+;         2 data inputs ; 64                          ;
 ;         3 data inputs ; 123                         ;
-;         4 data inputs ; 251                         ;
+;         4 data inputs ; 374                         ;
 ; cycloneiii_pll        ; 1                           ;
 ; cycloneiii_ram_block  ; 24                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 13.70                       ;
-; Average LUT depth     ; 5.68                        ;
+; Average LUT depth     ; 6.49                        ;
 +-----------------------+-----------------------------+
 
 
@@ -1083,7 +1088,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
-    Info: Processing started: Thu Apr 16 15:41:39 2015
+    Info: Processing started: Thu Apr 16 18:03:04 2015
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off GSensor -c GSensor
 Info (11104): Parallel Compilation has detected 8 hyper-threaded processors. However, the extra hyper-threaded processors will not be used by default. Parallel Compilation will use 4 of the 4 physical processors detected instead.
 Info (12021): Found 2 design units, including 1 entities, in source file vga.vhd
@@ -1244,14 +1249,14 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/alts
 Info (12128): Elaborating entity "altsyncram_b3o3" for hierarchy "ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated"
 Warning (14284): Synthesized away the following node(s):
     Warning (14285): Synthesized away the following RAM node(s):
-        Warning (14320): Synthesized away node "ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated|q_a[15]"
-        Warning (14320): Synthesized away node "ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated|q_a[14]"
-        Warning (14320): Synthesized away node "ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated|q_a[13]"
-        Warning (14320): Synthesized away node "ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated|q_a[12]"
         Warning (14320): Synthesized away node "ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated|q_a[28]"
         Warning (14320): Synthesized away node "ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated|q_a[29]"
         Warning (14320): Synthesized away node "ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated|q_a[30]"
         Warning (14320): Synthesized away node "ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated|q_a[31]"
+        Warning (14320): Synthesized away node "ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated|q_a[15]"
+        Warning (14320): Synthesized away node "ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated|q_a[14]"
+        Warning (14320): Synthesized away node "ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated|q_a[13]"
+        Warning (14320): Synthesized away node "ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated|q_a[12]"
 Info (278001): Inferred 1 megafunctions from design logic
     Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "vga:u_vga|Mult0"
 Info (12130): Elaborated megafunction instantiation "vga:u_vga|lpm_mult:Mult0"
@@ -1278,21 +1283,21 @@ Info (12131): Elaborated megafunction instantiation "vga:u_vga|lpm_mult:Mult0|al
 Info (13000): Registers with preset signals will power-up high
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
 Info (286030): Timing-Driven Synthesis is running
-Info (17049): 26 registers lost all their fanouts during netlist optimizations.
+Info (17049): 24 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 1 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 1 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "KEY[1]"
-Info (21057): Implemented 877 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 1042 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 4 input pins
     Info (21059): Implemented 7 output pins
     Info (21060): Implemented 1 bidirectional pins
-    Info (21061): Implemented 840 logic cells
+    Info (21061): Implemented 1005 logic cells
     Info (21064): Implemented 24 RAM segments
     Info (21065): Implemented 1 PLLs
 Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 17 warnings
-    Info: Peak virtual memory: 671 megabytes
-    Info: Processing ended: Thu Apr 16 15:41:52 2015
+    Info: Peak virtual memory: 679 megabytes
+    Info: Processing ended: Thu Apr 16 18:03:17 2015
     Info: Elapsed time: 00:00:13
     Info: Total CPU time (on all processors): 00:00:28
 

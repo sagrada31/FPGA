@@ -85,13 +85,15 @@ architecture vga_arch of vga is
 	shared variable first_data 			: std_logic_vector (15 downto 0);
 	shared variable second_data 			: std_logic_vector (15 downto 0);
 	shared variable tmp_read_data			: std_logic_vector (31 downto 0);
+	shared variable address_tmp			: std_logic_vector (5 downto 0);
 	
 	shared variable current_rocket		: integer range 0 to 74 := 0;
 	
 	shared variable index_submarine		: integer range 0 to 49;
 	shared variable shooter 				: integer range 0 to 9 := 0;
 	shared variable tmp 						: integer;
-	shared variable tmp_random		    	: integer range -2 to 65 := -2;
+	shared variable tmp_random		    	: integer range 0 to 65 := 0;
+	shared variable old_random		    	: integer range -1 to 65 := -1;
 	shared variable nb_submarines    	: integer range 0 to 15 := 0; -- To count the number of submarines
 	
 	shared variable current_submarine_line	: integer range 0 to 615 := 0;
@@ -132,20 +134,20 @@ begin
 					cycle_cnt := cycle_cnt + 1;
 				end if;
 								
-			elsif(v_sync = '0' and (cycle_cnt = 25 or cycle_cnt = 50 or cycle_cnt = 75 or cycle_cnt = 100)) then
+			elsif(v_sync = '0' ) then --and (cycle_cnt = 25 or cycle_cnt = 50 or cycle_cnt = 75 or cycle_cnt = 100)) then
 				
 				-- Update submarines position	
 				if (update_submarines = '1') then
-					
-					if(first_part = '1') then									-- first part
+						
+					if(first_part = '1') then								-- first part
 						
 						if(current_submarine = 0) then
 							first_data(15 downto 0) := q_a(31 downto 16);
 							second_data(15 downto 0) := q_a(15 downto 0);
+						else
+							first_data(15 downto 0) := tmp_read_data(31 downto 16);
+							second_data(15 downto 0) := tmp_read_data(15 downto 0);
 						end if;
-						
-						first_data(15 downto 0) := tmp_read_data(31 downto 16);
-						second_data(15 downto 0) := tmp_read_data(15 downto 0);
 						
 						if(first_data(11) = '1') then 									-- if there is a submarine on this line
 							if(first_data(10) = '1') then 								-- if it goes to the right
@@ -163,7 +165,9 @@ begin
 							end if;
 						end if;
 						-- prepare to load the next line from memory 
-						address_a <= std_logic_vector(to_unsigned((current_submarine/2) + 1,5)); 
+						--address_tmp := std_logic_vector(to_unsigned(current_submarine,6)); 
+						--address_a <= address_tmp(5 downto 1) + 1;
+						address_a <= std_logic_vector(to_unsigned(current_submarine/2,5)) + 1; 	
 						rd_en_a <= '1';
 						wr_en_a <= '0';
 						
@@ -186,7 +190,9 @@ begin
 						end if;
 						-- prepare to write the actual line to memory
 						data_a <= first_data & second_data;
-						address_a <= std_logic_vector(to_unsigned((current_submarine/2),5));
+						--address_tmp := std_logic_vector(to_unsigned(current_submarine,6));
+						--address_a <= address_tmp(5 downto 1); -- To divide by 2
+						address_a <= std_logic_vector(to_unsigned(current_submarine/2,5)) - 1;
 						wr_en_a <= '1';
 						rd_en_a <= '0';
 					end if;
@@ -228,22 +234,28 @@ begin
 						-- Generate submarines
 						if(ask_read = '0') then
 
-							if(nb_submarines < 5) then -- if there is less than 10 submarines, we try to add one
+							if(nb_submarines < 15) then -- if there is less than 10 submarines, we try to add one
 							  
---								tmp_random := to_integer(unsigned(magn_g_y(5 downto 0))); -- to take a random number
---								if (tmp_random >= 50) then -- 2^6 can be greater than 50
---									tmp_random := tmp_random - 15;
---								end if;
-								tmp_random := tmp_random + 2;
-
-								if(submarines(tmp_random) = '0') then -- No submarine in this line => create one
-									address_a <= std_logic_vector(to_unsigned(tmp_random/2,5));
+								tmp_random := to_integer(unsigned(magn_g_y(5 downto 0))); -- to take a random number
+								if (tmp_random >= 48) then -- 2^6 can be greater than 50
+									tmp_random := tmp_random - 15;
+								end if;
+--								tmp_random := tmp_random + 1;
+								
+								if(tmp_random = old_random or (tmp_random = old_random + 1) or (tmp_random = old_random - 1) ) then
+									ask_read := '0';
+								elsif(submarines(tmp_random) = '0') then -- No submarine in this line => create one
+									address_tmp := std_logic_vector(to_unsigned(tmp_random,6));
+									address_a <= address_tmp (5 downto 1); -- To divide by 2
+									--address_a <= std_logic_vector(to_unsigned(tmp_random/2,5)); 	
 									rd_en_a <= '1';
 									wr_en_a <= '0';
 									ask_read := '1';
 									submarines(tmp_random) := '1';
+									old_random := tmp_random;
 								else						 -- There is a submarine
 									ask_read := '0';
+									old_random := tmp_random;
 									--tmp_random := tmp_random +1;
 									--if (tmp_random > 49) then 
 									--	tmp_random := 0;
@@ -271,6 +283,9 @@ begin
 							
 							nb_submarines := nb_submarines +1;
 							data_a <= first_data & second_data;
+							--address_tmp := std_logic_vector(to_unsigned(tmp_random,6));
+							--address_a <= address_tmp (5 downto 1); -- To divide by 2
+							address_a <= address_tmp (5 downto 1);
 							wr_en_a <= '1';
 							rd_en_a <= '0';
 							new_elements := '0';
