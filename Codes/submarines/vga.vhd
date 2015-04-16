@@ -96,7 +96,6 @@ architecture vga_arch of vga is
 	shared variable current_submarine_line	: integer range 0 to 615 := 0;
 	shared variable current_rocket_line		: integer range 0 to 615 := 0;
 	
-	
 	shared variable ask_read				: std_logic := '0';
 	shared variable data_read				: std_logic_vector (15 downto 0);
 
