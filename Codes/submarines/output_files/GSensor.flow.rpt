@@ -1,5 +1,5 @@
 Flow report for GSensor
-Thu Apr 16 14:25:00 2015
+Thu Apr 16 15:42:13 2015
 Quartus II 64-Bit Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
 
 
@@ -41,17 +41,17 @@ agreement for further details.
 +---------------------------------------------------------------------------------+
 ; Flow Summary                                                                    ;
 +------------------------------------+--------------------------------------------+
-; Flow Status                        ; Successful - Thu Apr 16 14:25:00 2015      ;
+; Flow Status                        ; Successful - Thu Apr 16 15:42:13 2015      ;
 ; Quartus II 64-Bit Version          ; 14.1.0 Build 186 12/03/2014 SJ Web Edition ;
 ; Revision Name                      ; GSensor                                    ;
 ; Top-level Entity Name              ; gsensor                                    ;
 ; Family                             ; Cyclone IV E                               ;
 ; Device                             ; EP4CE22F17C6                               ;
 ; Timing Models                      ; Final                                      ;
-; Total logic elements               ; 778 / 22,320 ( 3 % )                       ;
-;     Total combinational functions  ; 729 / 22,320 ( 3 % )                       ;
-;     Dedicated logic registers      ; 309 / 22,320 ( 1 % )                       ;
-; Total registers                    ; 309                                        ;
+; Total logic elements               ; 760 / 22,320 ( 3 % )                       ;
+;     Total combinational functions  ; 730 / 22,320 ( 3 % )                       ;
+;     Dedicated logic registers      ; 330 / 22,320 ( 1 % )                       ;
+; Total registers                    ; 335                                        ;
 ; Total pins                         ; 12 / 154 ( 8 % )                           ;
 ; Total virtual pins                 ; 0                                          ;
 ; Total memory bits                  ; 768 / 608,256 ( < 1 % )                    ;
@@ -65,7 +65,7 @@ agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/16/2015 14:24:22 ;
+; Start date & time ; 04/16/2015 15:41:40 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; GSensor             ;
 +-------------------+---------------------+
@@ -76,7 +76,7 @@ agreement for further details.
 +-------------------------------------+---------------------------------------+---------------+-------------+----------------+
 ; Assignment Name                     ; Value                                 ; Default Value ; Entity Name ; Section Id     ;
 +-------------------------------------+---------------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 622601447238.142918706205912          ; --            ; --          ; --             ;
+; COMPILER_SIGNATURE_ID               ; 622601447238.142919170005980          ; --            ; --          ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT              ; Vhdl                                  ; --            ; --          ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (VHDL)                ; <None>        ; --          ; --             ;
 ; ENABLE_SIGNALTAP                    ; On                                    ; --            ; --          ; --             ;
@@ -102,12 +102,12 @@ agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:14     ; 1.0                     ; 673 MB              ; 00:00:31                           ;
-; Fitter                    ; 00:00:10     ; 1.7                     ; 1360 MB             ; 00:00:13                           ;
-; Assembler                 ; 00:00:02     ; 1.0                     ; 556 MB              ; 00:00:01                           ;
-; TimeQuest Timing Analyzer ; 00:00:03     ; 2.0                     ; 673 MB              ; 00:00:03                           ;
-; EDA Netlist Writer        ; 00:00:01     ; 1.0                     ; 540 MB              ; 00:00:02                           ;
-; Total                     ; 00:00:30     ; --                      ; --                  ; 00:00:50                           ;
+; Analysis & Synthesis      ; 00:00:13     ; 1.0                     ; 671 MB              ; 00:00:27                           ;
+; Fitter                    ; 00:00:07     ; 1.5                     ; 1343 MB             ; 00:00:08                           ;
+; Assembler                 ; 00:00:02     ; 1.0                     ; 554 MB              ; 00:00:01                           ;
+; TimeQuest Timing Analyzer ; 00:00:02     ; 1.0                     ; 672 MB              ; 00:00:02                           ;
+; EDA Netlist Writer        ; 00:00:02     ; 1.0                     ; 539 MB              ; 00:00:01                           ;
+; Total                     ; 00:00:26     ; --                      ; --                  ; 00:00:39                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

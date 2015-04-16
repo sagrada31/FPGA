@@ -80,12 +80,13 @@ architecture vga_arch of vga is
 	shared variable new_elements			: std_logic := '1';
 	shared variable cycle_cnt				: integer range 0 to 100 := 0;
 	
-	shared variable current_submarine 	: integer range 0 to 24 := 0;
+	shared variable current_submarine 	: integer range 0 to 49 := 0;
 	shared variable first_part 			: std_logic := '1';
 	shared variable first_data 			: std_logic_vector (15 downto 0);
 	shared variable second_data 			: std_logic_vector (15 downto 0);
+	shared variable tmp_read_data			: std_logic_vector (31 downto 0);
 	
-	shared variable current_rocket		: integer range 0 to 37 := 0;
+	shared variable current_rocket		: integer range 0 to 74 := 0;
 	
 	shared variable index_submarine		: integer range 0 to 49;
 	shared variable shooter 				: integer range 0 to 9 := 0;
@@ -101,9 +102,7 @@ architecture vga_arch of vga is
 
 	shared variable first_row 				: std_logic_vector (15 downto 0);
 	shared variable second_row 			: std_logic_vector (15 downto 0);
-	
-	shared variable bit_test				: std_logic := '0';
-	
+		
 begin
 
 	update_elements_position : process(CLOCK_50)
@@ -117,7 +116,7 @@ begin
 --			end if;
 			
 			-- Prepare to load the first line of submarines from memory (just before the v_sync)
-			if(v_cnt = 635 and h_cnt = 799) then
+			if(v_cnt = 635 and h_cnt = 1039) then
 				update_submarines := '1';
 				update_rockets := '0';
 				new_elements := '0';
@@ -129,19 +128,24 @@ begin
 				
 				if(cycle_cnt = 100) then
 					cycle_cnt := 0;
-					bit_test := '0';
 				else
 					cycle_cnt := cycle_cnt + 1;
 				end if;
 								
-			elsif(v_sync = '0') then
+			elsif(v_sync = '0' and (cycle_cnt = 25 or cycle_cnt = 50 or cycle_cnt = 75 or cycle_cnt = 100)) then
 				
 				-- Update submarines position	
 				if (update_submarines = '1') then
 					
 					if(first_part = '1') then									-- first part
-						first_data(15 downto 0) := q_a(31 downto 16);
-						second_data(15 downto 0) := q_a(15 downto 0);
+						
+						if(current_submarine = 0) then
+							first_data(15 downto 0) := q_a(31 downto 16);
+							second_data(15 downto 0) := q_a(15 downto 0);
+						end if;
+						
+						first_data(15 downto 0) := tmp_read_data(31 downto 16);
+						second_data(15 downto 0) := tmp_read_data(15 downto 0);
 						
 						if(first_data(11) = '1') then 									-- if there is a submarine on this line
 							if(first_data(10) = '1') then 								-- if it goes to the right
@@ -164,7 +168,7 @@ begin
 						wr_en_a <= '0';
 						
 					else																	-- second part
-					
+						tmp_read_data := q_a;
 						if(second_data(11) = '1') then 							-- if there is a submarine on this line
 							if(second_data(10) = '1') then 						-- if it goes to the right
 								if(second_data(9 downto 0) = 760)then			-- if max at right
@@ -188,7 +192,7 @@ begin
 					end if;
 					first_part := not first_part;
 					
-					if(current_submarine = 24) then
+					if(current_submarine = 49) then
 						current_submarine := 0;
 						update_submarines := '0'; update_rockets := '1';
 					else
@@ -209,7 +213,7 @@ begin
 --					timer_update_rockets := 1;
 --				end if;
 					
-					if(current_rocket = 37) then
+					if(current_rocket = 74) then
 						current_rocket := 0;
 						update_rockets := '0'; new_elements := '1';
 					else
@@ -224,7 +228,7 @@ begin
 						-- Generate submarines
 						if(ask_read = '0') then
 
-							if(nb_submarines < 10) then -- if there is less than 10 submarines, we try to add one
+							if(nb_submarines < 5) then -- if there is less than 10 submarines, we try to add one
 							  
 --								tmp_random := to_integer(unsigned(magn_g_y(5 downto 0))); -- to take a random number
 --								if (tmp_random >= 50) then -- 2^6 can be greater than 50
@@ -271,7 +275,6 @@ begin
 							rd_en_a <= '0';
 							new_elements := '0';
 							ask_read := '0';
-							bit_test := '1';
 						end if;
 						
 --						-- Generate rockets
