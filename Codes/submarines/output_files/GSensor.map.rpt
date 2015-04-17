@@ -1,5 +1,5 @@
 Analysis & Synthesis report for GSensor
-Thu Apr 16 18:03:17 2015
+Fri Apr 17 15:48:56 2015
 Quartus II 64-Bit Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
 
 
@@ -21,18 +21,20 @@ Quartus II 64-Bit Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
  13. Inverted Register Statistics
  14. Multiplexer Restructuring Statistics (Restructuring Performed)
  15. Source assignments for ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated
- 16. Parameter Settings for User Entity Instance: spipll:u_spipll|altpll:altpll_component
- 17. Parameter Settings for User Entity Instance: spi_ee_config:u_spi_ee_config
- 18. Parameter Settings for User Entity Instance: spi_ee_config:u_spi_ee_config|spi_controller:u_spi_controller
- 19. Parameter Settings for User Entity Instance: ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component
- 20. Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_mult:Mult0
- 21. altpll Parameter Settings by Entity Instance
- 22. altsyncram Parameter Settings by Entity Instance
- 23. lpm_mult Parameter Settings by Entity Instance
- 24. Port Connectivity Checks: "spi_ee_config:u_spi_ee_config"
- 25. Post-Synthesis Netlist Statistics for Top Partition
- 26. Elapsed Time Per Partition
- 27. Analysis & Synthesis Messages
+ 16. Source assignments for ram2_rockets:u_ram2_rockets|altsyncram:altsyncram_component|altsyncram_77o3:auto_generated
+ 17. Parameter Settings for User Entity Instance: spipll:u_spipll|altpll:altpll_component
+ 18. Parameter Settings for User Entity Instance: spi_ee_config:u_spi_ee_config
+ 19. Parameter Settings for User Entity Instance: spi_ee_config:u_spi_ee_config|spi_controller:u_spi_controller
+ 20. Parameter Settings for User Entity Instance: ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component
+ 21. Parameter Settings for User Entity Instance: ram2_rockets:u_ram2_rockets|altsyncram:altsyncram_component
+ 22. Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_mult:Mult0
+ 23. altpll Parameter Settings by Entity Instance
+ 24. altsyncram Parameter Settings by Entity Instance
+ 25. lpm_mult Parameter Settings by Entity Instance
+ 26. Port Connectivity Checks: "spi_ee_config:u_spi_ee_config"
+ 27. Post-Synthesis Netlist Statistics for Top Partition
+ 28. Elapsed Time Per Partition
+ 29. Analysis & Synthesis Messages
 
 
 
@@ -59,18 +61,18 @@ agreement for further details.
 +---------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                    ;
 +------------------------------------+--------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Thu Apr 16 18:03:17 2015      ;
+; Analysis & Synthesis Status        ; Successful - Fri Apr 17 15:48:56 2015      ;
 ; Quartus II 64-Bit Version          ; 14.1.0 Build 186 12/03/2014 SJ Web Edition ;
 ; Revision Name                      ; GSensor                                    ;
 ; Top-level Entity Name              ; gsensor                                    ;
 ; Family                             ; Cyclone IV E                               ;
-; Total logic elements               ; 944                                        ;
-;     Total combinational functions  ; 880                                        ;
+; Total logic elements               ; 1,080                                      ;
+;     Total combinational functions  ; 1,012                                      ;
 ;     Dedicated logic registers      ; 368                                        ;
 ; Total registers                    ; 368                                        ;
 ; Total pins                         ; 12                                         ;
 ; Total virtual pins                 ; 0                                          ;
-; Total memory bits                  ; 768                                        ;
+; Total memory bits                  ; 4,864                                      ;
 ; Embedded Multiplier 9-bit elements ; 0                                          ;
 ; Total PLLs                         ; 1                                          ;
 +------------------------------------+--------------------------------------------+
@@ -193,6 +195,7 @@ agreement for further details.
 ; spi_ee_config.vhd                ; yes             ; User VHDL File               ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/spi_ee_config.vhd                        ;         ;
 ; spi_controller.vhd               ; yes             ; User VHDL File               ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/spi_controller.vhd                       ;         ;
 ; ram1_submarine.vhd               ; yes             ; User Wizard-Generated File   ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/ram1_submarine.vhd                       ;         ;
+; ram2_rockets.vhd                 ; yes             ; User Wizard-Generated File   ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/ram2_rockets.vhd                         ;         ;
 ; altpll.tdf                       ; yes             ; Megafunction                 ; e:/autres/programmes/altera/quartus/libraries/megafunctions/altpll.tdf              ;         ;
 ; aglobal141.inc                   ; yes             ; Megafunction                 ; e:/autres/programmes/altera/quartus/libraries/megafunctions/aglobal141.inc          ;         ;
 ; stratix_pll.inc                  ; yes             ; Megafunction                 ; e:/autres/programmes/altera/quartus/libraries/megafunctions/stratix_pll.inc         ;         ;
@@ -208,6 +211,7 @@ agreement for further details.
 ; altram.inc                       ; yes             ; Megafunction                 ; e:/autres/programmes/altera/quartus/libraries/megafunctions/altram.inc              ;         ;
 ; altdpram.inc                     ; yes             ; Megafunction                 ; e:/autres/programmes/altera/quartus/libraries/megafunctions/altdpram.inc            ;         ;
 ; db/altsyncram_b3o3.tdf           ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/altsyncram_b3o3.tdf                   ;         ;
+; db/altsyncram_77o3.tdf           ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/altsyncram_77o3.tdf                   ;         ;
 ; lpm_mult.tdf                     ; yes             ; Megafunction                 ; e:/autres/programmes/altera/quartus/libraries/megafunctions/lpm_mult.tdf            ;         ;
 ; lpm_add_sub.inc                  ; yes             ; Megafunction                 ; e:/autres/programmes/altera/quartus/libraries/megafunctions/lpm_add_sub.inc         ;         ;
 ; multcore.inc                     ; yes             ; Megafunction                 ; e:/autres/programmes/altera/quartus/libraries/megafunctions/multcore.inc            ;         ;
@@ -238,24 +242,24 @@ agreement for further details.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimated Total logic elements              ; 944            ;
+; Estimated Total logic elements              ; 1,080          ;
 ;                                             ;                ;
-; Total combinational functions               ; 880            ;
+; Total combinational functions               ; 1012           ;
 ; Logic element usage by number of LUT inputs ;                ;
-;     -- 4 input functions                    ; 374            ;
-;     -- 3 input functions                    ; 237            ;
+;     -- 4 input functions                    ; 485            ;
+;     -- 3 input functions                    ; 258            ;
 ;     -- <=2 input functions                  ; 269            ;
 ;                                             ;                ;
 ; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 595            ;
-;     -- arithmetic mode                      ; 285            ;
+;     -- normal mode                          ; 734            ;
+;     -- arithmetic mode                      ; 278            ;
 ;                                             ;                ;
 ; Total registers                             ; 368            ;
 ;     -- Dedicated logic registers            ; 368            ;
 ;     -- I/O registers                        ; 0              ;
 ;                                             ;                ;
 ; I/O pins                                    ; 12             ;
-; Total memory bits                           ; 768            ;
+; Total memory bits                           ; 4864           ;
 ;                                             ;                ;
 ; Embedded Multiplier 9-bit elements          ; 0              ;
 ;                                             ;                ;
@@ -263,9 +267,9 @@ agreement for further details.
 ;     -- PLLs                                 ; 1              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 288            ;
-; Total fan-out                               ; 4238           ;
-; Average fan-out                             ; 3.27           ;
+; Maximum fan-out                             ; 544            ;
+; Total fan-out                               ; 5773           ;
+; Average fan-out                             ; 3.42           ;
 +---------------------------------------------+----------------+
 
 
@@ -274,17 +278,20 @@ agreement for further details.
 +---------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------------------------------------------------------+--------------+
 ; Compilation Hierarchy Node                        ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                       ; Library Name ;
 +---------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------------------------------------------------------+--------------+
-; |gsensor                                          ; 880 (1)           ; 368 (0)      ; 768         ; 0            ; 0       ; 0         ; 12   ; 0            ; |gsensor                                                                                                                                  ; work         ;
+; |gsensor                                          ; 1012 (1)          ; 368 (0)      ; 4864        ; 0            ; 0       ; 0         ; 12   ; 0            ; |gsensor                                                                                                                                  ; work         ;
 ;    |ram1_submarine:u_ram1_submarine|              ; 0 (0)             ; 0 (0)        ; 768         ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|ram1_submarine:u_ram1_submarine                                                                                                  ; work         ;
 ;       |altsyncram:altsyncram_component|           ; 0 (0)             ; 0 (0)        ; 768         ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component                                                                  ; work         ;
 ;          |altsyncram_b3o3:auto_generated|         ; 0 (0)             ; 0 (0)        ; 768         ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated                                   ; work         ;
+;    |ram2_rockets:u_ram2_rockets|                  ; 0 (0)             ; 0 (0)        ; 4096        ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|ram2_rockets:u_ram2_rockets                                                                                                      ; work         ;
+;       |altsyncram:altsyncram_component|           ; 0 (0)             ; 0 (0)        ; 4096        ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|ram2_rockets:u_ram2_rockets|altsyncram:altsyncram_component                                                                      ; work         ;
+;          |altsyncram_77o3:auto_generated|         ; 0 (0)             ; 0 (0)        ; 4096        ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|ram2_rockets:u_ram2_rockets|altsyncram:altsyncram_component|altsyncram_77o3:auto_generated                                       ; work         ;
 ;    |reset_delay:u_reset_delay|                    ; 22 (22)           ; 22 (22)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|reset_delay:u_reset_delay                                                                                                        ; work         ;
 ;    |spi_ee_config:u_spi_ee_config|                ; 74 (55)           ; 75 (62)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|spi_ee_config:u_spi_ee_config                                                                                                    ; work         ;
 ;       |spi_controller:u_spi_controller|           ; 19 (19)           ; 13 (13)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|spi_ee_config:u_spi_ee_config|spi_controller:u_spi_controller                                                                    ; work         ;
 ;    |spipll:u_spipll|                              ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|spipll:u_spipll                                                                                                                  ; work         ;
 ;       |altpll:altpll_component|                   ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|spipll:u_spipll|altpll:altpll_component                                                                                          ; work         ;
 ;          |spipll_altpll:auto_generated|           ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|spipll:u_spipll|altpll:altpll_component|spipll_altpll:auto_generated                                                             ; work         ;
-;    |vga:u_vga|                                    ; 783 (747)         ; 271 (271)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga                                                                                                                        ; work         ;
+;    |vga:u_vga|                                    ; 915 (879)         ; 271 (271)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga                                                                                                                        ; work         ;
 ;       |lpm_mult:Mult0|                            ; 36 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_mult:Mult0                                                                                                         ; work         ;
 ;          |multcore:mult_core|                     ; 36 (17)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_mult:Mult0|multcore:mult_core                                                                                      ; work         ;
 ;             |mpar_add:padder|                     ; 19 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder                                                                      ; work         ;
@@ -297,13 +304,14 @@ agreement for further details.
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis RAM Summary                                                                                                                                                                            ;
-+-----------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+------+------+
-; Name                                                                                                      ; Type ; Mode           ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size ; MIF  ;
-+-----------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+------+------+
-; ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated|ALTSYNCRAM ; AUTO ; True Dual Port ; 32           ; 32           ; 32           ; 32           ; 1024 ; None ;
-+-----------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+------+------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                                             ;
++-----------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+-------+------+
+; Name                                                                                                      ; Type ; Mode           ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size  ; MIF  ;
++-----------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+-------+------+
+; ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated|ALTSYNCRAM ; AUTO ; True Dual Port ; 32           ; 32           ; 32           ; 32           ; 1024  ; None ;
+; ram2_rockets:u_ram2_rockets|altsyncram:altsyncram_component|altsyncram_77o3:auto_generated|ALTSYNCRAM     ; AUTO ; True Dual Port ; 64           ; 256          ; 64           ; 256          ; 16384 ; None ;
++-----------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+-------+------+
 
 
 +-------------------------------------------------------------------------------------------------------------------------------+
@@ -312,6 +320,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Vendor ; IP Core Name ; Version ; Release Date ; License Type ; Entity Instance                          ; IP Include File    ;
 +--------+--------------+---------+--------------+--------------+------------------------------------------+--------------------+
 ; Altera ; RAM: 2-PORT  ; 14.1    ; N/A          ; N/A          ; |gsensor|ram1_submarine:u_ram1_submarine ; ram1_submarine.vhd ;
+; Altera ; RAM: 2-PORT  ; 14.1    ; N/A          ; N/A          ; |gsensor|ram2_rockets:u_ram2_rockets     ; ram2_rockets.vhd   ;
 +--------+--------------+---------+--------------+--------------+------------------------------------------+--------------------+
 
 
@@ -320,42 +329,90 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------------------------------+--------------------------------------------------+
 ; Register name                              ; Reason for Removal                               ;
 +--------------------------------------------+--------------------------------------------------+
+; vga:u_vga|data_b_roc[39..74]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[38]                   ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[37]                   ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[36]                   ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[35]                   ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[34]                   ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[33]                   ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[32]                   ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[31]                   ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[30]                   ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[29]                   ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[28]                   ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[27]                   ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[26]                   ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[25]                   ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[24]                   ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[23]                   ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[22]                   ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[21]                   ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[20]                   ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[19]                   ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[18]                   ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[17]                   ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[16]                   ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[15]                   ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[14]                   ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[13]                   ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[12]                   ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[11]                   ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[10]                   ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[9]                    ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[8]                    ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[7]                    ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[6]                    ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[5]                    ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[4]                    ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[3]                    ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[2]                    ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[1]                    ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[0]                    ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|data_b_roc[75..255]              ; Stuck at VCC due to stuck port data_in           ;
 ; spi_ee_config:u_spi_ee_config|p2s_data[7]  ; Stuck at GND due to stuck port data_in           ;
-; vga:u_vga|current_submarine_line[0,1]      ; Merged with vga:u_vga|current_submarine_line[2]  ;
+; vga:u_vga|address_b_roc[1,2,4,5]           ; Merged with vga:u_vga|address_b_roc[0]           ;
+; vga:u_vga|current_submarine_line[1,2]      ; Merged with vga:u_vga|current_submarine_line[0]  ;
 ; spi_ee_config:u_spi_ee_config|spi_state    ; Merged with spi_ee_config:u_spi_ee_config|spi_go ;
 ; vga:u_vga|old_magn_g_y[5]                  ; Merged with vga:u_vga|magn_g_y[5]                ;
-; vga:u_vga|old_magn_g_y[0]                  ; Merged with vga:u_vga|magn_g_y[0]                ;
-; vga:u_vga|old_magn_g_y[1]                  ; Merged with vga:u_vga|magn_g_y[1]                ;
-; vga:u_vga|old_magn_g_y[2]                  ; Merged with vga:u_vga|magn_g_y[2]                ;
-; vga:u_vga|old_magn_g_y[3]                  ; Merged with vga:u_vga|magn_g_y[3]                ;
 ; vga:u_vga|old_magn_g_y[4]                  ; Merged with vga:u_vga|magn_g_y[4]                ;
+; vga:u_vga|old_magn_g_y[3]                  ; Merged with vga:u_vga|magn_g_y[3]                ;
+; vga:u_vga|old_magn_g_y[2]                  ; Merged with vga:u_vga|magn_g_y[2]                ;
+; vga:u_vga|old_magn_g_y[1]                  ; Merged with vga:u_vga|magn_g_y[1]                ;
+; vga:u_vga|old_magn_g_y[0]                  ; Merged with vga:u_vga|magn_g_y[0]                ;
+; vga:u_vga|address_b_roc[0]                 ; Stuck at GND due to stuck port data_in           ;
 ; vga:u_vga|current_submarine_line[3]        ; Stuck at GND due to stuck port data_in           ;
-; vga:u_vga|submarines[49]                   ; Stuck at GND due to stuck port clock_enable      ;
-; vga:u_vga|wr_en_b                          ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|submarines[48,49]                ; Stuck at GND due to stuck port clock_enable      ;
+; vga:u_vga|address_b_roc[3]                 ; Stuck at VCC due to stuck port data_in           ;
 ; spi_ee_config:u_spi_ee_config|p2s_data[14] ; Stuck at GND due to stuck port data_in           ;
 ; spi_ee_config:u_spi_ee_config|p2s_data[13] ; Stuck at VCC due to stuck port data_in           ;
-; vga:u_vga|second_data[12..15]              ; Lost fanout                                      ;
-; vga:u_vga|tmp_read_data[12..15,28..31]     ; Lost fanout                                      ;
-; vga:u_vga|data_a[12..15,28..31]            ; Lost fanout                                      ;
-; vga:u_vga|first_data[12..15]               ; Lost fanout                                      ;
-; Total Number of Removed Registers = 39     ;                                                  ;
+; vga:u_vga|wr_en_b_sub                      ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|old_random[6]                    ; Merged with vga:u_vga|old_random[7]              ;
+; vga:u_vga|second_data_sub[12..15]          ; Lost fanout                                      ;
+; vga:u_vga|tmp_read_data_sub[12..15,28..31] ; Lost fanout                                      ;
+; vga:u_vga|data_a_sub[12..15,28..31]        ; Lost fanout                                      ;
+; vga:u_vga|first_data_sub[12..15]           ; Lost fanout                                      ;
+; Total Number of Removed Registers = 303    ;                                                  ;
 +--------------------------------------------+--------------------------------------------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Removed Registers Triggering Further Register Optimizations                                                                                               ;
-+-------------------------------------+---------------------------+-----------------------------------------------------------------------------------------+
-; Register name                       ; Reason for Removal        ; Registers Removed due to This Register                                                  ;
-+-------------------------------------+---------------------------+-----------------------------------------------------------------------------------------+
-; vga:u_vga|current_submarine_line[3] ; Stuck at GND              ; vga:u_vga|wr_en_b, vga:u_vga|tmp_read_data[30], vga:u_vga|tmp_read_data[31],            ;
-;                                     ; due to stuck port data_in ; vga:u_vga|data_a[28], vga:u_vga|data_a[30], vga:u_vga|data_a[31], vga:u_vga|data_a[15], ;
-;                                     ;                           ; vga:u_vga|data_a[14], vga:u_vga|data_a[13], vga:u_vga|data_a[12],                       ;
-;                                     ;                           ; vga:u_vga|first_data[12], vga:u_vga|first_data[14], vga:u_vga|first_data[15]            ;
-; vga:u_vga|second_data[15]           ; Lost Fanouts              ; vga:u_vga|second_data[14], vga:u_vga|second_data[13], vga:u_vga|second_data[12],        ;
-;                                     ;                           ; vga:u_vga|tmp_read_data[15], vga:u_vga|tmp_read_data[14],                               ;
-;                                     ;                           ; vga:u_vga|tmp_read_data[13], vga:u_vga|tmp_read_data[12]                                ;
-; vga:u_vga|tmp_read_data[29]         ; Lost Fanouts              ; vga:u_vga|data_a[29], vga:u_vga|first_data[13]                                          ;
-+-------------------------------------+---------------------------+-----------------------------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                                            ;
++-------------------------------------+---------------------------+--------------------------------------------------------------------------------------+
+; Register name                       ; Reason for Removal        ; Registers Removed due to This Register                                               ;
++-------------------------------------+---------------------------+--------------------------------------------------------------------------------------+
+; vga:u_vga|current_submarine_line[3] ; Stuck at GND              ; vga:u_vga|wr_en_b_sub, vga:u_vga|tmp_read_data_sub[28],                              ;
+;                                     ; due to stuck port data_in ; vga:u_vga|tmp_read_data_sub[29], vga:u_vga|tmp_read_data_sub[30],                    ;
+;                                     ;                           ; vga:u_vga|tmp_read_data_sub[31], vga:u_vga|tmp_read_data_sub[15],                    ;
+;                                     ;                           ; vga:u_vga|tmp_read_data_sub[14], vga:u_vga|tmp_read_data_sub[13],                    ;
+;                                     ;                           ; vga:u_vga|tmp_read_data_sub[12], vga:u_vga|data_a_sub[28], vga:u_vga|data_a_sub[29], ;
+;                                     ;                           ; vga:u_vga|data_a_sub[30], vga:u_vga|data_a_sub[31], vga:u_vga|data_a_sub[15],        ;
+;                                     ;                           ; vga:u_vga|data_a_sub[14], vga:u_vga|data_a_sub[13], vga:u_vga|data_a_sub[12],        ;
+;                                     ;                           ; vga:u_vga|first_data_sub[12], vga:u_vga|first_data_sub[13],                          ;
+;                                     ;                           ; vga:u_vga|first_data_sub[14], vga:u_vga|first_data_sub[15]                           ;
+; vga:u_vga|second_data_sub[15]       ; Lost Fanouts              ; vga:u_vga|second_data_sub[14], vga:u_vga|second_data_sub[13],                        ;
+;                                     ;                           ; vga:u_vga|second_data_sub[12]                                                        ;
++-------------------------------------+---------------------------+--------------------------------------------------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -365,10 +422,10 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Total registers                              ; 368   ;
 ; Number of registers using Synchronous Clear  ; 32    ;
-; Number of registers using Synchronous Load   ; 33    ;
+; Number of registers using Synchronous Load   ; 34    ;
 ; Number of registers using Asynchronous Clear ; 56    ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 233   ;
+; Number of registers using Clock Enable       ; 235   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -383,43 +440,41 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; spi_ee_config:u_spi_ee_config|spi_controller:u_spi_controller|spi_count[0] ; 11      ;
 ; spi_ee_config:u_spi_ee_config|spi_controller:u_spi_controller|spi_count[2] ; 5       ;
 ; spi_ee_config:u_spi_ee_config|spi_controller:u_spi_controller|spi_count[1] ; 5       ;
-; vga:u_vga|new_elements                                                     ; 5       ;
-; vga:u_vga|old_random[0]                                                    ; 4       ;
-; vga:u_vga|old_random[1]                                                    ; 3       ;
-; vga:u_vga|old_random[2]                                                    ; 3       ;
-; vga:u_vga|old_random[3]                                                    ; 3       ;
+; vga:u_vga|first_part                                                       ; 14      ;
+; vga:u_vga|old_random[7]                                                    ; 6       ;
 ; vga:u_vga|old_random[5]                                                    ; 3       ;
 ; vga:u_vga|old_random[4]                                                    ; 3       ;
-; vga:u_vga|old_random[7]                                                    ; 5       ;
-; vga:u_vga|old_random[6]                                                    ; 3       ;
-; vga:u_vga|first_part                                                       ; 11      ;
-; Total number of inverted registers = 15                                    ;         ;
+; vga:u_vga|old_random[3]                                                    ; 3       ;
+; vga:u_vga|old_random[2]                                                    ; 3       ;
+; vga:u_vga|old_random[1]                                                    ; 3       ;
+; vga:u_vga|old_random[0]                                                    ; 3       ;
+; Total number of inverted registers = 13                                    ;         ;
 +----------------------------------------------------------------------------+---------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                           ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                 ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------+
-; 3:1                ; 11 bits   ; 22 LEs        ; 11 LEs               ; 11 LEs                 ; Yes        ; |gsensor|vga:u_vga|v_cnt[3]                                ;
-; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |gsensor|vga:u_vga|current_submarine_line[8]               ;
-; 4:1                ; 15 bits   ; 30 LEs        ; 15 LEs               ; 15 LEs                 ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|read_idle_count[12] ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 0 LEs                ; 4 LEs                  ; Yes        ; |gsensor|vga:u_vga|wr_en_b                                 ;
-; 3:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |gsensor|vga:u_vga|address_b[4]                            ;
-; 5:1                ; 6 bits    ; 18 LEs        ; 6 LEs                ; 12 LEs                 ; Yes        ; |gsensor|vga:u_vga|current_submarine[0]                    ;
-; 7:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|p2s_data[15]        ;
-; 7:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|p2s_data[12]        ;
-; 7:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|p2s_data[10]        ;
-; 7:1                ; 32 bits   ; 128 LEs       ; 32 LEs               ; 96 LEs                 ; Yes        ; |gsensor|vga:u_vga|data_a[3]                               ;
-; 8:1                ; 16 bits   ; 80 LEs        ; 32 LEs               ; 48 LEs                 ; Yes        ; |gsensor|vga:u_vga|second_data[9]                          ;
-; 11:1               ; 2 bits    ; 14 LEs        ; 4 LEs                ; 10 LEs                 ; Yes        ; |gsensor|vga:u_vga|rd_en_a                                 ;
-; 11:1               ; 5 bits    ; 35 LEs        ; 10 LEs               ; 25 LEs                 ; Yes        ; |gsensor|vga:u_vga|address_a[4]                            ;
-; 11:1               ; 14 bits   ; 98 LEs        ; 28 LEs               ; 70 LEs                 ; Yes        ; |gsensor|vga:u_vga|first_data[5]                           ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 8 LEs                ; 2 LEs                  ; Yes        ; |gsensor|vga:u_vga|green_signal                            ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |gsensor|vga:u_vga|second_data                             ;
-; 5:1                ; 10 bits   ; 30 LEs        ; 20 LEs               ; 10 LEs                 ; No         ; |gsensor|vga:u_vga|second_data                             ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                          ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------+
+; 3:1                ; 11 bits   ; 22 LEs        ; 11 LEs               ; 11 LEs                 ; Yes        ; |gsensor|vga:u_vga|v_cnt[1]                               ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |gsensor|vga:u_vga|current_submarine_line[4]              ;
+; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |gsensor|vga:u_vga|wr_en_b_roc                            ;
+; 4:1                ; 15 bits   ; 30 LEs        ; 15 LEs               ; 15 LEs                 ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|read_idle_count[1] ;
+; 3:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |gsensor|vga:u_vga|address_b_sub[4]                       ;
+; 5:1                ; 6 bits    ; 18 LEs        ; 6 LEs                ; 12 LEs                 ; Yes        ; |gsensor|vga:u_vga|current_submarine[5]                   ;
+; 7:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|p2s_data[13]       ;
+; 7:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|p2s_data[12]       ;
+; 7:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|p2s_data[10]       ;
+; 7:1                ; 32 bits   ; 128 LEs       ; 32 LEs               ; 96 LEs                 ; Yes        ; |gsensor|vga:u_vga|data_a_sub[16]                         ;
+; 8:1                ; 16 bits   ; 80 LEs        ; 32 LEs               ; 48 LEs                 ; Yes        ; |gsensor|vga:u_vga|second_data_sub[11]                    ;
+; 11:1               ; 2 bits    ; 14 LEs        ; 4 LEs                ; 10 LEs                 ; Yes        ; |gsensor|vga:u_vga|wr_en_a_sub                            ;
+; 11:1               ; 5 bits    ; 35 LEs        ; 10 LEs               ; 25 LEs                 ; Yes        ; |gsensor|vga:u_vga|address_a_sub[2]                       ;
+; 11:1               ; 14 bits   ; 98 LEs        ; 28 LEs               ; 70 LEs                 ; Yes        ; |gsensor|vga:u_vga|first_data_sub[8]                      ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 8 LEs                ; 2 LEs                  ; Yes        ; |gsensor|vga:u_vga|blue_signal                            ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |gsensor|vga:u_vga|second_data_sub                        ;
+; 5:1                ; 10 bits   ; 30 LEs        ; 20 LEs               ; 10 LEs                 ; No         ; |gsensor|vga:u_vga|second_data_sub                        ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------+
 
 
 +-----------------------------------------------------------------------------------------------------------------------+
@@ -429,6 +484,15 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +---------------------------------+--------------------+------+---------------------------------------------------------+
 ; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                                       ;
 +---------------------------------+--------------------+------+---------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------+
+; Source assignments for ram2_rockets:u_ram2_rockets|altsyncram:altsyncram_component|altsyncram_77o3:auto_generated ;
++---------------------------------+--------------------+------+-----------------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                                  ;
++---------------------------------+--------------------+------+-----------------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                                   ;
++---------------------------------+--------------------+------+-----------------------------------------------------+
 
 
 +--------------------------------------------------------------------------------------+
@@ -936,6 +1000,67 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
++----------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ram2_rockets:u_ram2_rockets|altsyncram:altsyncram_component ;
++------------------------------------+-----------------+---------------------------------------------------+
+; Parameter Name                     ; Value           ; Type                                              ;
++------------------------------------+-----------------+---------------------------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8               ; Untyped                                           ;
+; AUTO_CARRY_CHAINS                  ; ON              ; AUTO_CARRY                                        ;
+; IGNORE_CARRY_BUFFERS               ; OFF             ; IGNORE_CARRY                                      ;
+; AUTO_CASCADE_CHAINS                ; ON              ; AUTO_CASCADE                                      ;
+; IGNORE_CASCADE_BUFFERS             ; OFF             ; IGNORE_CASCADE                                    ;
+; WIDTH_BYTEENA                      ; 1               ; Untyped                                           ;
+; OPERATION_MODE                     ; BIDIR_DUAL_PORT ; Untyped                                           ;
+; WIDTH_A                            ; 256             ; Signed Integer                                    ;
+; WIDTHAD_A                          ; 6               ; Signed Integer                                    ;
+; NUMWORDS_A                         ; 64              ; Signed Integer                                    ;
+; OUTDATA_REG_A                      ; CLOCK0          ; Untyped                                           ;
+; ADDRESS_ACLR_A                     ; NONE            ; Untyped                                           ;
+; OUTDATA_ACLR_A                     ; NONE            ; Untyped                                           ;
+; WRCONTROL_ACLR_A                   ; NONE            ; Untyped                                           ;
+; INDATA_ACLR_A                      ; NONE            ; Untyped                                           ;
+; BYTEENA_ACLR_A                     ; NONE            ; Untyped                                           ;
+; WIDTH_B                            ; 256             ; Signed Integer                                    ;
+; WIDTHAD_B                          ; 6               ; Signed Integer                                    ;
+; NUMWORDS_B                         ; 64              ; Signed Integer                                    ;
+; INDATA_REG_B                       ; CLOCK0          ; Untyped                                           ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK0          ; Untyped                                           ;
+; RDCONTROL_REG_B                    ; CLOCK1          ; Untyped                                           ;
+; ADDRESS_REG_B                      ; CLOCK0          ; Untyped                                           ;
+; OUTDATA_REG_B                      ; CLOCK0          ; Untyped                                           ;
+; BYTEENA_REG_B                      ; CLOCK1          ; Untyped                                           ;
+; INDATA_ACLR_B                      ; NONE            ; Untyped                                           ;
+; WRCONTROL_ACLR_B                   ; NONE            ; Untyped                                           ;
+; ADDRESS_ACLR_B                     ; NONE            ; Untyped                                           ;
+; OUTDATA_ACLR_B                     ; NONE            ; Untyped                                           ;
+; RDCONTROL_ACLR_B                   ; NONE            ; Untyped                                           ;
+; BYTEENA_ACLR_B                     ; NONE            ; Untyped                                           ;
+; WIDTH_BYTEENA_A                    ; 1               ; Signed Integer                                    ;
+; WIDTH_BYTEENA_B                    ; 1               ; Signed Integer                                    ;
+; RAM_BLOCK_TYPE                     ; AUTO            ; Untyped                                           ;
+; BYTE_SIZE                          ; 8               ; Signed Integer                                    ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA        ; Untyped                                           ;
+; READ_DURING_WRITE_MODE_PORT_A      ; OLD_DATA        ; Untyped                                           ;
+; READ_DURING_WRITE_MODE_PORT_B      ; OLD_DATA        ; Untyped                                           ;
+; INIT_FILE                          ; UNUSED          ; Untyped                                           ;
+; INIT_FILE_LAYOUT                   ; PORT_A          ; Untyped                                           ;
+; MAXIMUM_DEPTH                      ; 0               ; Signed Integer                                    ;
+; CLOCK_ENABLE_INPUT_A               ; BYPASS          ; Untyped                                           ;
+; CLOCK_ENABLE_INPUT_B               ; BYPASS          ; Untyped                                           ;
+; CLOCK_ENABLE_OUTPUT_A              ; BYPASS          ; Untyped                                           ;
+; CLOCK_ENABLE_OUTPUT_B              ; BYPASS          ; Untyped                                           ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN ; Untyped                                           ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN ; Untyped                                           ;
+; ENABLE_ECC                         ; FALSE           ; Untyped                                           ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE           ; Untyped                                           ;
+; WIDTH_ECCSTATUS                    ; 3               ; Signed Integer                                    ;
+; DEVICE_FAMILY                      ; Cyclone IV E    ; Untyped                                           ;
+; CBXI_PARAMETER                     ; altsyncram_77o3 ; Untyped                                           ;
++------------------------------------+-----------------+---------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
 +-------------------------------------------------------------------------------------+
 ; Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_mult:Mult0           ;
 +------------------------------------------------+--------------+---------------------+
@@ -993,7 +1118,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-------------------------------------------+-----------------------------------------------------------------+
 ; Name                                      ; Value                                                           ;
 +-------------------------------------------+-----------------------------------------------------------------+
-; Number of entity instances                ; 1                                                               ;
+; Number of entity instances                ; 2                                                               ;
 ; Entity Instance                           ; ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component ;
 ;     -- OPERATION_MODE                     ; BIDIR_DUAL_PORT                                                 ;
 ;     -- WIDTH_A                            ; 32                                                              ;
@@ -1001,6 +1126,17 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;     -- OUTDATA_REG_A                      ; CLOCK0                                                          ;
 ;     -- WIDTH_B                            ; 32                                                              ;
 ;     -- NUMWORDS_B                         ; 32                                                              ;
+;     -- ADDRESS_REG_B                      ; CLOCK0                                                          ;
+;     -- OUTDATA_REG_B                      ; CLOCK0                                                          ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                                            ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                                                        ;
+; Entity Instance                           ; ram2_rockets:u_ram2_rockets|altsyncram:altsyncram_component     ;
+;     -- OPERATION_MODE                     ; BIDIR_DUAL_PORT                                                 ;
+;     -- WIDTH_A                            ; 256                                                             ;
+;     -- NUMWORDS_A                         ; 64                                                              ;
+;     -- OUTDATA_REG_A                      ; CLOCK0                                                          ;
+;     -- WIDTH_B                            ; 256                                                             ;
+;     -- NUMWORDS_B                         ; 64                                                              ;
 ;     -- ADDRESS_REG_B                      ; CLOCK0                                                          ;
 ;     -- OUTDATA_REG_B                      ; CLOCK0                                                          ;
 ;     -- RAM_BLOCK_TYPE                     ; AUTO                                                            ;
@@ -1046,30 +1182,30 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; boundary_port         ; 12                          ;
 ; cycloneiii_ff         ; 368                         ;
 ;     CLR               ; 21                          ;
-;     ENA               ; 163                         ;
+;     ENA               ; 164                         ;
 ;     ENA CLR           ; 20                          ;
 ;     ENA CLR SCLR      ; 15                          ;
 ;     ENA SCLR          ; 12                          ;
 ;     ENA SCLR SLD      ; 5                           ;
-;     ENA SLD           ; 18                          ;
+;     ENA SLD           ; 19                          ;
 ;     SLD               ; 10                          ;
-;     plain             ; 104                         ;
+;     plain             ; 102                         ;
 ; cycloneiii_io_obuf    ; 1                           ;
-; cycloneiii_lcell_comb ; 881                         ;
-;     arith             ; 285                         ;
-;         2 data inputs ; 171                         ;
+; cycloneiii_lcell_comb ; 1013                        ;
+;     arith             ; 278                         ;
+;         2 data inputs ; 164                         ;
 ;         3 data inputs ; 114                         ;
-;     normal            ; 596                         ;
-;         0 data inputs ; 4                           ;
-;         1 data inputs ; 31                          ;
-;         2 data inputs ; 64                          ;
-;         3 data inputs ; 123                         ;
-;         4 data inputs ; 374                         ;
+;     normal            ; 735                         ;
+;         0 data inputs ; 3                           ;
+;         1 data inputs ; 33                          ;
+;         2 data inputs ; 70                          ;
+;         3 data inputs ; 144                         ;
+;         4 data inputs ; 485                         ;
 ; cycloneiii_pll        ; 1                           ;
-; cycloneiii_ram_block  ; 24                          ;
+; cycloneiii_ram_block  ; 280                         ;
 ;                       ;                             ;
-; Max LUT depth         ; 13.70                       ;
-; Average LUT depth     ; 6.49                        ;
+; Max LUT depth         ; 13.50                       ;
+; Average LUT depth     ; 7.18                        ;
 +-----------------------+-----------------------------+
 
 
@@ -1088,7 +1224,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
-    Info: Processing started: Thu Apr 16 18:03:04 2015
+    Info: Processing started: Fri Apr 17 15:48:42 2015
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off GSensor -c GSensor
 Info (11104): Parallel Compilation has detected 8 hyper-threaded processors. However, the extra hyper-threaded processors will not be used by default. Parallel Compilation will use 4 of the 4 physical processors detected instead.
 Info (12021): Found 2 design units, including 1 entities, in source file vga.vhd
@@ -1115,6 +1251,9 @@ Info (12021): Found 2 design units, including 1 entities, in source file spi_con
 Info (12021): Found 2 design units, including 1 entities, in source file ram1_submarine.vhd
     Info (12022): Found design unit 1: ram1_submarine-SYN
     Info (12023): Found entity 1: ram1_submarine
+Info (12021): Found 2 design units, including 1 entities, in source file ram2_rockets.vhd
+    Info (12022): Found design unit 1: ram2_rockets-SYN
+    Info (12023): Found entity 1: ram2_rockets
 Info (12127): Elaborating entity "Gsensor" for the top level hierarchy
 Info (12128): Elaborating entity "reset_delay" for hierarchy "reset_delay:u_reset_delay"
 Info (12128): Elaborating entity "spipll" for hierarchy "spipll:u_spipll"
@@ -1186,10 +1325,15 @@ Info (12128): Elaborating entity "spi_ee_config" for hierarchy "spi_ee_config:u_
 Warning (10540): VHDL Signal Declaration warning at spi_ee_config.vhd(118): used explicit default value for signal "X" because signal was never assigned a value
 Info (12128): Elaborating entity "spi_controller" for hierarchy "spi_ee_config:u_spi_ee_config|spi_controller:u_spi_controller"
 Info (12128): Elaborating entity "vga" for hierarchy "vga:u_vga"
-Warning (10541): VHDL Signal Declaration warning at vga.vhd(24): used implicit default value for signal "data_b" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
-Warning (10540): VHDL Signal Declaration warning at vga.vhd(55): used explicit default value for signal "top_bound" because signal was never assigned a value
-Warning (10540): VHDL Signal Declaration warning at vga.vhd(56): used explicit default value for signal "bottom_bound" because signal was never assigned a value
-Warning (10543): VHDL Variable Declaration warning at vga.vhd(73): used default initial value for variable "rockets" because variable was never assigned a value or an initial value expression. Use of default initial value may introduce unintended design optimizations.
+Warning (10541): VHDL Signal Declaration warning at vga.vhd(24): used implicit default value for signal "data_b_sub" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
+Warning (10541): VHDL Signal Declaration warning at vga.vhd(35): used implicit default value for signal "data_a_roc" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
+Warning (10540): VHDL Signal Declaration warning at vga.vhd(39): used explicit default value for signal "wr_en_a_roc" because signal was never assigned a value
+Warning (10540): VHDL Signal Declaration warning at vga.vhd(41): used explicit default value for signal "rd_en_a_roc" because signal was never assigned a value
+Warning (10540): VHDL Signal Declaration warning at vga.vhd(69): used explicit default value for signal "top_boat" because signal was never assigned a value
+Warning (10540): VHDL Signal Declaration warning at vga.vhd(70): used explicit default value for signal "bottom_boat" because signal was never assigned a value
+Warning (10036): Verilog HDL or VHDL warning at vga.vhd(87): object "generate_rocket" assigned a value but never read
+Warning (10542): VHDL Variable Declaration warning at vga.vhd(123): used initial value expression for variable "vector_debug" because variable was never assigned a value
+Warning (10034): Output port "address_a_roc" at vga.vhd(37) has no driver
 Info (12128): Elaborating entity "ram1_submarine" for hierarchy "ram1_submarine:u_ram1_submarine"
 Info (12128): Elaborating entity "altsyncram" for hierarchy "ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component"
 Info (12130): Elaborated megafunction instantiation "ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component"
@@ -1247,6 +1391,63 @@ Info (12133): Instantiated megafunction "ram1_submarine:u_ram1_submarine|altsync
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_b3o3.tdf
     Info (12023): Found entity 1: altsyncram_b3o3
 Info (12128): Elaborating entity "altsyncram_b3o3" for hierarchy "ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated"
+Info (12128): Elaborating entity "ram2_rockets" for hierarchy "ram2_rockets:u_ram2_rockets"
+Info (12128): Elaborating entity "altsyncram" for hierarchy "ram2_rockets:u_ram2_rockets|altsyncram:altsyncram_component"
+Info (12130): Elaborated megafunction instantiation "ram2_rockets:u_ram2_rockets|altsyncram:altsyncram_component"
+Info (12133): Instantiated megafunction "ram2_rockets:u_ram2_rockets|altsyncram:altsyncram_component" with the following parameter:
+    Info (12134): Parameter "address_aclr_a" = "UNUSED"
+    Info (12134): Parameter "address_aclr_b" = "NONE"
+    Info (12134): Parameter "address_reg_b" = "CLOCK0"
+    Info (12134): Parameter "byte_size" = "8"
+    Info (12134): Parameter "byteena_aclr_a" = "UNUSED"
+    Info (12134): Parameter "byteena_aclr_b" = "NONE"
+    Info (12134): Parameter "byteena_reg_b" = "CLOCK1"
+    Info (12134): Parameter "clock_enable_core_a" = "USE_INPUT_CLKEN"
+    Info (12134): Parameter "clock_enable_core_b" = "USE_INPUT_CLKEN"
+    Info (12134): Parameter "clock_enable_input_a" = "BYPASS"
+    Info (12134): Parameter "clock_enable_input_b" = "BYPASS"
+    Info (12134): Parameter "clock_enable_output_a" = "BYPASS"
+    Info (12134): Parameter "clock_enable_output_b" = "BYPASS"
+    Info (12134): Parameter "intended_device_family" = "Cyclone IV E"
+    Info (12134): Parameter "ecc_pipeline_stage_enabled" = "FALSE"
+    Info (12134): Parameter "enable_ecc" = "FALSE"
+    Info (12134): Parameter "implement_in_les" = "OFF"
+    Info (12134): Parameter "indata_aclr_a" = "UNUSED"
+    Info (12134): Parameter "indata_aclr_b" = "NONE"
+    Info (12134): Parameter "indata_reg_b" = "CLOCK0"
+    Info (12134): Parameter "init_file" = "UNUSED"
+    Info (12134): Parameter "init_file_layout" = "PORT_A"
+    Info (12134): Parameter "maximum_depth" = "0"
+    Info (12134): Parameter "numwords_a" = "64"
+    Info (12134): Parameter "numwords_b" = "64"
+    Info (12134): Parameter "operation_mode" = "BIDIR_DUAL_PORT"
+    Info (12134): Parameter "outdata_aclr_a" = "NONE"
+    Info (12134): Parameter "outdata_aclr_b" = "NONE"
+    Info (12134): Parameter "outdata_reg_a" = "CLOCK0"
+    Info (12134): Parameter "outdata_reg_b" = "CLOCK0"
+    Info (12134): Parameter "power_up_uninitialized" = "FALSE"
+    Info (12134): Parameter "ram_block_type" = "AUTO"
+    Info (12134): Parameter "rdcontrol_aclr_b" = "NONE"
+    Info (12134): Parameter "rdcontrol_reg_b" = "CLOCK1"
+    Info (12134): Parameter "read_during_write_mode_mixed_ports" = "OLD_DATA"
+    Info (12134): Parameter "read_during_write_mode_port_a" = "OLD_DATA"
+    Info (12134): Parameter "read_during_write_mode_port_b" = "OLD_DATA"
+    Info (12134): Parameter "stratixiv_m144k_allow_dual_clocks" = "ON"
+    Info (12134): Parameter "width_a" = "256"
+    Info (12134): Parameter "width_b" = "256"
+    Info (12134): Parameter "width_byteena_a" = "1"
+    Info (12134): Parameter "width_byteena_b" = "1"
+    Info (12134): Parameter "width_eccstatus" = "3"
+    Info (12134): Parameter "widthad_a" = "6"
+    Info (12134): Parameter "widthad_b" = "6"
+    Info (12134): Parameter "wrcontrol_aclr_a" = "UNUSED"
+    Info (12134): Parameter "wrcontrol_aclr_b" = "NONE"
+    Info (12134): Parameter "wrcontrol_wraddress_reg_b" = "CLOCK0"
+    Info (12134): Parameter "lpm_hint" = "UNUSED"
+    Info (12134): Parameter "lpm_type" = "altsyncram"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_77o3.tdf
+    Info (12023): Found entity 1: altsyncram_77o3
+Info (12128): Elaborating entity "altsyncram_77o3" for hierarchy "ram2_rockets:u_ram2_rockets|altsyncram:altsyncram_component|altsyncram_77o3:auto_generated"
 Warning (14284): Synthesized away the following node(s):
     Warning (14285): Synthesized away the following RAM node(s):
         Warning (14320): Synthesized away node "ram1_submarine:u_ram1_submarine|altsyncram:altsyncram_component|altsyncram_b3o3:auto_generated|q_a[28]"
@@ -1284,21 +1485,22 @@ Info (13000): Registers with preset signals will power-up high
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 24 registers lost all their fanouts during netlist optimizations.
+Info (17036): Removed 2 MSB VCC or GND address nodes from RAM block "ram2_rockets:u_ram2_rockets|altsyncram:altsyncram_component|altsyncram_77o3:auto_generated|ALTSYNCRAM"
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 1 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 1 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "KEY[1]"
-Info (21057): Implemented 1042 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 1429 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 4 input pins
     Info (21059): Implemented 7 output pins
     Info (21060): Implemented 1 bidirectional pins
-    Info (21061): Implemented 1005 logic cells
-    Info (21064): Implemented 24 RAM segments
+    Info (21061): Implemented 1136 logic cells
+    Info (21064): Implemented 280 RAM segments
     Info (21065): Implemented 1 PLLs
-Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 17 warnings
-    Info: Peak virtual memory: 679 megabytes
-    Info: Processing ended: Thu Apr 16 18:03:17 2015
-    Info: Elapsed time: 00:00:13
-    Info: Total CPU time (on all processors): 00:00:28
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 22 warnings
+    Info: Peak virtual memory: 695 megabytes
+    Info: Processing ended: Fri Apr 17 15:48:56 2015
+    Info: Elapsed time: 00:00:14
+    Info: Total CPU time (on all processors): 00:00:29
 
 

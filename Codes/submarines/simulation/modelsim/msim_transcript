@@ -1,94 +1,65 @@
 # Reading E:/Autres/Programmes/Altera/ModelSim/modelsim_ase/tcl/vsim/pref.tcl
-# do GSensor_run_msim_rtl_vhdl.do
-# if {[file exists rtl_work]} {
-# 	vdel -lib rtl_work -all
+# do GSensor_run_msim_gate_vhdl.do
+# if {[file exists gate_work]} {
+# 	vdel -lib gate_work -all
 # }
-# vlib rtl_work
-# vmap work rtl_work
+# vlib gate_work
+# vmap work gate_work
 # Model Technology ModelSim PE vmap 10.3c Lib Mapping Utility 2014.09 Sep 20 2014
-# vmap -modelsim_quiet work rtl_work 
+# vmap -modelsim_quiet work gate_work 
 # Copying E:/Autres/Programmes/Altera/ModelSim/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
 # Modifying modelsim.ini
 # ** Warning: Copied E:/Autres/Programmes/Altera/ModelSim/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini.
 #          Updated modelsim.ini.
 # 
-# vlog -vlog01compat -work work +incdir+C:/Users/Greg/GitHub/FPGA/Codes/submarines/db {C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/spipll_altpll.v}
-# Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
-# Start time: 11:56:20 on Apr 16,2015
-# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Greg/GitHub/FPGA/Codes/submarines/db" C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/spipll_altpll.v 
-# -- Compiling module spipll_altpll
-# 
-# Top level modules:
-# 	spipll_altpll
-# End time: 11:56:21 on Apr 16,2015, Elapsed time: 0:00:01
-# Errors: 0, Warnings: 0
-# vcom -93 -work work {C:/Users/Greg/GitHub/FPGA/Codes/submarines/vga.vhd}
+# vcom -93 -work work {GSensor_6_1200mv_85c_slow.vho}
 # Model Technology ModelSim ALTERA vcom 10.3c Compiler 2014.09 Sep 20 2014
-# Start time: 11:56:21 on Apr 16,2015
-# vcom -reportprogress 300 -93 -work work C:/Users/Greg/GitHub/FPGA/Codes/submarines/vga.vhd 
+# Start time: 14:50:08 on Apr 17,2015
+# vcom -reportprogress 300 -93 -work work GSensor_6_1200mv_85c_slow.vho 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
-# -- Loading package std_logic_arith
-# -- Loading package STD_LOGIC_UNSIGNED
-# -- Loading package NUMERIC_STD
-# -- Compiling entity vga
-# -- Compiling architecture vga_arch of vga
-# ** Error: C:/Users/Greg/GitHub/FPGA/Codes/submarines/vga.vhd(251): Prefix of indexed name cannot be a type conversion (STD_LOGIC_VECTOR) expression.
-# ** Error: C:/Users/Greg/GitHub/FPGA/Codes/submarines/vga.vhd(515): VHDL Compiler exiting
-# End time: 11:56:22 on Apr 16,2015, Elapsed time: 0:00:01
-# Errors: 2, Warnings: 0
-# ** Error: E:/Autres/Programmes/Altera/ModelSim/modelsim_ase/win32aloem/vcom failed.
-# Error in macro ./GSensor_run_msim_rtl_vhdl.do line 9
-# E:/Autres/Programmes/Altera/ModelSim/modelsim_ase/win32aloem/vcom failed.
-#     while executing
-# "vcom -93 -work work {C:/Users/Greg/GitHub/FPGA/Codes/submarines/vga.vhd}"
-vsim work.vga
-# vsim -gui "+altera" -l msim_transcript -do "GSensor_run_msim_rtl_vhdl.do" 
-# Start time: 11:56:25 on Apr 16,2015
-# Loading std.standard
-# ** Error: (vsim-3173) Entity 'C:/Users/Greg/GitHub/FPGA/Codes/submarines/simulation/modelsim/rtl_work.vga' has no architecture.
+# -- Loading package VITAL_Timing
+# -- Loading package VITAL_Primitives
+# -- Loading package dffeas_pack
+# -- Loading package altera_primitives_components
+# -- Loading package cycloneive_atom_pack
+# -- Loading package cycloneive_components
+# -- Compiling entity gsensor
+# -- Compiling architecture structure of gsensor
+# End time: 14:50:10 on Apr 17,2015, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
 # 
-# Error loading design
-vsim work.vga
-# vsim 
-# Start time: 11:56:28 on Apr 16,2015
+vsim work.gsensor
+# vsim -gui "+altera" -l msim_transcript -do "GSensor_run_msim_gate_vhdl.do" 
+# Start time: 14:50:13 on Apr 17,2015
 # Loading std.standard
-# ** Error: (vsim-3173) Entity 'C:/Users/Greg/GitHub/FPGA/Codes/submarines/simulation/modelsim/rtl_work.vga' has no architecture.
-# 
-# Error loading design
-vsim work.vga
-# vsim 
-# Start time: 11:56:30 on Apr 16,2015
-# Loading std.standard
-# ** Error: (vsim-3173) Entity 'C:/Users/Greg/GitHub/FPGA/Codes/submarines/simulation/modelsim/rtl_work.vga' has no architecture.
-# 
-# Error loading design
-vsim work.vga
-# vsim 
-# Start time: 11:56:30 on Apr 16,2015
-# Loading std.standard
-# ** Error: (vsim-3173) Entity 'C:/Users/Greg/GitHub/FPGA/Codes/submarines/simulation/modelsim/rtl_work.vga' has no architecture.
-# 
-# Error loading design
-vsim work.vga
-# vsim 
-# Start time: 11:56:31 on Apr 16,2015
-# Loading std.standard
-# ** Error: (vsim-3173) Entity 'C:/Users/Greg/GitHub/FPGA/Codes/submarines/simulation/modelsim/rtl_work.vga' has no architecture.
-# 
-# Error loading design
-vsim work.vga
-# vsim 
-# Start time: 11:56:31 on Apr 16,2015
-# Loading std.standard
-# ** Error: (vsim-3173) Entity 'C:/Users/Greg/GitHub/FPGA/Codes/submarines/simulation/modelsim/rtl_work.vga' has no architecture.
-# 
-# Error loading design
-vsim work.vga
-# vsim 
-# Start time: 11:56:31 on Apr 16,2015
-# Loading std.standard
-# ** Error: (vsim-3173) Entity 'C:/Users/Greg/GitHub/FPGA/Codes/submarines/simulation/modelsim/rtl_work.vga' has no architecture.
-# 
-# Error loading design
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.vital_timing(body)
+# Loading ieee.vital_primitives(body)
+# Loading altera.dffeas_pack
+# Loading altera.altera_primitives_components
+# Loading cycloneive.cycloneive_atom_pack(body)
+# Loading cycloneive.cycloneive_components
+# Loading work.gsensor(structure)
+# Loading ieee.std_logic_arith(body)
+# Loading cycloneive.cycloneive_io_obuf(arch)
+# Loading cycloneive.cycloneive_io_ibuf(arch)
+# Loading cycloneive.cycloneive_clkctrl(vital_clkctrl)
+# Loading cycloneive.cycloneive_ena_reg(behave)
+# Loading cycloneive.cycloneive_lcell_comb(vital_lcell_comb)
+# Loading altera.dffeas(vital_dffeas)
+# Loading cycloneive.cycloneive_pllpack(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading cycloneive.cycloneive_pll(vital_pll)
+# Loading cycloneive.cycloneive_mn_cntr(behave)
+# Loading cycloneive.cycloneive_scale_cntr(behave)
+# Loading cycloneive.cycloneive_ram_block(block_arch)
+# Loading cycloneive.cycloneive_ram_register(reg_arch)
+# Loading cycloneive.cycloneive_ram_pulse_generator(pgen_arch)
+# ** Warning: Design size of 504716 statements exceeds ModelSim Altera Starter recommended capacity.
+# Expect performance to be adversely affected.
+add wave -position end  sim:/gsensor/CLOCK_50
+# End time: 14:51:37 on Apr 17,2015, Elapsed time: 0:01:24
+# Errors: 0, Warnings: 1

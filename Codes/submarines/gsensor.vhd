@@ -45,17 +45,29 @@ architecture synth of gsensor is
    SIGNAL G_SENSOR_CS_N_xhdl2      :  std_logic;   
    SIGNAL I2C_SCLK_xhdl3           :  std_logic;   
 
-	-- SIGNALS FOR RAM_SUBMARINES (RAM2)
-	SIGNAL wire_data_a			: STD_LOGIC_VECTOR (31 DOWNTO 0);
-	SIGNAL wire_data_b			: STD_LOGIC_VECTOR (31 DOWNTO 0);
-	SIGNAL wire_address_a		: STD_LOGIC_VECTOR (4 DOWNTO 0);
-	SIGNAL wire_address_b		: STD_LOGIC_VECTOR (4 DOWNTO 0);
-	SIGNAL wire_wr_en_a			: STD_LOGIC;
-	SIGNAL wire_wr_en_b			: STD_LOGIC;
-	SIGNAL wire_rd_en_a			: STD_LOGIC;
-	SIGNAL wire_rd_en_b			: STD_LOGIC;
-	SIGNAL wire_q_a				: STD_LOGIC_VECTOR (31 DOWNTO 0);
-	SIGNAL wire_q_b				: STD_LOGIC_VECTOR (31 DOWNTO 0);
+	-- SIGNALS FOR RAM_SUBMARINES (RAM1)
+	SIGNAL wire_data_a_sub			: STD_LOGIC_VECTOR (31 DOWNTO 0);
+	SIGNAL wire_data_b_sub			: STD_LOGIC_VECTOR (31 DOWNTO 0);
+	SIGNAL wire_address_a_sub		: STD_LOGIC_VECTOR (4 DOWNTO 0);
+	SIGNAL wire_address_b_sub		: STD_LOGIC_VECTOR (4 DOWNTO 0);
+	SIGNAL wire_wr_en_a_sub			: STD_LOGIC;
+	SIGNAL wire_wr_en_b_sub			: STD_LOGIC;
+	SIGNAL wire_rd_en_a_sub			: STD_LOGIC;
+	SIGNAL wire_rd_en_b_sub			: STD_LOGIC;
+	SIGNAL wire_q_a_sub				: STD_LOGIC_VECTOR (31 DOWNTO 0);
+	SIGNAL wire_q_b_sub				: STD_LOGIC_VECTOR (31 DOWNTO 0);
+	
+	-- SIGNALS FOR RAM_ROCKETS (RAM2)
+	SIGNAL wire_data_a_roc			: STD_LOGIC_VECTOR (255 DOWNTO 0);
+	SIGNAL wire_data_b_roc			: STD_LOGIC_VECTOR (255 DOWNTO 0);
+	SIGNAL wire_address_a_roc		: STD_LOGIC_VECTOR (5 DOWNTO 0);
+	SIGNAL wire_address_b_roc		: STD_LOGIC_VECTOR (5 DOWNTO 0);
+	SIGNAL wire_wr_en_a_roc			: STD_LOGIC;
+	SIGNAL wire_wr_en_b_roc			: STD_LOGIC;
+	SIGNAL wire_rd_en_a_roc			: STD_LOGIC;
+	SIGNAL wire_rd_en_b_roc			: STD_LOGIC;
+	SIGNAL wire_q_a_roc				: STD_LOGIC_VECTOR (255 DOWNTO 0);
+	SIGNAL wire_q_b_roc				: STD_LOGIC_VECTOR (255 DOWNTO 0);
 	
 BEGIN
    --LED <= LED_xhdl1;
@@ -104,32 +116,58 @@ BEGIN
 			out_h_sync	=> out_h_sync,
 			out_v_sync	=> out_v_sync,
 			
-			-- FOR THE RAM
-			data_a		=> wire_data_a,
-			data_b		=> wire_data_b,
-			address_a	=> wire_address_a,
-			address_b	=> wire_address_b,
-			wr_en_a		=> wire_wr_en_a,
-			wr_en_b		=> wire_wr_en_b,
-			rd_en_a		=> wire_rd_en_a,
-			rd_en_b		=> wire_rd_en_b,
-			q_a				=> wire_q_a,
-			q_b				=> wire_q_b);
+			-- FOR THE SUBMARINE RAM
+			data_a_sub		=> wire_data_a_sub,
+			data_b_sub		=> wire_data_b_sub,
+			address_a_sub	=> wire_address_a_sub,
+			address_b_sub	=> wire_address_b_sub,
+			wr_en_a_sub		=> wire_wr_en_a_sub,
+			wr_en_b_sub		=> wire_wr_en_b_sub,
+			rd_en_a_sub		=> wire_rd_en_a_sub,
+			rd_en_b_sub		=> wire_rd_en_b_sub,
+			q_a_sub				=> wire_q_a_sub,
+			q_b_sub				=> wire_q_b_sub,
+			
+			-- FOR THE ROCKETS RAM
+			data_a_roc		=> wire_data_a_roc,
+			data_b_roc		=> wire_data_b_roc,
+			address_a_roc	=> wire_address_a_roc,
+			address_b_roc	=> wire_address_b_roc,
+			wr_en_a_roc		=> wire_wr_en_a_roc,
+			wr_en_b_roc		=> wire_wr_en_b_roc,
+			rd_en_a_roc		=> wire_rd_en_a_roc,
+			rd_en_b_roc		=> wire_rd_en_b_roc,
+			q_a_roc				=> wire_q_a_roc,
+			q_b_roc				=> wire_q_b_roc);
 			
 	u_ram1_submarine : entity work.ram1_submarine
 	PORT MAP(
-		clock				=> CLOCK_50,
-		data_a			=> wire_data_a,
-		data_b			=> wire_data_b,
-		address_a		=> wire_address_a,
-		address_b		=> wire_address_b,
-		wren_a			=> wire_wr_en_a,
-		wren_b			=> wire_wr_en_b,
-		rden_a			=> wire_rd_en_a,
-		rden_b			=> wire_rd_en_b,
-		q_a				=> wire_q_a,
-		q_b				=> wire_q_b
-	);
+		clock			=> CLOCK_50,		
+		data_a		=> wire_data_a_sub,
+		data_b		=> wire_data_b_sub,
+		address_a	=> wire_address_a_sub,
+		address_b	=> wire_address_b_sub,
+		wren_a		=> wire_wr_en_a_sub,
+		wren_b		=> wire_wr_en_b_sub,
+		rden_a		=> wire_rd_en_a_sub,
+		rden_b		=> wire_rd_en_b_sub,
+		q_a			=> wire_q_a_sub,
+		q_b			=> wire_q_b_sub);
+	
+	u_ram2_rockets : entity work.ram2_rockets
+	PORT MAP
+	(
+		clock			=> CLOCK_50,
+		data_a		=> wire_data_a_roc,
+		data_b		=> wire_data_b_roc,
+		address_a	=> wire_address_a_roc,
+		address_b	=> wire_address_b_roc,
+		wren_a		=> wire_wr_en_a_roc,
+		wren_b		=> wire_wr_en_b_roc,
+		rden_a		=> wire_rd_en_a_roc,
+		rden_b		=> wire_rd_en_b_roc,
+		q_a			=> wire_q_a_roc,
+		q_b			=> wire_q_b_roc);
 	
 	
 end synth;

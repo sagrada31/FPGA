@@ -12,5 +12,6 @@ vcom -93 -work work {C:/Users/Greg/GitHub/FPGA/Codes/submarines/spipll.vhd}
 vcom -93 -work work {C:/Users/Greg/GitHub/FPGA/Codes/submarines/spi_ee_config.vhd}
 vcom -93 -work work {C:/Users/Greg/GitHub/FPGA/Codes/submarines/spi_controller.vhd}
 vcom -93 -work work {C:/Users/Greg/GitHub/FPGA/Codes/submarines/ram1_submarine.vhd}
+vcom -93 -work work {C:/Users/Greg/GitHub/FPGA/Codes/submarines/ram2_rockets.vhd}
 vcom -93 -work work {C:/Users/Greg/GitHub/FPGA/Codes/submarines/gsensor.vhd}
 
