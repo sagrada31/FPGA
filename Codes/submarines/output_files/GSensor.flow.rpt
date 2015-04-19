@@ -1,5 +1,5 @@
 Flow report for GSensor
-Fri Apr 17 15:49:19 2015
+Sun Apr 19 10:43:21 2015
 Quartus II 64-Bit Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
 
 
@@ -41,20 +41,20 @@ agreement for further details.
 +---------------------------------------------------------------------------------+
 ; Flow Summary                                                                    ;
 +------------------------------------+--------------------------------------------+
-; Flow Status                        ; Successful - Fri Apr 17 15:49:19 2015      ;
+; Flow Status                        ; Successful - Sun Apr 19 10:43:21 2015      ;
 ; Quartus II 64-Bit Version          ; 14.1.0 Build 186 12/03/2014 SJ Web Edition ;
 ; Revision Name                      ; GSensor                                    ;
 ; Top-level Entity Name              ; gsensor                                    ;
 ; Family                             ; Cyclone IV E                               ;
 ; Device                             ; EP4CE22F17C6                               ;
 ; Timing Models                      ; Final                                      ;
-; Total logic elements               ; 1,038 / 22,320 ( 5 % )                     ;
-;     Total combinational functions  ; 1,013 / 22,320 ( 5 % )                     ;
-;     Dedicated logic registers      ; 363 / 22,320 ( 2 % )                       ;
-; Total registers                    ; 368                                        ;
+; Total logic elements               ; 2,622 / 22,320 ( 12 % )                    ;
+;     Total combinational functions  ; 2,601 / 22,320 ( 12 % )                    ;
+;     Dedicated logic registers      ; 1,462 / 22,320 ( 7 % )                     ;
+; Total registers                    ; 1462                                       ;
 ; Total pins                         ; 12 / 154 ( 8 % )                           ;
 ; Total virtual pins                 ; 0                                          ;
-; Total memory bits                  ; 4,864 / 608,256 ( < 1 % )                  ;
+; Total memory bits                  ; 17,152 / 608,256 ( 3 % )                   ;
 ; Embedded Multiplier 9-bit elements ; 0 / 132 ( 0 % )                            ;
 ; Total PLLs                         ; 1 / 4 ( 25 % )                             ;
 +------------------------------------+--------------------------------------------+
@@ -65,38 +65,44 @@ agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/17/2015 15:48:42 ;
+; Start date & time ; 04/19/2015 10:42:05 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; GSensor             ;
 +-------------------+---------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                           ;
-+-------------------------------------+---------------------------------------+---------------+-------------+----------------+
-; Assignment Name                     ; Value                                 ; Default Value ; Entity Name ; Section Id     ;
-+-------------------------------------+---------------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 622601447238.142927852204444          ; --            ; --          ; --             ;
-; EDA_OUTPUT_DATA_FORMAT              ; Vhdl                                  ; --            ; --          ; eda_simulation ;
-; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (VHDL)                ; <None>        ; --          ; --             ;
-; ENABLE_SIGNALTAP                    ; On                                    ; --            ; --          ; --             ;
-; MAX_CORE_JUNCTION_TEMP              ; 85                                    ; --            ; --          ; --             ;
-; MIN_CORE_JUNCTION_TEMP              ; 0                                     ; --            ; --          ; --             ;
-; MISC_FILE                           ; ram1_submarine.cmp                    ; --            ; --          ; --             ;
-; MISC_FILE                           ; ram2_rockets.cmp                      ; --            ; --          ; --             ;
-; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                     ; --            ; --          ; --             ;
-; OUTPUT_IO_TIMING_FAR_END_VMEAS      ; Half Signal Swing                     ; --            ; --          ; --             ;
-; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                            ; --            ; --          ; --             ;
-; OUTPUT_IO_TIMING_NEAR_END_VMEAS     ; Half Vccio                            ; --            ; --          ; --             ;
-; PARTITION_COLOR                     ; 16764057                              ; --            ; Gsensor     ; Top            ;
-; PARTITION_FITTER_PRESERVATION_LEVEL ; PLACEMENT_AND_ROUTING                 ; --            ; Gsensor     ; Top            ;
-; PARTITION_NETLIST_TYPE              ; SOURCE                                ; --            ; Gsensor     ; Top            ;
-; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                   ; --            ; --          ; --             ;
-; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW ; --            ; --          ; --             ;
-; PROJECT_OUTPUT_DIRECTORY            ; output_files                          ; --            ; --          ; --             ;
-; SLD_FILE                            ; db/SignalTap_auto_stripped.stp        ; --            ; --          ; --             ;
-; USE_SIGNALTAP_FILE                  ; SignalTap.stp                         ; --            ; --          ; --             ;
-+-------------------------------------+---------------------------------------+---------------+-------------+----------------+
++-----------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                            ;
++--------------------------------------+---------------------------------------+---------------+-------------+----------------+
+; Assignment Name                      ; Value                                 ; Default Value ; Entity Name ; Section Id     ;
++--------------------------------------+---------------------------------------+---------------+-------------+----------------+
+; COMPILER_SIGNATURE_ID                ; 128527081962895.142943292505968       ; --            ; --          ; --             ;
+; EDA_DESIGN_INSTANCE_NAME             ; NA                                    ; --            ; --          ; test_vga       ;
+; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; test_vga                              ; --            ; --          ; eda_simulation ;
+; EDA_OUTPUT_DATA_FORMAT               ; Vhdl                                  ; --            ; --          ; eda_simulation ;
+; EDA_SIMULATION_TOOL                  ; ModelSim-Altera (VHDL)                ; <None>        ; --          ; --             ;
+; EDA_TEST_BENCH_ENABLE_STATUS         ; NOT_USED                              ; --            ; --          ; eda_simulation ;
+; EDA_TEST_BENCH_FILE                  ; test_vga.vhd                          ; --            ; --          ; test_vga       ;
+; EDA_TEST_BENCH_MODULE_NAME           ; test_vga                              ; --            ; --          ; test_vga       ;
+; EDA_TEST_BENCH_NAME                  ; test_vga                              ; --            ; --          ; eda_simulation ;
+; ENABLE_SIGNALTAP                     ; On                                    ; --            ; --          ; --             ;
+; MAX_CORE_JUNCTION_TEMP               ; 85                                    ; --            ; --          ; --             ;
+; MIN_CORE_JUNCTION_TEMP               ; 0                                     ; --            ; --          ; --             ;
+; MISC_FILE                            ; ram1_submarine.cmp                    ; --            ; --          ; --             ;
+; MISC_FILE                            ; ram2_rockets.cmp                      ; --            ; --          ; --             ;
+; OUTPUT_IO_TIMING_FAR_END_VMEAS       ; Half Signal Swing                     ; --            ; --          ; --             ;
+; OUTPUT_IO_TIMING_FAR_END_VMEAS       ; Half Signal Swing                     ; --            ; --          ; --             ;
+; OUTPUT_IO_TIMING_NEAR_END_VMEAS      ; Half Vccio                            ; --            ; --          ; --             ;
+; OUTPUT_IO_TIMING_NEAR_END_VMEAS      ; Half Vccio                            ; --            ; --          ; --             ;
+; PARTITION_COLOR                      ; 16764057                              ; --            ; Gsensor     ; Top            ;
+; PARTITION_FITTER_PRESERVATION_LEVEL  ; PLACEMENT_AND_ROUTING                 ; --            ; Gsensor     ; Top            ;
+; PARTITION_NETLIST_TYPE               ; SOURCE                                ; --            ; Gsensor     ; Top            ;
+; POWER_BOARD_THERMAL_MODEL            ; None (CONSERVATIVE)                   ; --            ; --          ; --             ;
+; POWER_PRESET_COOLING_SOLUTION        ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW ; --            ; --          ; --             ;
+; PROJECT_OUTPUT_DIRECTORY             ; output_files                          ; --            ; --          ; --             ;
+; SLD_FILE                             ; db/SignalTap_auto_stripped.stp        ; --            ; --          ; --             ;
+; USE_SIGNALTAP_FILE                   ; SignalTap.stp                         ; --            ; --          ; --             ;
++--------------------------------------+---------------------------------------+---------------+-------------+----------------+
 
 
 +-------------------------------------------------------------------------------------------------------------------------------+
@@ -104,12 +110,12 @@ agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:13     ; 1.0                     ; 695 MB              ; 00:00:29                           ;
-; Fitter                    ; 00:00:08     ; 1.8                     ; 1361 MB             ; 00:00:10                           ;
-; Assembler                 ; 00:00:01     ; 1.0                     ; 561 MB              ; 00:00:01                           ;
-; TimeQuest Timing Analyzer ; 00:00:03     ; 2.0                     ; 675 MB              ; 00:00:03                           ;
-; EDA Netlist Writer        ; 00:00:02     ; 1.0                     ; 547 MB              ; 00:00:02                           ;
-; Total                     ; 00:00:27     ; --                      ; --                  ; 00:00:45                           ;
+; Analysis & Synthesis      ; 00:00:31     ; 1.0                     ; 712 MB              ; 00:00:55                           ;
+; Fitter                    ; 00:00:23     ; 1.0                     ; 945 MB              ; 00:00:23                           ;
+; Assembler                 ; 00:00:02     ; 1.0                     ; 570 MB              ; 00:00:02                           ;
+; TimeQuest Timing Analyzer ; 00:00:06     ; 1.0                     ; 662 MB              ; 00:00:05                           ;
+; EDA Netlist Writer        ; 00:00:05     ; 1.0                     ; 556 MB              ; 00:00:05                           ;
+; Total                     ; 00:01:07     ; --                      ; --                  ; 00:01:30                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -118,11 +124,11 @@ agreement for further details.
 +---------------------------+------------------+-----------+------------+----------------+
 ; Module Name               ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
 +---------------------------+------------------+-----------+------------+----------------+
-; Analysis & Synthesis      ; Greg-PC          ; Windows 7 ; 6.1        ; x86_64         ;
-; Fitter                    ; Greg-PC          ; Windows 7 ; 6.1        ; x86_64         ;
-; Assembler                 ; Greg-PC          ; Windows 7 ; 6.1        ; x86_64         ;
-; TimeQuest Timing Analyzer ; Greg-PC          ; Windows 7 ; 6.1        ; x86_64         ;
-; EDA Netlist Writer        ; Greg-PC          ; Windows 7 ; 6.1        ; x86_64         ;
+; Analysis & Synthesis      ; Florent-PC       ; Windows 7 ; 6.1        ; x86_64         ;
+; Fitter                    ; Florent-PC       ; Windows 7 ; 6.1        ; x86_64         ;
+; Assembler                 ; Florent-PC       ; Windows 7 ; 6.1        ; x86_64         ;
+; TimeQuest Timing Analyzer ; Florent-PC       ; Windows 7 ; 6.1        ; x86_64         ;
+; EDA Netlist Writer        ; Florent-PC       ; Windows 7 ; 6.1        ; x86_64         ;
 +---------------------------+------------------+-----------+------------+----------------+
 
 

@@ -15,3 +15,11 @@ vcom -93 -work work {C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/ram
 vcom -93 -work work {C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/ram2_rockets.vhd}
 vcom -93 -work work {C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/gsensor.vhd}
 
+vcom -93 -work work {C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/test_vga.vhd}
+
+vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cycloneive -L rtl_work -L work -voptargs="+acc"  test_vga
+
+add wave *
+view structure
+view signals
+run -all
