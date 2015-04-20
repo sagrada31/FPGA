@@ -1,5 +1,5 @@
 Assembler report for GSensor
-Fri Apr 17 15:49:10 2015
+Mon Apr 20 17:51:20 2015
 Quartus II 64-Bit Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
 
 
@@ -38,7 +38,7 @@ agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Fri Apr 17 15:49:10 2015 ;
+; Assembler Status      ; Successful - Mon Apr 20 17:51:20 2015 ;
 ; Revision Name         ; GSensor                               ;
 ; Top-level Entity Name ; gsensor                               ;
 ; Family                ; Cyclone IV E                          ;
@@ -68,8 +68,8 @@ agreement for further details.
 ; Option         ; Setting                                                                      ;
 +----------------+------------------------------------------------------------------------------+
 ; Device         ; EP4CE22F17C6                                                                 ;
-; JTAG usercode  ; 0x001D2F95                                                                   ;
-; Checksum       ; 0x001D2F95                                                                   ;
+; JTAG usercode  ; 0x001ABAEE                                                                   ;
+; Checksum       ; 0x001ABAEE                                                                   ;
 +----------------+------------------------------------------------------------------------------+
 
 
@@ -79,14 +79,14 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Assembler
     Info: Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
-    Info: Processing started: Fri Apr 17 15:49:09 2015
+    Info: Processing started: Mon Apr 20 17:51:18 2015
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off GSensor -c GSensor
 Info (115031): Writing out detailed assembly data for power analysis
 Info (115030): Assembler is generating device programming files
 Info: Quartus II 64-Bit Assembler was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 561 megabytes
-    Info: Processing ended: Fri Apr 17 15:49:10 2015
-    Info: Elapsed time: 00:00:01
+    Info: Peak virtual memory: 558 megabytes
+    Info: Processing ended: Mon Apr 20 17:51:20 2015
+    Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:01
 
 
