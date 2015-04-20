@@ -17,7 +17,7 @@
 -- PROGRAM "Quartus II 64-Bit"
 -- VERSION "Version 14.1.0 Build 186 12/03/2014 SJ Web Edition"
 
--- DATE "04/20/2015 17:51:27"
+-- DATE "04/20/2015 19:31:26"
 
 -- 
 -- Device: Altera EP4CE22F17C6 Package FBGA256
@@ -39,14 +39,14 @@ ENTITY 	gsensor IS
 	CLOCK_50 : IN std_logic;
 	KEY : IN std_logic_vector(1 DOWNTO 0);
 	G_SENSOR_INT : IN std_logic;
-	I2C_SDAT : INOUT std_logic;
-	I2C_SCLK : OUT std_logic;
-	G_SENSOR_CS_N : OUT std_logic;
-	out_red : OUT std_logic;
-	out_green : OUT std_logic;
-	out_blue : OUT std_logic;
-	out_h_sync : OUT std_logic;
-	out_v_sync : OUT std_logic
+	I2C_SDAT : BUFFER std_logic;
+	I2C_SCLK : BUFFER std_logic;
+	G_SENSOR_CS_N : BUFFER std_logic;
+	out_red : BUFFER std_logic;
+	out_green : BUFFER std_logic;
+	out_blue : BUFFER std_logic;
+	out_h_sync : BUFFER std_logic;
+	out_v_sync : BUFFER std_logic
 	);
 END gsensor;
 
@@ -78,6 +78,7 @@ SIGNAL ww_devpor : std_logic;
 SIGNAL ww_CLOCK_50 : std_logic;
 SIGNAL ww_KEY : std_logic_vector(1 DOWNTO 0);
 SIGNAL ww_G_SENSOR_INT : std_logic;
+SIGNAL ww_I2C_SDAT : std_logic;
 SIGNAL ww_I2C_SCLK : std_logic;
 SIGNAL ww_G_SENSOR_CS_N : std_logic;
 SIGNAL ww_out_red : std_logic;
@@ -1206,6 +1207,7 @@ BEGIN
 ww_CLOCK_50 <= CLOCK_50;
 ww_KEY <= KEY;
 ww_G_SENSOR_INT <= G_SENSOR_INT;
+I2C_SDAT <= ww_I2C_SDAT;
 I2C_SCLK <= ww_I2C_SCLK;
 G_SENSOR_CS_N <= ww_G_SENSOR_CS_N;
 out_red <= ww_out_red;
@@ -1368,7 +1370,7 @@ PORT MAP (
 	i => \u_spi_ee_config|u_spi_controller|Mux0~8_combout\,
 	oe => \u_spi_ee_config|u_spi_controller|temp_xhdl7~0_combout\,
 	devoe => ww_devoe,
-	o => I2C_SDAT);
+	o => ww_I2C_SDAT);
 
 -- Location: IOIBUF_X27_Y0_N22
 \CLOCK_50~input\ : cycloneive_io_ibuf
@@ -2272,7 +2274,7 @@ GENERIC MAP (
 	simulate_z_as => "z")
 -- pragma translate_on
 PORT MAP (
-	i => I2C_SDAT,
+	i => ww_I2C_SDAT,
 	o => \I2C_SDAT~input_o\);
 
 -- Location: LCCOMB_X17_Y16_N6
