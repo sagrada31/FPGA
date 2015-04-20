@@ -71,8 +71,7 @@ architecture vga_arch of vga is
 	shared variable old_magn_g_y	: std_logic_vector(8 downto 0); -- variable à la place de signal pour mise à jour immédiate
 	shared variable tmp_magn_g_y	: std_logic_vector(10 downto 0); -- variable à la place de signal pour mise à jour immédiate
 	
-	shared variable submarines 	: std_logic_vector(49 downto 0) := (others => '0');  -- 1 bit for signaling if there is a boat, 1 bit for signaling its direction and 10 bits for its position
-	shared variable debug2 			: std_logic_vector(49 downto 0) := (others => '0');
+	shared variable submarines : std_logic_vector(49 downto 0) := (others => '0');  -- 1 bit for signaling if there is a boat, 1 bit for signaling its direction and 10 bits for its position
 	--shared variable submarines : Submarine_tab;
 	shared variable submarines_debug : std_logic_vector(50 downto 0) := (others => '0');
 	
@@ -86,23 +85,10 @@ architecture vga_arch of vga is
 	shared variable cycle_cnt				: integer range 0 to 100 := 0;
 	
 	shared variable current_submarine 	: integer range 0 to 49 := 0;
-<<<<<<< HEAD
 	shared variable read_sub	 			: std_logic := '1';
 	shared variable data_sub				: std_logic_vector (15 downto 0);
 	shared variable data_sub_disp			: std_logic_vector (15 downto 0);
 	shared variable tmp_address			: integer;
-=======
-	--shared variable first_part 			: std_logic := '1';
-	signal first_part 			: std_logic := '1';
-	shared variable first_data_sub 		: std_logic_vector (15 downto 0) := (others => '0');
-	shared variable second_data_sub 		: std_logic_vector (15 downto 0) := (others => '0');
-	shared variable tmp_read_data_sub	: std_logic_vector (31 downto 0) := (others => '0');
-	shared variable address_tmp			: std_logic_vector (5 downto 0)  := (others => '0');
-	
-	shared variable first_data_roc 		: std_logic_vector (127 downto 0) := (others => '0');
-	shared variable second_data_roc 		: std_logic_vector (127 downto 0) := (others => '0');
-	shared variable tmp_read_data_roc	: std_logic_vector (255	downto 0) := (others => '0');
->>>>>>> origin/master
 	
 	shared variable current_rocket		: integer range 0 to 74 := 0;
 	shared variable read_roc	 			: std_logic := '1';
@@ -119,19 +105,6 @@ architecture vga_arch of vga is
 	shared variable current_line	: integer range 0 to 615 := 199;
 	shared variable current_rocket_line		: integer range -1 to 615 := 0;
 	
-<<<<<<< HEAD
-=======
-	--shared variable ask_read					: std_logic := '0';
-	signal ask_read					: std_logic := '0';
-
-	shared variable first_row_sub 			: std_logic_vector (15 downto 0) := (others => '0');
-	shared variable second_row_sub 			: std_logic_vector (15 downto 0) := (others => '0');
-	shared variable first_row_roc 			: std_logic_vector (127 downto 0):= (others => '0');
-	shared variable second_row_roc 			: std_logic_vector (127 downto 0):= (others => '0');
-	
-	shared variable ask_read_debug			: std_logic := '0';
-	shared variable vector_debug				: std_logic_vector(215 downto 0) := (others => '1');
->>>>>>> origin/master
 begin
 
 	update_elements_position : process(CLOCK_50)
@@ -145,15 +118,6 @@ begin
 				generate_subarine := '0';
 				generate_rocket := '0';
 				current_submarine := 0;
-<<<<<<< HEAD
-=======
-				address_a_sub <= "00000";
-				rd_en_a_sub <= '1';
-				wr_en_a_sub <= '0';
-				address_a_roc <= std_logic_vector(to_unsigned(200/16 , 6)) - 1;
-				rd_en_a_roc <= '1';
-				wr_en_a_roc <= '0';
->>>>>>> origin/master
 				
 				if(cycle_cnt = 100) then
 					cycle_cnt := 0;
@@ -161,7 +125,6 @@ begin
 					cycle_cnt := cycle_cnt + 1;
 				end if;
 								
-<<<<<<< HEAD
 			elsif(v_sync = '1') then
 				
 				-- Update submarines position	
@@ -187,37 +150,11 @@ begin
 									data_sub(10) := not data_sub(10);	-- reverse direction
 								else
 									data_sub(15 downto 0) := data_sub(15 downto 0) + 1; -- go to right
-=======
-			elsif(v_sync = '0' ) then --and (cycle_cnt = 25 or cycle_cnt = 50 or cycle_cnt = 75 or cycle_cnt = 100)) then
-				-- Update submarines position	
-				if (update_submarines = '1') then
-					if(first_part = '1') then								-- first part
-						
-						if(current_submarine = 0) then
-							first_data_sub(15 downto 0) := q_a_sub(31 downto 16);
-							second_data_sub(15 downto 0) := q_a_sub(15 downto 0);
-							first_data_roc(127 downto 0) := q_a_roc(255 downto 128);
-							second_data_roc(127 downto 0) := q_a_roc(127 downto 0);
-						else
-							first_data_sub(15 downto 0) := tmp_read_data_sub(31 downto 16);
-							second_data_sub(15 downto 0) := tmp_read_data_sub(15 downto 0);
-							first_data_roc(127 downto 0) := tmp_read_data_roc(255 downto 128);
-							second_data_roc(127 downto 0) := tmp_read_data_roc(127 downto 0);
-						end if;
-						
-						if(first_data_sub(11) = '1') then 									-- if there is a submarine on this line
-							if(first_data_sub(10) = '1') then 								-- if it goes to the right
-								if(first_data_sub(9 downto 0) = 760)then					-- if max at right
-									first_data_sub(10) := not first_data_sub(10);		-- reverse direction
-								else
-									first_data_sub(15 downto 0) := first_data_sub(15 downto 0) + "0000000000000001";	-- go to right
->>>>>>> origin/master
 								end if;
 							else 													-- if it goes to the left
 								if(data_sub(9 downto 0) = 0)then			-- if max at left
 									data_sub(10) := not data_sub(10);	-- reverse direction
 								else
-<<<<<<< HEAD
 									data_sub(15 downto 0) := data_sub(15 downto 0) - 1;	-- go to left
 								end if;
 							end if;
@@ -245,72 +182,6 @@ begin
 						else
 							current_submarine := current_submarine + 1;
 						end if;
-=======
-									first_data_sub(15 downto 0) := first_data_sub(15 downto 0) - "0000000000000001";	-- go to left
-								end if;
-							end if;
-							if (cycle_cnt = 100) then -- submarines in first part of sub RAM are in second part of rocket RAM
-								--first_data_roc(to_integer(unsigned(first_data_sub(9 downto 0) + 16) srl 3)) := '1';
-						--ici		second_data_roc((to_integer(unsigned(first_data_sub(9 downto 0))) + 16) / 8) := '1';
-								second_data_roc(current_submarine) := '1';
-							end if;
-						end if;
-						-- prepare to load the next line from memory 
-						--address_tmp := std_logic_vector(to_unsigned((current_submarine + 2),6)); 
-						--address_a_sub <= address_tmp(5 downto 1) ; 	
-						address_a_sub <= std_logic_vector(to_unsigned((current_submarine+2)/2,5)); 	
-						rd_en_a_sub <= '1';
-						wr_en_a_sub <= '0';
-						
-						--if(current_submarine mod 2 = 0) then always car en first part
-							address_a_roc <= std_logic_vector(to_unsigned(((current_submarine*16) + 200)/16 + 1,6));
-						--else
-						--	address_a_roc <= std_logic_vector(to_unsigned((current_submarine + (200/16)),6)) + "000001";
-						--end if;
-						rd_en_a_roc <= '1';
-						wr_en_a_roc <= '0';
-						
-					else																	-- second part
-						tmp_read_data_sub(31 downto 0) := q_a_sub(31 downto 0);
-						tmp_read_data_roc(255 downto 0) := q_a_roc(255 downto 0);
-						if(second_data_sub(11) = '1') then 							-- if there is a submarine on this line
-							if(second_data_sub(10) = '1') then 						-- if it goes to the right
-								if(second_data_sub(9 downto 0) = 760)then			-- if max at right
-									second_data_sub(10) := not second_data_sub(10);	-- reverse direction
-								else
-									second_data_sub(15 downto 0) := second_data_sub(15 downto 0) + "0000000000000001"; -- go to right
-								end if;
-							else 															-- if it goes to the left
-								if(second_data_sub(9 downto 0) = 0)then				-- if max at left
-									second_data_sub(10) := not second_data_sub(10);	-- reverse direction
-								else
-									second_data_sub(15 downto 0) := second_data_sub(15 downto 0) - "0000000000000001";	-- go to left
-								end if;
-							end if;
-							--if (cycle_cnt = 100) then
-								--second_data_roc(to_integer(unsigned(second_data_sub(9 downto 0) + 16) srl 3)) := '1';
-							--ici	first_data_roc((to_integer(unsigned(first_data_sub(9 downto 0))) + 16) / 8) := '1';
-								first_data_roc(current_submarine) := '1';
-							--end if;
-						end if;
-						-- prepare to write the actual line to memory
-						data_a_sub <= first_data_sub & second_data_sub;
-						data_a_roc <= first_data_roc & second_data_roc;
-						--address_tmp := std_logic_vector(to_unsigned(current_submarine,6));
-						--address_a_sub <= address_tmp(5 downto 1); -- To divide by 2
-					 	address_a_sub <= std_logic_vector(to_unsigned(current_submarine/2,5)) - 1;
-						wr_en_a_sub <= '1';
-						rd_en_a_sub <= '0';
-						--if (cycle_cnt = 100) then
---							address_a_roc <= std_logic_vector(to_unsigned(current_submarine/2,6)) + 24;
-						--	address_a_roc <= std_logic_vector(to_unsigned((current_submarine + (200/16)),6));
-							address_a_roc <= std_logic_vector(to_unsigned((((8*current_submarine) + 200) / 16),6));
-							wr_en_a_roc <= '1';
-							rd_en_a_roc <= '0';
-						--end if;
-					end if;
-					first_part <= not first_part;
->>>>>>> origin/master
 					
 					end if;
 
@@ -342,7 +213,6 @@ begin
 						
 						if(nb_submarines < 10) then -- if there is less than 10 submarines, we try to add one
 							  
-<<<<<<< HEAD
 							tmp_random := to_integer(unsigned(magn_g_y(5 downto 0))); -- to take a random number
 							if (tmp_random > 49) then -- 2^6 can be greater than 50
 								tmp_random := tmp_random - 14;
@@ -351,44 +221,6 @@ begin
 							if(submarines(tmp_random) = '0') then -- No submarine in this line => create one
 								if(sign_g_y = '1') then -- to choose the direction
 									data_a_sub <= "000010" & (std_logic_vector(to_unsigned(760,10)));
-=======
-								tmp_random := to_integer(unsigned(magn_g_y(5 downto 0))); -- to take a random number
-								if (tmp_random >= 48) then -- 2^6 can be greater than 50
-									tmp_random := tmp_random - 16;
-								end if;
---								tmp_random := tmp_random + 1;
-								if(tmp_random = old_random or (tmp_random = old_random + 1) or (tmp_random = old_random - 1) ) then
-									ask_read <= '0';
-								elsif(submarines(tmp_random) = '0') then -- No submarine in this line => create one
-									address_tmp := std_logic_vector(to_unsigned(tmp_random,6));
-									address_a_sub <= address_tmp (5 downto 1); -- To divide by 2
-									--address_a_sub <= std_logic_vector(to_unsigned(tmp_random/2,5)); 	
-									rd_en_a_sub <= '1';
-									wr_en_a_sub <= '0';
-									ask_read <= '1';
-									submarines(tmp_random) := '1';
-									old_random := tmp_random;
-								else						 -- There is a submarine
-									ask_read <= '0';
-									old_random := tmp_random;
-								end if;
-							end if;
-							
-						else
-							first_data_sub(15 downto 0) := q_a_sub(31 downto 16);
-							second_data_sub(15 downto 0) := q_a_sub(15 downto 0);
-							
-							if(std_logic_vector(to_unsigned(tmp_random,6))(0) = '0') then
-								if ( sign_g_y = '1') then -- too choose the direction
-									first_data_sub := "000010" & (std_logic_vector(to_unsigned(760,10)));
-								else
-									first_data_sub := "000011" & (std_logic_vector(to_unsigned(0,10)));
-								end if;
-								data_a_sub <= first_data_sub & q_a_sub(15 downto 0);
-							else
-								if ( sign_g_y = '1') then -- too choose the direction
-									second_data_sub := "000010" & (std_logic_vector(to_unsigned(760,10)));
->>>>>>> origin/master
 								else
 									data_a_sub <= "000011" & (std_logic_vector(to_unsigned(0,10)));
 								end if;
@@ -406,16 +238,6 @@ begin
 --								end if;
 								wr_en_a_sub <= '0';
 							end if;
-<<<<<<< HEAD
-=======
-							nb_submarines := nb_submarines +1;
-							data_a_sub <= first_data_sub & second_data_sub;
-							address_a_sub <= address_tmp (5 downto 1);
-							wr_en_a_sub <= '1';
-							rd_en_a_sub <= '0';
-							generate_subarine := '0';
-							ask_read <= '0';
->>>>>>> origin/master
 						end if;
 							
 					end if;
@@ -571,7 +393,6 @@ begin
 --			-- Rockets -------------------------------------------------------------------
 --			
 --			-- Load the first line (rockets) from memory before entering for the first time
-<<<<<<< HEAD
 --			if( v_cnt = 0 and h_cnt = 0) then
 --				address_b_roc <= "000000"; 
 --				rd_en_b_roc <= '1';
@@ -652,120 +473,6 @@ begin
 					blue_signal <= '0';
 				end if;
 			end if;
-=======
-			if( v_cnt = 665 and h_cnt = 1039) then
-				address_b_roc <= "000000"; 
-				rd_en_b_roc <= '1';
-				wr_en_b_roc <= '0';
-				current_rocket_line := 0;
-			end if;
-			
-			if( (v_cnt >= 0) and (v_cnt <= 599) and (h_cnt > 0) and (h_cnt <= 1039) ) then
-			
-				if(h_cnt <= 799) then
-					-- Get the data loaded from memory
-					if( (v_cnt - current_rocket_line) = 0 and h_cnt = 0) then
-						first_row_roc(127 downto 0) := q_b_roc(255 downto 128);
-						second_row_roc(127 downto 0) := q_b_roc(127 downto 0);
-					end if;
-					
-					-- first part
-					if( (v_cnt - current_rocket_line) <= 7 ) then
-						if(first_row_roc(to_integer(unsigned(h_cnt) /8)) = '1') then
-							blue_signal <= '0';
-							red_signal <= '1';
-							green_signal <= '0';
-						end if;
-					
-					-- second part
-					elsif( (v_cnt - current_rocket_line) <= 15) then
-						if(second_row_roc(to_integer(unsigned(h_cnt) /8)) = '1') then
-							blue_signal <= '0';
-							red_signal <= '1';
-							green_signal <= '0';
-						end if;
-					end if;
-				end if;
-				-- Load data for next lines
-				if( (v_cnt - current_rocket_line) = 15 and h_cnt = 1039) then
-					--address_b_roc <= address_b_roc + "000001";
-					-- Peut-être qu'il ne retient pas adress_b_roc
-					-- We load the new adress given by (v_cnt + 1) /16
-					address_b_roc <= std_logic_vector(to_unsigned(to_integer((unsigned(v_cnt) +1)/16),6));
-					rd_en_b_roc <= '1';
-					wr_en_b_roc <= '0';
-					current_rocket_line := current_rocket_line + 16;
-					-- affiche dans debut 2 les adresses (barre du dessus ) dans lequelles il lit
-					debug2(to_integer((unsigned(v_cnt) +1)/16)) := '1';
-				end if;
-				
-			end if;
-
-
-			-- life
---			if(v_cnt = 9 and h_cnt = 799) then
---				address_b_roc <= "001000";
---				data_b_roc <= vector_debug & "1010101010101010101010101010101010101010";
---				wr_en_b_roc <= '1';
---				rd_en_b_roc <= '0';
---			end if;
---				
---			if(v_cnt = 9 and h_cnt = 801) then
---				address_b_roc <= "001000";
---				wr_en_b_roc <= '0';
---				rd_en_b_roc <= '1';
---			end if;
-			
---			if(v_cnt >= 10 and v_cnt <= 15 and h_cnt >= 0 and h_cnt <= 255) then
---				if(q_b_roc(to_integer(unsigned(h_cnt))) = '1') then
---					red_signal <= '1';
---					green_signal <= '0';
---					blue_signal <= '0';
---				else
---					red_signal <= '0';
---					green_signal <= '0';
---					blue_signal <= '0';
---				end if;
---			end if;
-			
-			
-			-- DEBUG
-			if(v_cnt >= 10 and v_cnt <= 21 and h_cnt >= 0 and h_cnt <= 399) then
-				if (submarines(to_integer(unsigned(h_cnt) srl 3)) = '1') then
-					red_signal <= '1';
-					green_signal <= '0';
-					blue_signal <= '0';
-				else
-					red_signal <= '0';
-					green_signal <= '0';
-					blue_signal <= '0';
-				end if;
-				if(to_integer(unsigned(h_cnt)) mod 8 = 0) then -- Délimite en jaune entre les carrés qu'on affiche pour débugger
-					red_signal <= '1';
-					green_signal <= '1';
-					blue_signal <= '0';
-				end if;
-			end if;
-			
-			-- affiche debug 2 affiche les adresses (barre du dessus ) dans lequelles il lit
-			if(v_cnt >= 30 and v_cnt <= 41 and h_cnt >= 0 and h_cnt <= 399) then
-				if (debug2(to_integer(unsigned(h_cnt) srl 3)) = '1') then
-					red_signal <= '1';
-					green_signal <= '0';
-					blue_signal <= '0';
-				else
-					red_signal <= '0';
-					green_signal <= '0';
-					blue_signal <= '0';
-				end if;
-				
-				if(to_integer(unsigned(h_cnt)) mod 8 = 0) then -- Délimite en jaune entre les carrés qu'on affiche pour débugger
-					red_signal <= '1';
-					green_signal <= '1';
-					blue_signal <= '0';
-				end if;
-			end if;
->>>>>>> origin/master
 		
 		end if;
 
