@@ -67,12 +67,11 @@ architecture vga_arch of vga is
 	
 	-- To represent acceleration of both directions
 	shared variable sign_g_y		: std_logic;
-	shared variable magn_g_y		: std_logic_vector(8 downto 0); -- variable à la place de signal pour mise à jour immédiate
-	shared variable old_magn_g_y	: std_logic_vector(8 downto 0); -- variable à la place de signal pour mise à jour immédiate
-	shared variable tmp_magn_g_y	: std_logic_vector(10 downto 0); -- variable à la place de signal pour mise à jour immédiate
+	shared variable magn_g_y		: std_logic_vector(8 downto 0);
+	shared variable old_magn_g_y	: std_logic_vector(8 downto 0);
+	shared variable tmp_magn_g_y	: std_logic_vector(10 downto 0);
 	
-	shared variable submarines : std_logic_vector(49 downto 0) := (others => '0');  -- 1 bit for signaling if there is a boat, 1 bit for signaling its direction and 10 bits for its position
-	--shared variable submarines : Submarine_tab;
+	shared variable submarines : std_logic_vector(49 downto 0) := (others => '0');  -- 1 bit for signaling if there is a boat
 	shared variable submarines_debug : std_logic_vector(50 downto 0) := (others => '0');
 	
 	shared variable index 					: integer range 0 to 200; -- normally 75 enough
@@ -82,13 +81,13 @@ architecture vga_arch of vga is
 	shared variable update_rockets 		: std_logic := '0';
 	shared variable generate_subarine	: std_logic := '0';
 	shared variable generate_rocket		: std_logic := '0';
-	shared variable cycle_cnt				: integer range 0 to 100 := 0;
+	shared variable cycle_cnt				: integer range 0 to 200 := 0;
 	
-	shared variable current_submarine 	: integer range 0 to 49 := 0;
+	signal current_submarine 	: integer range 0 to 49 := 0;
 	shared variable read_sub	 			: std_logic := '1';
-	shared variable data_sub				: std_logic_vector (15 downto 0);
+	shared variable wait_read	 			: std_logic := '0';
+	shared variable data_tmp_sub			: std_logic_vector (15 downto 0);
 	shared variable data_sub_disp			: std_logic_vector (15 downto 0);
-	shared variable tmp_address			: integer;
 	
 	shared variable current_rocket		: integer range 0 to 74 := 0;
 	shared variable read_roc	 			: std_logic := '1';
@@ -98,11 +97,10 @@ architecture vga_arch of vga is
 	shared variable index_submarine		: integer range 0 to 49;
 	shared variable index_rocket			: integer range 0 to 74;
 	shared variable shooter 				: integer range 0 to 9 := 0;
-	shared variable tmp 						: integer;
-	shared variable tmp_random		    	: integer range 0 to 65 := 0;
-	shared variable nb_submarines    	: integer range 0 to 15 := 0; -- To count the number of submarines
+	signal tmp_random		    	: integer range 0 to 63 := 0;
+	shared variable nb_submarines    	: integer range 0 to 50 := 0; -- To count the number of submarines
 	
-	shared variable current_line	: integer range 0 to 615 := 199;
+	shared variable current_line	: integer range 199 to 599 := 199;
 	shared variable current_rocket_line		: integer range -1 to 615 := 0;
 	
 begin
@@ -117,15 +115,15 @@ begin
 				update_rockets := '0';
 				generate_subarine := '0';
 				generate_rocket := '0';
-				current_submarine := 0;
+				current_submarine <= 0;
 				
-				if(cycle_cnt = 100) then
+				if(cycle_cnt = 200) then
 					cycle_cnt := 0;
 				else
 					cycle_cnt := cycle_cnt + 1;
 				end if;
 								
-			elsif(v_sync = '1') then
+			elsif(v_sync = '0') then
 				
 				-- Update submarines position	
 				if (update_submarines = '1') then
@@ -133,43 +131,49 @@ begin
 					if(submarines(current_submarine) = '1') then
 					
 						if(read_sub = '1') then								-- Read mode
-							address_a_sub <= std_logic_vector(to_unsigned(current_submarine,6)); 	
+							address_a_sub <= "000000" + current_submarine; 	
 							wr_en_a_sub <= '0';
-							read_sub := '0';
+							read_sub := '0'; wait_read := '1';
+						elsif(read_sub = '0' and wait_read = '1') then
+							wait_read := '0';
+							data_tmp_sub := q_a_sub;
 						else															-- Write mode
-							data_sub := q_a_sub;
 							
---							if(data_sub(11) = '1') then
---								submarines_debug(current_submarine) := '1';
---							else
---								submarines_debug(current_submarine) := '0';
---							end if;
---							
-							if(data_sub(10) = '1') then 					-- if it goes to the right
-								if(data_sub(9 downto 0) = 760)then		-- if max at right
-									data_sub(10) := not data_sub(10);	-- reverse direction
+							if(data_tmp_sub(11) = '1') then
+								submarines_debug(current_submarine) := '1';
+							else
+								submarines_debug(current_submarine) := '0';
+							end if;
+							
+							if(data_tmp_sub(10) = '1') then 					-- if it goes to the right
+								if(data_tmp_sub(9 downto 0) = 760)then		-- if max at right
+									data_a_sub(10) <= '0';						-- reverse direction
+									data_a_sub(9 downto 0) <= data_tmp_sub(9 downto 0); -- same position
 								else
-									data_sub(15 downto 0) := data_sub(15 downto 0) + 1; -- go to right
+									data_a_sub(10) <= '1';
+									data_a_sub(9 downto 0) <= data_tmp_sub(9 downto 0) + 1; -- go to right
 								end if;
-							else 													-- if it goes to the left
-								if(data_sub(9 downto 0) = 0)then			-- if max at left
-									data_sub(10) := not data_sub(10);	-- reverse direction
+							else 														-- if it goes to the left
+								if(data_tmp_sub(9 downto 0) = 0)then		-- if max at left
+									data_a_sub(10) <= '1';						-- reverse direction
+									data_a_sub(9 downto 0) <= data_tmp_sub(9 downto 0); -- same position
 								else
-									data_sub(15 downto 0) := data_sub(15 downto 0) - 1;	-- go to left
+									data_a_sub(10) <= '0';
+									data_a_sub(9 downto 0) <= data_tmp_sub(9 downto 0) - 1;	-- go to left
 								end if;
 							end if;
 							
-							data_a_sub <= data_sub;
-							address_a_sub <= std_logic_vector(to_unsigned(current_submarine,6));
+							data_a_sub(15 downto 11) <= "00001";
+							address_a_sub <= "000000" + current_submarine;
 							wr_en_a_sub <= '1';
 							
 							read_sub := '1';
 							
 							if(current_submarine = 49) then
-								current_submarine := 0;
+								current_submarine <= 0;
 								update_submarines := '0'; update_rockets := '1';
 							else
-								current_submarine := current_submarine + 1;
+								current_submarine <= current_submarine + 1;
 							end if;
 							
 						end if;
@@ -177,10 +181,10 @@ begin
 					else
 					
 						if(current_submarine = 49) then
-							current_submarine := 0;
+							current_submarine <= 0;
 							update_submarines := '0'; update_rockets := '1';
 						else
-							current_submarine := current_submarine + 1;
+							current_submarine <= current_submarine + 1;
 						end if;
 					
 					end if;
@@ -209,14 +213,15 @@ begin
 				-- Generate submarines
 				elsif(generate_subarine = '1') then
 					
-					if(cycle_cnt = 100) then
+					if(cycle_cnt = 200) then
 						
-						if(nb_submarines < 10) then -- if there is less than 10 submarines, we try to add one
+						if(nb_submarines < 5) then -- if there is less than 10 submarines, we try to add one
 							  
-							tmp_random := to_integer(unsigned(magn_g_y(5 downto 0))); -- to take a random number
-							if (tmp_random > 49) then -- 2^6 can be greater than 50
-								tmp_random := tmp_random - 14;
-							end if;
+--							tmp_random := to_integer(unsigned(magn_g_y(5 downto 0))); -- to take a random number
+--							if (tmp_random > 49) then -- 2^6 can be greater than 50
+--								tmp_random := tmp_random - 14;
+--							end if;
+							tmp_random <= tmp_random + 2;
 							
 							if(submarines(tmp_random) = '0') then -- No submarine in this line => create one
 								if(sign_g_y = '1') then -- to choose the direction
@@ -224,7 +229,7 @@ begin
 								else
 									data_a_sub <= "000011" & (std_logic_vector(to_unsigned(0,10)));
 								end if;
-								address_a_sub <= std_logic_vector(to_unsigned(tmp_random-1,6));
+								address_a_sub <= "000000" + tmp_random;
 								wr_en_a_sub <= '1';
 								submarines(tmp_random) := '1';
 								nb_submarines := nb_submarines + 1;
@@ -238,6 +243,10 @@ begin
 --								end if;
 								wr_en_a_sub <= '0';
 							end if;
+							
+						else
+							generate_subarine := '0';
+							generate_rocket := '1';
 						end if;
 							
 					end if;
@@ -245,6 +254,8 @@ begin
 				-- Generate rockets
 				elsif(generate_rocket = '1') then
 						wr_en_a_sub <= '0';
+						generate_rocket := '0';
+						
 --						for i_loop in 0 to 4 loop
 --						--for i_loop in 0 to 49 loop
 --						
@@ -347,45 +358,41 @@ begin
 			-- submarines -------------------------------------------------------------------
 			
 			-- Initialize
-			if( (v_cnt = 199) and (h_cnt = 800)) then
+			if( (v_cnt = 199) and (h_cnt = 799)) then
 				current_line := 199;
-			end if;
-			
-			-- Prepare for loading the next line
-			if( (v_cnt = current_line + 8) and (h_cnt = 800) ) then
-				current_line := current_line + 8;
-			end if;
 			
 			-- Ask data
-			if ( (v_cnt = current_line) and (h_cnt = 801) ) then
-				address_b_sub <= std_logic_vector(to_unsigned(current_line - 199,9))(8 downto 3);
+			elsif ( (v_cnt = current_line) and (h_cnt = 800) ) then
+				address_b_sub <= "000000" + ((current_line - 199)/8);
 				wr_en_b_sub <= '0';
 			
 			-- Get the data loaded from memory
 			elsif( (v_cnt = current_line ) and (h_cnt = 803) ) then
 				data_sub_disp := q_b_sub;
 				
-				if(data_sub_disp(11) = '1') then
-					submarines_debug(to_integer(to_unsigned(current_line - 199,9) srl 3)) := '1';
-				else
-					submarines_debug(to_integer(to_unsigned(current_line - 199,9) srl 3)) := '0';
-				end if;
+--				if(data_sub_disp(11) = '1') then
+--					submarines_debug((current_line - 199)/8) := '1';
+--				else
+--					submarines_debug((current_line - 199)/8) := '0';
+--				end if;
 		
 			end if;
 			
-			if( (v_cnt >= 200) and (h_cnt >= 0) and (h_cnt <= 799) ) then
-				
-				-- Display
-				if( (v_cnt >= current_line + 1 ) and ( v_cnt <= current_line + 8 ) ) then
-					if(data_sub_disp(11) = '1') then
-						if( (h_cnt(9 downto 0) >= data_sub_disp(9 downto 0)) and (h_cnt(9 downto 0) <= data_sub_disp(9 downto 0) + 40) ) then
-							blue_signal <= '0';
-							red_signal <= '0';
-							green_signal <= '0';
-						end if;
+			-- Display
+			if( (v_cnt >= current_line + 1 ) and ( v_cnt <= current_line + 8 ) and (h_cnt >= 0) and (h_cnt <= 799) ) then
+				if(data_sub_disp(11) = '1') then
+					if( (h_cnt(9 downto 0) >= data_sub_disp(9 downto 0)) and (h_cnt(9 downto 0) <= data_sub_disp(9 downto 0) + 40) ) then
+						blue_signal <= '0';
+						red_signal <= '0';
+						green_signal <= '0';
 					end if;
 				end if;
-				
+			end if;
+			
+			
+			-- Prepare for loading the next line
+			if( (v_cnt = current_line + 8) and (h_cnt = 799) ) then
+				current_line := current_line + 8;
 			end if;
 			
 

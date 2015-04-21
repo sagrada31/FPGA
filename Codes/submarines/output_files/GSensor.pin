@@ -210,10 +210,10 @@ GND                          : J10       : gnd    :                   :         
 GND                          : J11       : gnd    :                   :         :           :                
 VCCINT                       : J12       : power  :                   : 1.2V    :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : J13       :        :                   :         : 5         :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : J14       :        :                   :         : 5         :                
+G_SENSOR_INT                 : J14       : input  : 3.3-V LVTTL       :         : 5         : N              
 KEY[0]                       : J15       : input  : 3.3-V LVTTL       :         : 5         : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : J16       :        :                   :         : 5         :                
-G_SENSOR_INT                 : K1        : input  : 3.3-V LVTTL       :         : 2         : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : K1        :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : K2        :        :                   :         : 2         :                
 VCCIO2                       : K3        : power  :                   : 3.3V    : 2         :                
 GND                          : K4        : gnd    :                   :         :           :                
