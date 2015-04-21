@@ -80,22 +80,24 @@ architecture vga_arch of vga is
 	signal update_submarines 	: std_logic := '0';
 	signal update_rockets 		: std_logic := '0';
 	signal generate_subarine	: std_logic := '0';
-	signal generate_rocket		: std_logic := '0';
 	signal cycle_cnt				: integer range 0 to 100 := 0;
 	
 	-- for update submarines
-	signal current_submarine 	: integer range 0 to 49 := 0;
-	signal read_sub	 			: std_logic := '1';
-	signal wait_read_sub			: std_logic := '0';
-	shared variable data_tmp_sub			: std_logic_vector (15 downto 0);
-	shared variable data_sub_disp			: std_logic_vector (15 downto 0);
+	signal current_submarine 			: integer range 0 to 49 := 0;
+	signal read_sub	 					: std_logic := '1';
+	signal wait_read_sub					: std_logic := '0';
+	shared variable data_tmp_sub		: std_logic_vector (15 downto 0);
+	shared variable data_sub_disp		: std_logic_vector (15 downto 0);
+	
 	
 	-- for update rockets
-	shared variable current_rocket		: integer range 0 to 74 := 0;
-	signal read_roc	 			: std_logic := '1';
-	signal wait_read_roc			: std_logic := '0';
-	shared variable data_tmp_roc				: std_logic_vector (107 downto 0);
-	shared variable data_roc_disp			: std_logic_vector (107 downto 0);
+	shared variable current_rocket	: integer range 0 to 74 := 0;
+	signal read_roc	 					: std_logic := '1';
+	signal wait_read_roc					: std_logic := '0';
+	shared variable data_tmp_roc		: std_logic_vector (107 downto 0);
+	shared variable data_roc_disp		: std_logic_vector (107 downto 0);
+	shared variable new_roc_line 		: std_logic_vector (107 downto 0) := (others => '0');
+	
 	
 	shared variable index_submarine		: integer range 0 to 49;
 	shared variable index_rocket			: integer range 0 to 74;
@@ -103,7 +105,7 @@ architecture vga_arch of vga is
 	shared variable tmp_random		    	: integer range 0 to 63 := 0;
 	shared variable nb_submarines    	: integer range 0 to 50 := 0; -- To count the number of submarines
 	
-	shared variable current_line	: integer range 199 to 599 := 199;
+	shared variable current_sub_line			: integer range 199 to 599 := 199;
 	shared variable current_rocket_line		: integer range -1 to 615 := 0;
 	
 begin
@@ -117,7 +119,6 @@ begin
 				update_submarines <= '1';
 				update_rockets <= '0';
 				generate_subarine <= '0';
-				generate_rocket <= '0';
 				current_submarine <= 0;
 				
 				if(cycle_cnt = 100) then
@@ -140,10 +141,10 @@ begin
 							address_a_roc <= "0000000" + current_submarine + 25;
 							wr_en_a_roc <= '0';
 							
-							read_sub <= '0'; wait_read <= '1';
+							read_sub <= '0'; wait_read_sub <= '1';
 							
-						elsif(read_sub = '0' and wait_read = '1') then
-							wait_read <= '0';
+						elsif(read_sub = '0' and wait_read_sub = '1') then
+							wait_read_sub <= '0';
 							
 						else															-- Write mode
 			
@@ -171,6 +172,11 @@ begin
 								end if;
 							end if;
 							
+							data_a_sub(15 downto 0) <= "00001" & data_tmp_sub(10 downto 0);
+							address_a_sub <= "000000" + current_submarine;
+							wr_en_a_sub <= '1';
+							
+							-- Generate rockets if one second elapsed
 							if (cycle_cnt = 100) then
 								data_tmp_roc( to_integer(unsigned(data_tmp_sub(9 downto 0) + 16))/8 ) := '1';
 								data_a_roc <= data_tmp_roc;
@@ -178,11 +184,7 @@ begin
 								wr_en_a_roc <= '1';
 							end if;
 							
-							data_a_sub(15 downto 0) <= "00001" & data_tmp_sub(10 downto 0);
-							address_a_sub <= "000000" + current_submarine;
-							wr_en_a_sub <= '1';
-							
-							ask_read <= '1';
+							read_sub <= '1';
 							
 							if(current_submarine = 49) then
 								current_submarine <= 0;
@@ -207,16 +209,37 @@ begin
 				-- Update rockets position
 				elsif(update_rockets = '1') then
 					
+					if(read_roc = '1') then									-- Read mode
+						
+						address_a_roc <= "0000000" + current_rocket + 1; 	
+						wr_en_a_roc <= '0';
+						
+						read_roc <= '0'; wait_read_roc <= '1';
+						
+					elsif(read_roc = '0' and wait_read_roc = '1') then
+						wait_read_roc <= '0';
+						
+					else															-- Write mode
+						data_tmp_roc := q_a_roc;
+						
+						if(current_rocket = 74) then
+							data_a_roc <= new_roc_line;
+						else
+							data_a_roc <= data_tmp_roc;
+						end if;
+						
+						address_a_roc <= "0000000" + current_rocket;
+						wr_en_a_roc <= '1';
+						
+						read_roc <= '1';
 
-
-					
-					if(current_rocket = 74) then
-						current_rocket := 0;
-						update_rockets <= '0'; generate_subarine <= '1';
-					else
-						current_rocket := current_rocket + 1;
+						if(current_rocket = 74) then
+							current_rocket := 0;
+							update_rockets <= '0'; generate_subarine <= '1';
+						else
+							current_rocket := current_rocket + 1;
+						end if;
 					end if;
-				
 				-- Generate submarines
 				elsif(generate_subarine = '1') then
 					
@@ -241,8 +264,7 @@ begin
 								submarines(tmp_random) := '1';
 								nb_submarines := nb_submarines + 1;
 								generate_subarine <= '0';
-								generate_rocket <= '1';
-								
+
 							else						 -- There is a submarine
 --								tmp_random = tmp_random + 2;
 --								if(tmp_random > 49) then
@@ -253,34 +275,9 @@ begin
 							
 						else
 							generate_subarine <= '0';
-							generate_rocket <= '1';
 						end if;
 							
 					end if;
-				
-				-- Generate rockets
-				elsif(generate_rocket = '1') then
-						wr_en_a_sub <= '0';
-						generate_rocket <= '0';
-						
---						for i_loop in 0 to 4 loop
---						--for i_loop in 0 to 49 loop
---						
---							index_submarine := shooter + i_loop * 10;
---							address_a_sub <= std_logic_vector(to_unsigned(index_submarine,6));
---							if( q(11) = '1' ) then -- if there is a submarine at this line, it shoots
---							--if( submarines(i_loop)(11) = '1' ) then -- if there is a submarine at this line, it shoots
---								--rockets(i_loop + 25)(to_integer(unsigned(submarines(i_loop)(9 downto 0) + 12) srl 4)) := '1';
---								--rockets(index_submarine + 25)(to_integer(unsigned(submarines(index_submarine)(9 downto 0) + 12) srl 4)) := '1';
---								rockets(index_submarine + 25)(to_integer(unsigned(q(9 downto 0) + 12) srl 4)) := '1';
---							end if;
---						end loop;
---						
---						if(shooter = 9) then
---							shooter := 0;
---						else
---							shooter := shooter + 1;
---						end if;
 				end if;
 			end if;
 		end if;
@@ -362,31 +359,31 @@ begin
 				green_signal <= '1';
 			end if;
 			
-			-- submarines -------------------------------------------------------------------
+		-- submarines -------------------------------------------------------------------
 			
 			-- Initialize
 			if( (v_cnt = 199) and (h_cnt = 799)) then
-				current_line := 199;
+				current_sub_line := 199;
 			
 			-- Ask data
-			elsif ( (v_cnt = current_line) and (h_cnt = 800) ) then
-				address_b_sub <= "000000" + ((current_line - 199)/8);
+			elsif ( (v_cnt = current_sub_line) and (h_cnt = 800) ) then
+				address_b_sub <= "000000" + ((current_sub_line - 199)/8);
 				wr_en_b_sub <= '0';
 			
 			-- Get the data loaded from memory
-			elsif( (v_cnt = current_line ) and (h_cnt = 803) ) then
+			elsif( (v_cnt = current_sub_line ) and (h_cnt = 803) ) then
 				data_sub_disp := q_b_sub;
 				
 				if(data_sub_disp(11) = '1') then
-					submarines_debug((current_line - 199)/8) := '1';
+					submarines_debug((current_sub_line - 199)/8) := '1';
 				else
-					submarines_debug((current_line - 199)/8) := '0';
+					submarines_debug((current_sub_line - 199)/8) := '0';
 				end if;
 		
 			end if;
 			
 			-- Display
-			if( (v_cnt >= current_line + 1 ) and ( v_cnt <= current_line + 8 ) and (h_cnt >= 0) and (h_cnt <= 799) ) then
+			if( (v_cnt >= current_sub_line + 1 ) and ( v_cnt <= current_sub_line + 8 ) and (h_cnt >= 0) and (h_cnt <= 799) ) then
 				if(data_sub_disp(11) = '1') then
 					if( (h_cnt(9 downto 0) >= data_sub_disp(9 downto 0)) and (h_cnt(9 downto 0) <= data_sub_disp(9 downto 0) + 40) ) then
 						blue_signal <= '0';
@@ -398,56 +395,44 @@ begin
 			
 			
 			-- Prepare for loading the next line
-			if( (v_cnt = current_line + 8) and (h_cnt = 799) ) then
-				current_line := current_line + 8;
+			if( (v_cnt = current_sub_line + 8) and (h_cnt = 799) ) then
+				current_sub_line := current_sub_line + 8;
 			end if;
 			
 
 			
---			-- Rockets -------------------------------------------------------------------
---			
---			-- Load the first line (rockets) from memory before entering for the first time
---			if( v_cnt = 0 and h_cnt = 0) then
---				address_b_roc <= "000000"; 
---				rd_en_b_roc <= '1';
---				wr_en_b_roc <= '0';
---				current_rocket_line := -1;
---			end if;
---			
---			if( (v_cnt >= 0) and (v_cnt <= 599) and (h_cnt > 0) and (h_cnt <= 799) ) then
---
---				-- Get the data loaded from memory
---				if( (v_cnt - current_rocket_line) = 1 and h_cnt = 0) then
---					first_row_roc(127 downto 0) := q_b_roc(255 downto 128);
---					second_row_roc(127 downto 0) := q_b_roc(127 downto 0);
---				end if;
---				
---				-- first part
---				if( (v_cnt - current_rocket_line) <= 8 ) then
---					if(first_row_roc(to_integer(unsigned(h_cnt) srl 3)) = '1') then
---						blue_signal <= '0';
---						red_signal <= '1';
---						green_signal <= '0';
---					end if;
---				
---				-- second part
---				elsif( (v_cnt - current_rocket_line) <= 16) then
---					if(second_row_roc(to_integer(unsigned(h_cnt) srl 3)) = '1') then
---						blue_signal <= '0';
---						red_signal <= '1';
---						green_signal <= '0';
---					end if;
---				end if;
---				
---				-- Load data for next lines
---				if( (v_cnt - current_rocket_line) = 16 and h_cnt = 799) then
---					address_b_roc <= address_b_roc + 1;
---					rd_en_b_roc <= '1';
---					wr_en_b_roc <= '0';
---					current_rocket_line := current_rocket_line + 16;
---				end if;
---				
---			end if;
+		-- Rockets -------------------------------------------------------------------
+			
+			-- Initialize
+			if( (v_cnt = 599) and (h_cnt = 799)) then
+				current_rocket_line := -1;
+			
+			-- Ask data
+			elsif ( (v_cnt = current_rocket_line + 1) and (h_cnt = 0) ) then
+				address_b_roc <= "0000000" + ((current_rocket_line + 1)/8);
+				wr_en_b_roc <= '0';
+			
+			-- Get the data loaded from memory
+			elsif( (v_cnt = current_rocket_line + 1) and (h_cnt = 2) ) then
+				data_roc_disp := q_b_roc;
+			end if;
+			
+			-- Display
+			if( (v_cnt >= current_rocket_line + 1 ) and ( v_cnt <= current_rocket_line + 8 ) and (h_cnt >= 3) and (h_cnt <= 799) ) then
+				if(data_sub_disp(11) = '1') then
+					if( (h_cnt(9 downto 0) >= data_roc_disp(9 downto 0)) and (h_cnt(9 downto 0) < data_roc_disp(9 downto 0) + 8) ) then
+						blue_signal <= '0';
+						red_signal <= '0';
+						green_signal <= '0';
+					end if;
+				end if;
+			end if;
+			
+			
+			-- Prepare for loading the next line
+			if( (v_cnt = current_rocket_line + 8) and (h_cnt = 799) ) then
+				current_rocket_line := current_rocket_line + 8;
+			end if;
 			
 			
 			-- DEBUG

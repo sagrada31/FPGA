@@ -7,19 +7,19 @@ Slack : 5.233
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'CLOCK50'
-Slack : 0.304
+Slack : 0.357
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Recovery 'CLOCK50'
-Slack : 16.042
+Slack : 15.329
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Removal 'CLOCK50'
-Slack : 3.000
+Slack : 3.198
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'CLOCK50'
-Slack : 9.486
+Slack : 9.487
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Setup 'CLOCK50'
@@ -27,19 +27,19 @@ Slack : 5.742
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'CLOCK50'
-Slack : 0.297
+Slack : 0.311
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Recovery 'CLOCK50'
-Slack : 16.522
+Slack : 15.867
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Removal 'CLOCK50'
-Slack : 2.658
+Slack : 2.843
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'CLOCK50'
-Slack : 9.489
+Slack : 9.490
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Setup 'CLOCK50'
@@ -47,19 +47,19 @@ Slack : 7.160
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'CLOCK50'
-Slack : 0.151
+Slack : 0.186
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Recovery 'CLOCK50'
-Slack : 17.679
+Slack : 17.240
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Removal 'CLOCK50'
-Slack : 1.720
+Slack : 1.826
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'CLOCK50'
-Slack : 9.208
+Slack : 9.209
 TNS   : 0.000
 
 ------------------------------------------------------------
