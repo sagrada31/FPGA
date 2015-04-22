@@ -1,5 +1,5 @@
 Analysis & Synthesis report for GSensor
-Tue Apr 21 23:59:19 2015
+Wed Apr 22 10:06:08 2015
 Quartus II 64-Bit Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
 
 
@@ -63,15 +63,15 @@ agreement for further details.
 +---------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                    ;
 +------------------------------------+--------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Tue Apr 21 23:59:19 2015      ;
+; Analysis & Synthesis Status        ; Successful - Wed Apr 22 10:06:08 2015      ;
 ; Quartus II 64-Bit Version          ; 14.1.0 Build 186 12/03/2014 SJ Web Edition ;
 ; Revision Name                      ; GSensor                                    ;
 ; Top-level Entity Name              ; gsensor                                    ;
 ; Family                             ; Cyclone IV E                               ;
-; Total logic elements               ; 1,841                                      ;
-;     Total combinational functions  ; 1,798                                      ;
-;     Dedicated logic registers      ; 596                                        ;
-; Total registers                    ; 596                                        ;
+; Total logic elements               ; 1,842                                      ;
+;     Total combinational functions  ; 1,799                                      ;
+;     Dedicated logic registers      ; 600                                        ;
+; Total registers                    ; 600                                        ;
 ; Total pins                         ; 12                                         ;
 ; Total virtual pins                 ; 0                                          ;
 ; Total memory bits                  ; 14,592                                     ;
@@ -245,20 +245,20 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimated Total logic elements              ; 1,841          ;
+; Estimated Total logic elements              ; 1,842          ;
 ;                                             ;                ;
-; Total combinational functions               ; 1798           ;
+; Total combinational functions               ; 1799           ;
 ; Logic element usage by number of LUT inputs ;                ;
-;     -- 4 input functions                    ; 971            ;
-;     -- 3 input functions                    ; 493            ;
-;     -- <=2 input functions                  ; 334            ;
+;     -- 4 input functions                    ; 969            ;
+;     -- 3 input functions                    ; 518            ;
+;     -- <=2 input functions                  ; 312            ;
 ;                                             ;                ;
 ; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 1466           ;
-;     -- arithmetic mode                      ; 332            ;
+;     -- normal mode                          ; 1476           ;
+;     -- arithmetic mode                      ; 323            ;
 ;                                             ;                ;
-; Total registers                             ; 596            ;
-;     -- Dedicated logic registers            ; 596            ;
+; Total registers                             ; 600            ;
+;     -- Dedicated logic registers            ; 600            ;
 ;     -- I/O registers                        ; 0              ;
 ;                                             ;                ;
 ; I/O pins                                    ; 12             ;
@@ -270,9 +270,9 @@ Parallel compilation was disabled, but you have multiple processors available. E
 ;     -- PLLs                                 ; 1              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 612            ;
-; Total fan-out                               ; 9803           ;
-; Average fan-out                             ; 3.86           ;
+; Maximum fan-out                             ; 616            ;
+; Total fan-out                               ; 9844           ;
+; Average fan-out                             ; 3.87           ;
 +---------------------------------------------+----------------+
 
 
@@ -281,7 +281,7 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +---------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------------------------------------------------------+--------------+
 ; Compilation Hierarchy Node                        ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                       ; Library Name ;
 +---------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------------------------------------------------------+--------------+
-; |gsensor                                          ; 1798 (1)          ; 596 (0)      ; 14592       ; 0            ; 0       ; 0         ; 12   ; 0            ; |gsensor                                                                                                                                  ; work         ;
+; |gsensor                                          ; 1799 (1)          ; 600 (0)      ; 14592       ; 0            ; 0       ; 0         ; 12   ; 0            ; |gsensor                                                                                                                                  ; work         ;
 ;    |ram_rockets:u_ram_rockets|                    ; 0 (0)             ; 0 (0)        ; 13824       ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|ram_rockets:u_ram_rockets                                                                                                        ; work         ;
 ;       |altsyncram:altsyncram_component|           ; 0 (0)             ; 0 (0)        ; 13824       ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|ram_rockets:u_ram_rockets|altsyncram:altsyncram_component                                                                        ; work         ;
 ;          |altsyncram_qeo3:auto_generated|         ; 0 (0)             ; 0 (0)        ; 13824       ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|ram_rockets:u_ram_rockets|altsyncram:altsyncram_component|altsyncram_qeo3:auto_generated                                         ; work         ;
@@ -294,7 +294,7 @@ Parallel compilation was disabled, but you have multiple processors available. E
 ;    |spipll:u_spipll|                              ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|spipll:u_spipll                                                                                                                  ; work         ;
 ;       |altpll:altpll_component|                   ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|spipll:u_spipll|altpll:altpll_component                                                                                          ; work         ;
 ;          |spipll_altpll:auto_generated|           ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|spipll:u_spipll|altpll:altpll_component|spipll_altpll:auto_generated                                                             ; work         ;
-;    |vga:u_vga|                                    ; 1701 (1531)       ; 499 (499)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga                                                                                                                        ; work         ;
+;    |vga:u_vga|                                    ; 1702 (1532)       ; 503 (503)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga                                                                                                                        ; work         ;
 ;       |lpm_divide:Mod0|                           ; 25 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod0                                                                                                        ; work         ;
 ;          |lpm_divide_o9m:auto_generated|          ; 25 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod0|lpm_divide_o9m:auto_generated                                                                          ; work         ;
 ;             |sign_div_unsign_dkh:divider|         ; 25 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod0|lpm_divide_o9m:auto_generated|sign_div_unsign_dkh:divider                                              ; work         ;
@@ -370,7 +370,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 596   ;
+; Total registers                              ; 600   ;
 ; Number of registers using Synchronous Clear  ; 24    ;
 ; Number of registers using Synchronous Load   ; 23    ;
 ; Number of registers using Asynchronous Clear ; 56    ;
@@ -392,20 +392,22 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; spi_ee_config:u_spi_ee_config|spi_controller:u_spi_controller|spi_count[1] ; 5       ;
 ; vga:u_vga|current_sub_line[6]                                              ; 20      ;
 ; vga:u_vga|current_sub_line[7]                                              ; 19      ;
-; vga:u_vga|life[5]                                                          ; 1       ;
-; vga:u_vga|life[4]                                                          ; 1       ;
-; vga:u_vga|life[3]                                                          ; 1       ;
-; vga:u_vga|life[2]                                                          ; 1       ;
-; vga:u_vga|life[1]                                                          ; 1       ;
-; vga:u_vga|life[0]                                                          ; 1       ;
-; vga:u_vga|life[6]                                                          ; 1       ;
-; vga:u_vga|life[7]                                                          ; 1       ;
+; vga:u_vga|index_life[0]                                                    ; 15      ;
+; vga:u_vga|index_life[3]                                                    ; 12      ;
 ; vga:u_vga|life[9]                                                          ; 1       ;
 ; vga:u_vga|life[8]                                                          ; 1       ;
-; vga:u_vga|read_sub                                                         ; 8       ;
+; vga:u_vga|life[5]                                                          ; 1       ;
+; vga:u_vga|life[6]                                                          ; 1       ;
+; vga:u_vga|life[4]                                                          ; 1       ;
+; vga:u_vga|life[7]                                                          ; 1       ;
+; vga:u_vga|life[1]                                                          ; 1       ;
+; vga:u_vga|life[2]                                                          ; 1       ;
+; vga:u_vga|life[0]                                                          ; 1       ;
+; vga:u_vga|life[3]                                                          ; 1       ;
+; vga:u_vga|read_sub                                                         ; 10      ;
 ; vga:u_vga|read_roc                                                         ; 12      ;
 ; vga:u_vga|shift_shooter[0]                                                 ; 6       ;
-; Total number of inverted registers = 20                                    ;         ;
+; Total number of inverted registers = 22                                    ;         ;
 +----------------------------------------------------------------------------+---------+
 
 
@@ -428,7 +430,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; 13:1               ; 3 bits    ; 24 LEs        ; 6 LEs                ; 18 LEs                 ; Yes        ; |gsensor|vga:u_vga|data_a_sub[2]                           ;
 ; 4:1                ; 11 bits   ; 22 LEs        ; 11 LEs               ; 11 LEs                 ; No         ; |gsensor|vga:u_vga|data_sub_disp                           ;
 ; 4:1                ; 108 bits  ; 216 LEs       ; 108 LEs              ; 108 LEs                ; No         ; |gsensor|vga:u_vga|data_roc_disp                           ;
-; 4:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; No         ; |gsensor|vga:u_vga|life                                    ;
 ; 4:1                ; 7 bits    ; 14 LEs        ; 14 LEs               ; 0 LEs                  ; No         ; |gsensor|vga:u_vga|data_tmp_sub                            ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------+
 
@@ -1205,7 +1206,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 12                          ;
-; cycloneiii_ff         ; 596                         ;
+; cycloneiii_ff         ; 600                         ;
 ;     CLR               ; 21                          ;
 ;     ENA               ; 299                         ;
 ;     ENA CLR           ; 20                          ;
@@ -1213,23 +1214,23 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;     ENA SCLR          ; 9                           ;
 ;     ENA SLD           ; 13                          ;
 ;     SLD               ; 10                          ;
-;     plain             ; 209                         ;
+;     plain             ; 213                         ;
 ; cycloneiii_io_obuf    ; 1                           ;
-; cycloneiii_lcell_comb ; 1799                        ;
-;     arith             ; 332                         ;
+; cycloneiii_lcell_comb ; 1800                        ;
+;     arith             ; 323                         ;
 ;         2 data inputs ; 145                         ;
-;         3 data inputs ; 187                         ;
-;     normal            ; 1467                        ;
+;         3 data inputs ; 178                         ;
+;     normal            ; 1477                        ;
 ;         0 data inputs ; 16                          ;
-;         1 data inputs ; 31                          ;
-;         2 data inputs ; 143                         ;
-;         3 data inputs ; 306                         ;
-;         4 data inputs ; 971                         ;
+;         1 data inputs ; 21                          ;
+;         2 data inputs ; 131                         ;
+;         3 data inputs ; 340                         ;
+;         4 data inputs ; 969                         ;
 ; cycloneiii_pll        ; 1                           ;
 ; cycloneiii_ram_block  ; 120                         ;
 ;                       ;                             ;
-; Max LUT depth         ; 21.30                       ;
-; Average LUT depth     ; 10.14                       ;
+; Max LUT depth         ; 18.70                       ;
+; Average LUT depth     ; 9.76                        ;
 +-----------------------+-----------------------------+
 
 
@@ -1238,7 +1239,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:07     ;
+; Top            ; 00:00:08     ;
 +----------------+--------------+
 
 
@@ -1248,7 +1249,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
-    Info: Processing started: Tue Apr 21 23:58:52 2015
+    Info: Processing started: Wed Apr 22 10:05:37 2015
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off GSensor -c GSensor
 Warning (20028): Parallel compilation is not licensed and has been disabled
 Info (12021): Found 2 design units, including 1 entities, in source file vga.vhd
@@ -1536,17 +1537,17 @@ Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 1 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 1 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "KEY[1]"
-Info (21057): Implemented 2165 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 2176 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 4 input pins
     Info (21059): Implemented 7 output pins
     Info (21060): Implemented 1 bidirectional pins
-    Info (21061): Implemented 2032 logic cells
+    Info (21061): Implemented 2043 logic cells
     Info (21064): Implemented 120 RAM segments
     Info (21065): Implemented 1 PLLs
 Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 15 warnings
     Info: Peak virtual memory: 696 megabytes
-    Info: Processing ended: Tue Apr 21 23:59:19 2015
-    Info: Elapsed time: 00:00:27
-    Info: Total CPU time (on all processors): 00:00:50
+    Info: Processing ended: Wed Apr 22 10:06:08 2015
+    Info: Elapsed time: 00:00:31
+    Info: Total CPU time (on all processors): 00:00:48
 
 

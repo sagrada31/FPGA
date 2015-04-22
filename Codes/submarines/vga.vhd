@@ -111,8 +111,8 @@ architecture vga_arch of vga is
 	shared variable current_rocket_line		: integer range -1 to 615 := 0;
 	
 	-- for the life
-	shared variable life : std_logic_vector(9 downto 0) := (others => '1');
-	
+	shared variable life 					: std_logic_vector(9 downto 0) := (others => '1');
+	shared variable index_life				: integer range 0 to 9 := 9;
 	
 begin
 
@@ -459,7 +459,10 @@ begin
 				-- to decrease a life is boat is touched
 				if( (v_cnt = bottom_boat) and ((h_cnt >= left_boat) and (h_cnt <= right_boat)) ) then
 					if( data_roc_disp(to_integer(unsigned(h_cnt)/8)) = '1' ) then
-						life := life - 1;
+						if(index_life >0) then
+							index_life := index_life - 1;
+							life(index_life) := '0';
+						end if;
 					end if;
 				end if;
 				
