@@ -100,19 +100,22 @@ architecture vga_arch of vga is
 	
 	
 	-- for generate rockets
-	signal shooter 							: integer range 0 to 9 := 0;
-	signal shift_shooter						: integer range 0 to 9 := 1;
-	shared variable index_submarine		: integer range 0 to 49;
-	shared variable index_rocket			: integer range 0 to 74;
-	shared variable tmp_random		    	: integer range 0 to 63 := 0;
-	shared variable nb_submarines    	: integer range 0 to 50 := 0; -- To count the number of submarines
+	signal shooter 						: integer range 0 to 9 := 0;
+	signal shift_shooter					: integer range 0 to 9 := 1;
+	shared variable index_submarine	: integer range 0 to 49;
+	shared variable index_rocket		: integer range 0 to 74;
+	shared variable tmp_random		   : integer range 0 to 63 := 0;
+	shared variable nb_submarines    : integer range 0 to 50 := 0; -- To count the number of submarines
 	
 	shared variable current_sub_line			: integer range 199 to 599 := 199;
 	shared variable current_rocket_line		: integer range -1 to 615 := 0;
 	
+	-- for the level configuration
+	signal level							: integer range 0 to 3 := 1;						
+	
 	-- for the life
-	shared variable life 					: std_logic_vector(9 downto 0) := (others => '1');
-	shared variable index_life				: integer range 0 to 9 := 9;
+	signal life 							: std_logic_vector(9 downto 0) := (others => '1');
+	signal index_life						: integer range 0 to 9 := 0;
 	
 begin
 
@@ -196,9 +199,13 @@ begin
 							address_a_sub <= "000000" + current_submarine;
 							wr_en_a_sub <= '1';
 							
-							-- Generate rockets if 25*0,013 = 0.325 second elapsed
-							if (cycle_cnt mod 25 = 0) then
-								-- if this sub must shoot, it modifies the RAM
+							-- Generate rockets : 
+							--if if level 1 : every 50*0,0138 = 0.69 second elapsed 5 lines shoot
+							--if if level 2 : every 25*0,0138 = 0.345 second elapsed 5 lines shoot
+							--if if level 3 : every 10*0,0138 = 0.138 second elapsed 5 lines shoot
+							if( (level = 1 and cycle_cnt mod 50 = 0) or (level = 2 and cycle_cnt mod 25 = 0) or (level = 3 and cycle_cnt mod 10 = 0) ) then
+							--if (cycle_cnt mod 25 = 0) then
+								-- if there is a sub on one of the five current line designed to shoot it shoots
 								if( (current_submarine = shooter) or (current_submarine = 10+shooter) or (current_submarine = 20+shooter) or (current_submarine = 30+shooter) or (current_submarine = 40+shooter)) then
 									data_tmp_roc( to_integer(unsigned(data_tmp_sub(9 downto 0) + 16))/8 ) := '1';
 								end if;
@@ -233,7 +240,12 @@ begin
 
 				-- Update rockets position
 				elsif(update_rockets = '1') then
-					if(cycle_cnt mod 5 = 0) then -- To update the rockets position every 5*13 = 65 ms
+					-- In fonction of the level, the update is at a different rate :
+					-- Level 1 : every 10*0.0138 = 0.138 s
+					-- Level 2 : every 5*0.0138 = 0.069 s
+					-- Level 3 : every 2*0.0138 = 0.0276 s
+					if( (level = 1 and cycle_cnt mod 10 = 0) or (level = 2 and cycle_cnt mod 5 = 0) or (level = 3 and cycle_cnt mod 2 = 0) ) then
+					--if(cycle_cnt mod 5 = 0) then -- To update the rockets position every 5*13 = 65 ms
 						if(read_roc = '1') then									-- Read mode
 							
 							--address_a_roc <= "0000000" + current_rocket + 1;
@@ -459,9 +471,9 @@ begin
 				-- to decrease a life is boat is touched
 				if( (v_cnt = bottom_boat) and ((h_cnt >= left_boat) and (h_cnt <= right_boat)) ) then
 					if( data_roc_disp(to_integer(unsigned(h_cnt)/8)) = '1' ) then
-						if(index_life >0) then
-							index_life := index_life - 1;
-							life(index_life) := '0';
+						life(index_life) <= '0';
+						if(index_life > 9) then
+							index_life <= index_life + 1;
 						end if;
 					end if;
 				end if;
@@ -476,47 +488,47 @@ begin
 			end if;
 			
 			
-			-- DEBUG
-			if(v_cnt >= 10 and v_cnt <= 21 and h_cnt >= 0 and h_cnt <= 399) then
-				if (submarines(to_integer(unsigned(h_cnt) srl 3)) = '1') then
-					red_signal <= '1';
-					green_signal <= '0';
-					blue_signal <= '0';
-				else
-					red_signal <= '0';
-					green_signal <= '0';
-					blue_signal <= '0';
-				end if;
-				
-				if(to_integer(unsigned(h_cnt)) mod 8 = 0) then
-					red_signal <= '1';
-					green_signal <= '1';
-					blue_signal <= '0';
-				end if;
-			end if;
-			
-			-- DEBUG
-			if(v_cnt >= 30 and v_cnt <= 41 and h_cnt >= 0 and h_cnt <= 399) then
-				if (submarines_debug(to_integer(unsigned(h_cnt) srl 3)) = '1') then
-					red_signal <= '1';
-					green_signal <= '0';
-					blue_signal <= '0';
-				else
-					red_signal <= '0';
-					green_signal <= '0';
-					blue_signal <= '0';
-				end if;
-				
-				if(to_integer(unsigned(h_cnt)) mod 8 = 0) then
-					red_signal <= '1';
-					green_signal <= '1';
-					blue_signal <= '0';
-				end if;
-			end if;
+--			-- DEBUG
+--			if(v_cnt >= 10 and v_cnt <= 21 and h_cnt >= 0 and h_cnt <= 399) then
+--				if (submarines(to_integer(unsigned(h_cnt) srl 3)) = '1') then
+--					red_signal <= '1';
+--					green_signal <= '0';
+--					blue_signal <= '0';
+--				else
+--					red_signal <= '0';
+--					green_signal <= '0';
+--					blue_signal <= '0';
+--				end if;
+--				
+--				if(to_integer(unsigned(h_cnt)) mod 8 = 0) then
+--					red_signal <= '1';
+--					green_signal <= '1';
+--					blue_signal <= '0';
+--				end if;
+--			end if;
+--			
+--			-- DEBUG
+--			if(v_cnt >= 30 and v_cnt <= 41 and h_cnt >= 0 and h_cnt <= 399) then
+--				if (submarines_debug(to_integer(unsigned(h_cnt) srl 3)) = '1') then
+--					red_signal <= '1';
+--					green_signal <= '0';
+--					blue_signal <= '0';
+--				else
+--					red_signal <= '0';
+--					green_signal <= '0';
+--					blue_signal <= '0';
+--				end if;
+--				
+--				if(to_integer(unsigned(h_cnt)) mod 8 = 0) then
+--					red_signal <= '1';
+--					green_signal <= '1';
+--					blue_signal <= '0';
+--				end if;
+--			end if;
 			
 			-- Life
-			if(v_cnt >= 50 and v_cnt <= 61 and h_cnt >= 0 and h_cnt <= 319) then
-				if (life(to_integer(unsigned(h_cnt) srl 5)) = '1') then
+			if(v_cnt >= 50 and v_cnt <= 61 and h_cnt >= 0 and h_cnt <= 159) then
+				if (life(to_integer(unsigned(h_cnt) srl 4)) = '1') then
 					red_signal <= '0';
 					green_signal <= '1';
 					blue_signal <= '0';
@@ -526,7 +538,7 @@ begin
 					blue_signal <= '0';
 				end if;
 				
-				if(to_integer(unsigned(h_cnt)) mod 32 = 0) then
+				if(to_integer(unsigned(h_cnt)) mod 16 = 0) then
 					red_signal <= '1';
 					green_signal <= '1';
 					blue_signal <= '0';
