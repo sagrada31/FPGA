@@ -46,28 +46,24 @@ architecture synth of gsensor is
    SIGNAL I2C_SCLK_xhdl3           :  std_logic;   
 
 	-- SIGNALS FOR RAM_SUBMARINES (RAM1)
-	SIGNAL wire_data_a_sub			: STD_LOGIC_VECTOR (31 DOWNTO 0);
-	SIGNAL wire_data_b_sub			: STD_LOGIC_VECTOR (31 DOWNTO 0);
-	SIGNAL wire_address_a_sub		: STD_LOGIC_VECTOR (4 DOWNTO 0);
-	SIGNAL wire_address_b_sub		: STD_LOGIC_VECTOR (4 DOWNTO 0);
+	SIGNAL wire_data_a_sub			: STD_LOGIC_VECTOR (15 DOWNTO 0);
+	SIGNAL wire_data_b_sub			: STD_LOGIC_VECTOR (15 DOWNTO 0);
+	SIGNAL wire_address_a_sub		: STD_LOGIC_VECTOR (5 DOWNTO 0);
+	SIGNAL wire_address_b_sub		: STD_LOGIC_VECTOR (5 DOWNTO 0);
 	SIGNAL wire_wr_en_a_sub			: STD_LOGIC;
 	SIGNAL wire_wr_en_b_sub			: STD_LOGIC;
-	SIGNAL wire_rd_en_a_sub			: STD_LOGIC;
-	SIGNAL wire_rd_en_b_sub			: STD_LOGIC;
-	SIGNAL wire_q_a_sub				: STD_LOGIC_VECTOR (31 DOWNTO 0);
-	SIGNAL wire_q_b_sub				: STD_LOGIC_VECTOR (31 DOWNTO 0);
+	SIGNAL wire_q_a_sub				: STD_LOGIC_VECTOR (15 DOWNTO 0);
+	SIGNAL wire_q_b_sub				: STD_LOGIC_VECTOR (15 DOWNTO 0);
 	
 	-- SIGNALS FOR RAM_ROCKETS (RAM2)
-	SIGNAL wire_data_a_roc			: STD_LOGIC_VECTOR (255 DOWNTO 0);
-	SIGNAL wire_data_b_roc			: STD_LOGIC_VECTOR (255 DOWNTO 0);
-	SIGNAL wire_address_a_roc		: STD_LOGIC_VECTOR (5 DOWNTO 0);
-	SIGNAL wire_address_b_roc		: STD_LOGIC_VECTOR (5 DOWNTO 0);
+	SIGNAL wire_data_a_roc			: STD_LOGIC_VECTOR (107 DOWNTO 0);
+	SIGNAL wire_data_b_roc			: STD_LOGIC_VECTOR (107 DOWNTO 0);
+	SIGNAL wire_address_a_roc		: STD_LOGIC_VECTOR (6 DOWNTO 0);
+	SIGNAL wire_address_b_roc		: STD_LOGIC_VECTOR (6 DOWNTO 0);
 	SIGNAL wire_wr_en_a_roc			: STD_LOGIC;
 	SIGNAL wire_wr_en_b_roc			: STD_LOGIC;
-	SIGNAL wire_rd_en_a_roc			: STD_LOGIC;
-	SIGNAL wire_rd_en_b_roc			: STD_LOGIC;
-	SIGNAL wire_q_a_roc				: STD_LOGIC_VECTOR (255 DOWNTO 0);
-	SIGNAL wire_q_b_roc				: STD_LOGIC_VECTOR (255 DOWNTO 0);
+	SIGNAL wire_q_a_roc				: STD_LOGIC_VECTOR (107 DOWNTO 0);
+	SIGNAL wire_q_b_roc				: STD_LOGIC_VECTOR (107 DOWNTO 0);
 	
 BEGIN
    --LED <= LED_xhdl1;
@@ -123,8 +119,6 @@ BEGIN
 			address_b_sub	=> wire_address_b_sub,
 			wr_en_a_sub		=> wire_wr_en_a_sub,
 			wr_en_b_sub		=> wire_wr_en_b_sub,
-			rd_en_a_sub		=> wire_rd_en_a_sub,
-			rd_en_b_sub		=> wire_rd_en_b_sub,
 			q_a_sub				=> wire_q_a_sub,
 			q_b_sub				=> wire_q_b_sub,
 			
@@ -135,12 +129,10 @@ BEGIN
 			address_b_roc	=> wire_address_b_roc,
 			wr_en_a_roc		=> wire_wr_en_a_roc,
 			wr_en_b_roc		=> wire_wr_en_b_roc,
-			rd_en_a_roc		=> wire_rd_en_a_roc,
-			rd_en_b_roc		=> wire_rd_en_b_roc,
 			q_a_roc				=> wire_q_a_roc,
 			q_b_roc				=> wire_q_b_roc);
 			
-	u_ram1_submarine : entity work.ram1_submarine
+	u_ram_sub : entity work.ram_sub
 	PORT MAP(
 		clock			=> CLOCK_50,		
 		data_a		=> wire_data_a_sub,
@@ -149,12 +141,10 @@ BEGIN
 		address_b	=> wire_address_b_sub,
 		wren_a		=> wire_wr_en_a_sub,
 		wren_b		=> wire_wr_en_b_sub,
-		rden_a		=> wire_rd_en_a_sub,
-		rden_b		=> wire_rd_en_b_sub,
 		q_a			=> wire_q_a_sub,
 		q_b			=> wire_q_b_sub);
 	
-	u_ram2_rockets : entity work.ram2_rockets
+	u_ram_rockets : entity work.ram_rockets
 	PORT MAP
 	(
 		clock			=> CLOCK_50,
@@ -164,8 +154,6 @@ BEGIN
 		address_b	=> wire_address_b_roc,
 		wren_a		=> wire_wr_en_a_roc,
 		wren_b		=> wire_wr_en_b_roc,
-		rden_a		=> wire_rd_en_a_roc,
-		rden_b		=> wire_rd_en_b_roc,
 		q_a			=> wire_q_a_roc,
 		q_b			=> wire_q_b_roc);
 	

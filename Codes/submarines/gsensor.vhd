@@ -45,7 +45,7 @@ architecture synth of gsensor is
    SIGNAL G_SENSOR_CS_N_xhdl2      :  std_logic;   
    SIGNAL I2C_SCLK_xhdl3           :  std_logic;   
 
-	-- SIGNALS FOR RAM_SUBMARINES (RAM1)
+	-- WIRES FOR RAM_SUBMARINES
 	SIGNAL wire_data_a_sub			: STD_LOGIC_VECTOR (15 DOWNTO 0);
 	SIGNAL wire_data_b_sub			: STD_LOGIC_VECTOR (15 DOWNTO 0);
 	SIGNAL wire_address_a_sub		: STD_LOGIC_VECTOR (5 DOWNTO 0);
@@ -55,7 +55,7 @@ architecture synth of gsensor is
 	SIGNAL wire_q_a_sub				: STD_LOGIC_VECTOR (15 DOWNTO 0);
 	SIGNAL wire_q_b_sub				: STD_LOGIC_VECTOR (15 DOWNTO 0);
 	
-	-- SIGNALS FOR RAM_ROCKETS (RAM2)
+	-- WIRES FOR RAM_ROCKETS FROM SUBMARINES
 	SIGNAL wire_data_a_roc			: STD_LOGIC_VECTOR (107 DOWNTO 0);
 	SIGNAL wire_data_b_roc			: STD_LOGIC_VECTOR (107 DOWNTO 0);
 	SIGNAL wire_address_a_roc		: STD_LOGIC_VECTOR (6 DOWNTO 0);
@@ -64,6 +64,16 @@ architecture synth of gsensor is
 	SIGNAL wire_wr_en_b_roc			: STD_LOGIC;
 	SIGNAL wire_q_a_roc				: STD_LOGIC_VECTOR (107 DOWNTO 0);
 	SIGNAL wire_q_b_roc				: STD_LOGIC_VECTOR (107 DOWNTO 0);
+	
+	-- WIRES FOR RAM_MISSILES FROM BOAT
+	SIGNAL wire_data_a_mis			: STD_LOGIC_VECTOR (107 DOWNTO 0);
+	SIGNAL wire_data_b_mis			: STD_LOGIC_VECTOR (107 DOWNTO 0);
+	SIGNAL wire_address_a_mis		: STD_LOGIC_VECTOR (5 DOWNTO 0);
+	SIGNAL wire_address_b_mis		: STD_LOGIC_VECTOR (5 DOWNTO 0);
+	SIGNAL wire_wr_en_a_mis			: STD_LOGIC;
+	SIGNAL wire_wr_en_b_mis			: STD_LOGIC;
+	SIGNAL wire_q_a_mis				: STD_LOGIC_VECTOR (107 DOWNTO 0);
+	SIGNAL wire_q_b_mis				: STD_LOGIC_VECTOR (107 DOWNTO 0);
 	
 BEGIN
    --LED <= LED_xhdl1;
@@ -130,7 +140,17 @@ BEGIN
 			wr_en_a_roc		=> wire_wr_en_a_roc,
 			wr_en_b_roc		=> wire_wr_en_b_roc,
 			q_a_roc				=> wire_q_a_roc,
-			q_b_roc				=> wire_q_b_roc);
+			q_b_roc				=> wire_q_b_roc,
+			
+			-- FOR THE MISSILES RAM
+			data_a_mis		=> wire_data_a_mis,
+			data_b_mis		=> wire_data_b_mis,
+			address_a_mis	=> wire_address_a_mis,
+			address_b_mis	=> wire_address_b_mis,
+			wr_en_a_mis		=> wire_wr_en_a_mis,
+			wr_en_b_mis		=> wire_wr_en_b_mis,
+			q_a_mis				=> wire_q_a_mis,
+			q_b_mis				=> wire_q_b_mis);
 			
 	u_ram_sub : entity work.ram_sub
 	PORT MAP(
@@ -156,6 +176,19 @@ BEGIN
 		wren_b		=> wire_wr_en_b_roc,
 		q_a			=> wire_q_a_roc,
 		q_b			=> wire_q_b_roc);
+		
+	u_ram_missiles : entity work.ram_missiles
+	PORT MAP
+	(
+		clock			=> CLOCK_50,
+		data_a		=> wire_data_a_mis,
+		data_b		=> wire_data_b_mis,
+		address_a	=> wire_address_a_mis,
+		address_b	=> wire_address_b_mis,
+		wren_a		=> wire_wr_en_a_mis,
+		wren_b		=> wire_wr_en_b_mis,
+		q_a			=> wire_q_a_mis,
+		q_b			=> wire_q_b_mis);
 	
 	
 end synth;

@@ -20,28 +20,24 @@ entity vga is
 		out_v_sync	: out std_logic;
 	
 		-- FOR THE RAM PROCESSING
-		data_a_sub			: OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
-		data_b_sub			: OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
-		address_a_sub		: buffer STD_LOGIC_VECTOR (4 DOWNTO 0);
-		address_b_sub		: buffer STD_LOGIC_VECTOR (4 DOWNTO 0);
-		wr_en_a_sub				: OUT STD_LOGIC  := '0';
-		wr_en_b_sub				: OUT STD_LOGIC  := '0';
-		rd_en_a_sub				: OUT STD_LOGIC  := '0';
-		rd_en_b_sub				: OUT STD_LOGIC  := '0';
-		q_a_sub					: IN STD_LOGIC_VECTOR (31 DOWNTO 0);
-		q_b_sub					: IN STD_LOGIC_VECTOR (31 DOWNTO 0);
+		data_a_sub			: OUT STD_LOGIC_VECTOR (15 DOWNTO 0);
+		data_b_sub			: OUT STD_LOGIC_VECTOR (15 DOWNTO 0);
+		address_a_sub		: buffer STD_LOGIC_VECTOR (5 DOWNTO 0);
+		address_b_sub		: buffer STD_LOGIC_VECTOR (5 DOWNTO 0);
+		wr_en_a_sub			: OUT STD_LOGIC  := '0';
+		wr_en_b_sub			: OUT STD_LOGIC  := '0';
+		q_a_sub				: IN STD_LOGIC_VECTOR (15 DOWNTO 0);
+		q_b_sub				: IN STD_LOGIC_VECTOR (15 DOWNTO 0);
 		
 		-- FOR THE RAM PROCESSING
-		data_a_roc			: OUT STD_LOGIC_VECTOR (255 DOWNTO 0);
-		data_b_roc			: OUT STD_LOGIC_VECTOR (255 DOWNTO 0);
-		address_a_roc		: buffer STD_LOGIC_VECTOR (5 DOWNTO 0);
-		address_b_roc		: buffer STD_LOGIC_VECTOR (5 DOWNTO 0);
+		data_a_roc			: OUT STD_LOGIC_VECTOR (107 DOWNTO 0);
+		data_b_roc			: OUT STD_LOGIC_VECTOR (107 DOWNTO 0);
+		address_a_roc		: buffer STD_LOGIC_VECTOR (6 DOWNTO 0);
+		address_b_roc		: buffer STD_LOGIC_VECTOR (6 DOWNTO 0);
 		wr_en_a_roc			: OUT STD_LOGIC  := '0';
-		wr_en_b_roc				: OUT STD_LOGIC  := '0';
-		rd_en_a_roc				: OUT STD_LOGIC  := '0';
-		rd_en_b_roc				: OUT STD_LOGIC  := '0';
-		q_a_roc					: IN STD_LOGIC_VECTOR (255 DOWNTO 0);
-		q_b_roc					: IN STD_LOGIC_VECTOR (255 DOWNTO 0)
+		wr_en_b_roc			: OUT STD_LOGIC  := '0';
+		q_a_roc				: IN STD_LOGIC_VECTOR (107 DOWNTO 0);
+		q_b_roc				: IN STD_LOGIC_VECTOR (107 DOWNTO 0)
 		);
 		
 		
@@ -71,56 +67,56 @@ architecture vga_arch of vga is
 	
 	-- To represent acceleration of both directions
 	shared variable sign_g_y		: std_logic;
-	shared variable magn_g_y		: std_logic_vector(8 downto 0); -- variable à la place de signal pour mise à jour immédiate
-	shared variable old_magn_g_y	: std_logic_vector(8 downto 0); -- variable à la place de signal pour mise à jour immédiate
-	shared variable tmp_magn_g_y	: std_logic_vector(10 downto 0); -- variable à la place de signal pour mise à jour immédiate
+	shared variable magn_g_y		: std_logic_vector(8 downto 0);
+	shared variable old_magn_g_y	: std_logic_vector(8 downto 0);
+	shared variable tmp_magn_g_y	: std_logic_vector(10 downto 0);
 	
-	shared variable submarines : std_logic_vector(49 downto 0) := (others => '0');  -- 1 bit for signaling if there is a boat, 1 bit for signaling its direction and 10 bits for its position
-	--shared variable submarines : Submarine_tab;
+	shared variable submarines : std_logic_vector(49 downto 0) := (others => '0');  -- 1 bit for signaling if there is a boat
+	shared variable submarines_debug : std_logic_vector(50 downto 0) := (others => '0');
 	
 	shared variable index 					: integer range 0 to 200; -- normally 75 enough
 	shared variable i_loop 					: integer range 0 to 200;
 	
-	shared variable update_submarines 	: std_logic := '0';
-	shared variable update_rockets 		: std_logic := '0';
-	shared variable generate_subarine	: std_logic := '0';
-	shared variable generate_rocket		: std_logic := '0';
-	shared variable cycle_cnt				: integer range 0 to 100 := 0;
+	signal update_submarines 	: std_logic := '0';
+	signal update_rockets 		: std_logic := '0';
+	signal generate_subarine	: std_logic := '0';
+	signal cycle_cnt				: integer range 0 to 100 := 0;
 	
-	shared variable current_submarine 	: integer range 0 to 49 := 0;
-	shared variable first_part 			: std_logic := '1';
-	shared variable first_data_sub 		: std_logic_vector (15 downto 0);
-	shared variable second_data_sub 		: std_logic_vector (15 downto 0);
-	shared variable tmp_read_data_sub	: std_logic_vector (31 downto 0);
-	shared variable address_tmp			: std_logic_vector (5 downto 0);
+	-- for update submarines
+	signal current_submarine 			: integer range 0 to 49 := 0;
+	signal read_sub	 					: std_logic := '1';
+	signal wait_read_sub					: std_logic := '0';
+	shared variable data_tmp_sub		: std_logic_vector (15 downto 0);
+	shared variable data_sub_disp		: std_logic_vector (15 downto 0);
 	
-	shared variable first_data_roc 		: std_logic_vector (127 downto 0);
-	shared variable second_data_roc 		: std_logic_vector (127 downto 0);
-	shared variable tmp_read_data_roc	: std_logic_vector (255	downto 0);
 	
-	shared variable current_rocket		: integer range 0 to 74 := 0;
+	-- for update rockets
+	signal current_rocket				: integer range 0 to 74 := 0;
+	signal read_roc	 					: std_logic := '1';
+	signal wait_read_roc					: std_logic := '0';
+	shared variable data_tmp_roc		: std_logic_vector (107 downto 0);
+	shared variable data_roc_disp		: std_logic_vector (107 downto 0);
+	shared variable new_roc_line 		: std_logic_vector (107 downto 0) := (others => '0');
 	
-	shared variable index_submarine		: integer range 0 to 49;
-	shared variable index_rocket			: integer range 0 to 74;
-	shared variable shooter 				: integer range 0 to 9 := 0;
-	shared variable tmp 						: integer;
-	shared variable tmp_random		    	: integer range 0 to 65 := 0;
-	shared variable old_random		    	: integer range -1 to 65 := -1;
-	shared variable nb_submarines    	: integer range 0 to 15 := 0; -- To count the number of submarines
 	
-	shared variable current_submarine_line	: integer range 0 to 615 := 0;
+	-- for generate rockets
+	signal shooter 						: integer range 0 to 9 := 0;
+	signal shift_shooter					: integer range 0 to 9 := 1;
+	shared variable index_submarine	: integer range 0 to 49;
+	shared variable index_rocket		: integer range 0 to 74;
+	shared variable tmp_random		   : integer range 0 to 63 := 0;
+	shared variable nb_submarines    : integer range 0 to 50 := 0; -- To count the number of submarines
+	
+	shared variable current_sub_line			: integer range 199 to 599 := 199;
 	shared variable current_rocket_line		: integer range -1 to 615 := 0;
 	
-	shared variable ask_read					: std_logic := '0';
-	shared variable data_read					: std_logic_vector (15 downto 0);
-
-	shared variable first_row_sub 			: std_logic_vector (15 downto 0);
-	shared variable second_row_sub 			: std_logic_vector (15 downto 0);
-	shared variable first_row_roc 			: std_logic_vector (127 downto 0);
-	shared variable second_row_roc 			: std_logic_vector (127 downto 0);
+	-- for the level configuration
+	signal level							: integer range 0 to 3 := 1;						
 	
-	shared variable ask_read_debug			: std_logic := '0';
-	shared variable vector_debug				: std_logic_vector(215 downto 0) := (others => '1');
+	-- for the life
+	signal life 							: std_logic_vector(9 downto 0) := (others => '1');
+	signal index_life						: integer range 0 to 9 := 0;
+	
 begin
 
 	update_elements_position : process(CLOCK_50)
@@ -128,218 +124,203 @@ begin
 		if(CLOCK_50 = '1') then
 			
 			-- Prepare to load the first line of submarines from memory (just before the v_sync)
-			if(v_cnt = 635 and h_cnt = 1039) then
-				update_submarines := '1';
-				update_rockets := '0';
-				generate_subarine := '0';
-				generate_rocket := '0';
-				current_submarine := 0;
-				
-				address_a_sub <= "00000";
-				rd_en_a_sub <= '1';
-				wr_en_a_sub <= '0';
-				--address_a_roc <= "011001";
-				--rd_en_a_roc <= '1';
-				--wr_en_a_roc <= '0';
+			if(v_cnt = 635 and h_cnt = 799) then
+				update_submarines <= '1';
+				update_rockets <= '0';
+				generate_subarine <= '0';
+				current_submarine <= 0;
 				
 				if(cycle_cnt = 100) then
-					cycle_cnt := 0;
+					cycle_cnt <= 0;
 				else
-					cycle_cnt := cycle_cnt + 1;
+					cycle_cnt <= cycle_cnt + 1;
 				end if;
-								
-			elsif(v_sync = '0' ) then --and (cycle_cnt = 25 or cycle_cnt = 50 or cycle_cnt = 75 or cycle_cnt = 100)) then
 				
-				-- Update submarines position	
+				if(cycle_cnt mod 50 = 0) then -- every 0.65s we change the submarines who shoot
+					if(shooter < 9) then
+						shooter <= shooter + 1; -- sub at index shooter, 10 + shooter , ... , 40 + shooter  will shoot every time we decide
+					else
+						if(shift_shooter < 9) then
+							shooter <= shift_shooter; -- next time sub at index (shooter + shift_shooter), (10 + shooter shift_shooter) , ... , (40 + shooter + shift_shooter) will shoot every time we decide
+							shift_shooter <= shift_shooter + 1;
+						else 
+							shooter <= 0;
+							shift_shooter <=1;
+						end if;
+					end if;
+				end if; 
+				
+			elsif(v_sync = '0') then
+				
+				-- Update submarines position (and generate rockets if 1sec elapsed)
 				if (update_submarines = '1') then
 						
-					if(first_part = '1') then								-- first part
-						
-						if(current_submarine = 0) then
-							first_data_sub(15 downto 0) := q_a_sub(31 downto 16);
-							second_data_sub(15 downto 0) := q_a_sub(15 downto 0);
---							first_data_roc(127 downto 0) := q_a_roc(255 downto 128);
---							second_data_roc(127 downto 0) := q_a_roc(127 downto 0);
-						else
-							first_data_sub(15 downto 0) := tmp_read_data_sub(31 downto 16);
-							second_data_sub(15 downto 0) := tmp_read_data_sub(15 downto 0);
---							first_data_roc(127 downto 0) := tmp_read_data_roc(255 downto 128);
---							second_data_roc(127 downto 0) := tmp_read_data_roc(127 downto 0);
-						end if;
-						
-						if(first_data_sub(11) = '1') then 									-- if there is a submarine on this line
-							if(first_data_sub(10) = '1') then 								-- if it goes to the right
-								if(first_data_sub(9 downto 0) = 760)then					-- if max at right
-									first_data_sub(10) := not first_data_sub(10);		-- reverse direction
-								else
-									first_data_sub(15 downto 0) := first_data_sub(15 downto 0) + 1;	-- go to right
-								end if;
-							else 																		-- if it goes to the left
-								if(first_data_sub(9 downto 0) = 0)then						-- if max at left
-									first_data_sub(10) := not first_data_sub(10);		-- reverse direction
-								else
-									first_data_sub(15 downto 0) := first_data_sub(15 downto 0) - 1;	-- go to left
-								end if;
-							end if;
---							if (cycle_cnt = 100) then
---								first_data_roc(to_integer(unsigned(first_data_sub(9 downto 0) + 16) srl 3)) := '1';
---							end if;
-						end if;
-						-- prepare to load the next line from memory 
-						--address_tmp := std_logic_vector(to_unsigned(current_submarine,6)); 
-						--address_a_sub <= address_tmp(5 downto 1) + 1;
-						address_a_sub <= std_logic_vector(to_unsigned(current_submarine/2,5)) + 1; 	
-						rd_en_a_sub <= '1';
-						wr_en_a_sub <= '0';
---						address_a_roc <= std_logic_vector(to_unsigned(current_submarine/2,6)) + 26;
---						rd_en_a_roc <= '1';
---						wr_en_a_roc <= '0';
-						
-					else																	-- second part
-						tmp_read_data_sub := q_a_sub;
---						tmp_read_data_roc := q_a_roc;
-						if(second_data_sub(11) = '1') then 							-- if there is a submarine on this line
-							if(second_data_sub(10) = '1') then 						-- if it goes to the right
-								if(second_data_sub(9 downto 0) = 760)then			-- if max at right
-									second_data_sub(10) := not second_data_sub(10);	-- reverse direction
-								else
-									second_data_sub(15 downto 0) := second_data_sub(15 downto 0) + 1; -- go to right
-								end if;
-							else 															-- if it goes to the left
-								if(second_data_sub(9 downto 0) = 0)then				-- if max at left
-									second_data_sub(10) := not second_data_sub(10);	-- reverse direction
-								else
-									second_data_sub(9 downto 0) := second_data_sub(9 downto 0) - 1;	-- go to left
-								end if;
-							end if;
-							--if (cycle_cnt = 100) then
---								second_data_roc(to_integer(unsigned(second_data_sub(9 downto 0) + 16) srl 3)) := '1';
-							--end if;
-						end if;
-						-- prepare to write the actual line to memory
-						data_a_sub <= first_data_sub & second_data_sub;
---						data_a_roc <= first_data_roc & second_data_roc;
-						--address_tmp := std_logic_vector(to_unsigned(current_submarine,6));
-						--address_a_sub <= address_tmp(5 downto 1); -- To divide by 2
-						address_a_sub <= std_logic_vector(to_unsigned(current_submarine/2,5)) - 1;
-						wr_en_a_sub <= '1';
-						rd_en_a_sub <= '0';
---						if (cycle_cnt = 100) then
---							address_a_roc <= std_logic_vector(to_unsigned(current_submarine/2,6)) + 24;
---							wr_en_a_roc <= '1';
---							rd_en_a_roc <= '0';
---						end if;
-					end if;
-					first_part := not first_part;
+					if(submarines(current_submarine) = '1') then
 					
-					if(current_submarine = 49) then
-						current_submarine := 0;
-						update_submarines := '0'; update_rockets := '1';
+						if(read_sub = '1') then									-- Read mode
+							address_a_sub <= "000000" + current_submarine; 	
+							wr_en_a_sub <= '0';
+							
+							address_a_roc <= "0000000" + current_submarine + 25;
+							wr_en_a_roc <= '0';
+							
+							read_sub <= '0'; wait_read_sub <= '1';
+							
+						elsif(read_sub = '0' and wait_read_sub = '1') then
+							wait_read_sub <= '0';
+							
+						else															-- Write mode
+			
+							data_tmp_sub := q_a_sub;
+							data_tmp_roc := q_a_roc;
+							
+--							if(data_tmp_sub(11) = '1') then
+--								submarines_debug(current_submarine) := '1';
+--							else
+--								submarines_debug(current_submarine) := '0';
+--							end if;
+							
+							-- Update position (or direction if submarine on the edge)
+							if(data_tmp_sub(10) = '1') then 					-- if it goes to the right
+								if(data_tmp_sub(9 downto 0) = 760)then		-- if max at right
+									data_tmp_sub(10) := '0';						-- reverse direction
+								else
+									data_tmp_sub(9 downto 0) := data_tmp_sub(9 downto 0) + 1; -- go to right
+								end if;
+							else 														-- if it goes to the left
+								if(data_tmp_sub(9 downto 0) = 0)then		-- if max at left
+									data_tmp_sub(10) := '1';						-- reverse direction
+								else
+									data_tmp_sub(9 downto 0) := data_tmp_sub(9 downto 0) - 1;	-- go to left
+								end if;
+							end if;
+							
+							data_a_sub(15 downto 0) <= "00001" & data_tmp_sub(10 downto 0);
+							address_a_sub <= "000000" + current_submarine;
+							wr_en_a_sub <= '1';
+							
+							-- Generate rockets : 
+							--if if level 1 : every 50*0,0138 = 0.69 second elapsed 5 lines shoot
+							--if if level 2 : every 25*0,0138 = 0.345 second elapsed 5 lines shoot
+							--if if level 3 : every 10*0,0138 = 0.138 second elapsed 5 lines shoot
+							if( (level = 1 and cycle_cnt mod 50 = 0) or (level = 2 and cycle_cnt mod 25 = 0) or (level = 3 and cycle_cnt mod 10 = 0) ) then
+							--if (cycle_cnt mod 25 = 0) then
+								-- if there is a sub on one of the five current line designed to shoot it shoots
+								if( (current_submarine = shooter) or (current_submarine = 10+shooter) or (current_submarine = 20+shooter) or (current_submarine = 30+shooter) or (current_submarine = 40+shooter)) then
+									data_tmp_roc( to_integer(unsigned(data_tmp_sub(9 downto 0) + 16))/8 ) := '1';
+								end if;
+								-- qu'il tire ou pas il ré-écrit dans la mémoire : si tire écrit qqch de différent, si tire pas remet la même chose
+								data_a_roc <= data_tmp_roc;
+								address_a_roc <= "0000000" + current_submarine + 25;
+								wr_en_a_roc <= '1';
+							end if;
+							
+							read_sub <= '1';
+							
+							if(current_submarine = 49) then
+								current_submarine <= 0;
+								update_submarines <= '0'; update_rockets <= '1';
+							else
+								current_submarine <= current_submarine + 1;
+							end if;
+							
+
+						end if;
+						
 					else
-						current_submarine := current_submarine + 1;
+					
+						if(current_submarine = 49) then
+							current_submarine <= 0;
+							update_submarines <= '0'; update_rockets <= '1';
+						else
+							current_submarine <= current_submarine + 1;
+						end if;
+					
 					end if;
 
 				-- Update rockets position
 				elsif(update_rockets = '1') then
-					
---					-- Update rockets
---				if(timer_update_rockets = 1) then
---					for i_loop in 1 to 74 loop
---						rockets(i_loop-1) := rockets(i_loop);
---					end loop;
---					rockets(74) := std_logic_vector(to_unsigned(0,50));
---					timer_update_rockets := 0;
---				else
---					timer_update_rockets := 1;
---				end if;
-					
-					if(current_rocket = 74) then
-						current_rocket := 0;
-						update_rockets := '0'; generate_subarine := '1';
-					else
-						current_rocket := current_rocket + 1;
+					-- In fonction of the level, the update is at a different rate :
+					-- Level 1 : every 10*0.0138 = 0.138 s
+					-- Level 2 : every 5*0.0138 = 0.069 s
+					-- Level 3 : every 2*0.0138 = 0.0276 s
+					if( (level = 1 and cycle_cnt mod 10 = 0) or (level = 2 and cycle_cnt mod 5 = 0) or (level = 3 and cycle_cnt mod 2 = 0) ) then
+					--if(cycle_cnt mod 5 = 0) then -- To update the rockets position every 5*13 = 65 ms
+						if(read_roc = '1') then									-- Read mode
+							
+							--address_a_roc <= "0000000" + current_rocket + 1;
+							address_a_roc <= "0000001" + current_rocket;
+							wr_en_a_roc <= '0';
+							
+							read_roc <= '0'; wait_read_roc <= '1';
+							
+						elsif(read_roc = '0' and wait_read_roc = '1') then
+							wait_read_roc <= '0';
+							
+						else															-- Write mode
+							data_tmp_roc := q_a_roc;
+							
+							if(current_rocket = 74) then
+								data_a_roc <= new_roc_line;
+							else
+								data_a_roc <= data_tmp_roc;
+							end if;
+							
+							address_a_roc <= "0000000" + current_rocket;
+							wr_en_a_roc <= '1';
+							
+							read_roc <= '1';
+
+							if(current_rocket = 74) then
+								current_rocket <= 0;
+								update_rockets <= '0'; generate_subarine <= '1';
+							else
+								current_rocket <= current_rocket + 1;
+							end if;
+						end if;
+					else 
+						current_rocket <= 0;
+						update_rockets <= '0';
+						generate_subarine <= '1';
 					end if;
-				
 				-- Generate submarines
 				elsif(generate_subarine = '1') then
 					
 					if(cycle_cnt = 100) then
 						
-						if(ask_read = '0') then
-
-							if(nb_submarines < 10) then -- if there is less than 10 submarines, we try to add one
+						if(nb_submarines < 10) then -- if there is less than 10 submarines, we try to add one
 							  
-								tmp_random := to_integer(unsigned(magn_g_y(5 downto 0))); -- to take a random number
-								if (tmp_random >= 48) then -- 2^6 can be greater than 50
-									tmp_random := tmp_random - 16;
+							tmp_random := to_integer(unsigned(magn_g_y(5 downto 0))); -- to take a random number
+							if (tmp_random > 49) then -- 2^6 can be greater than 50
+								tmp_random := tmp_random - 14;
+							end if;
+--							tmp_random <= tmp_random + 2;
+							
+							if(submarines(tmp_random) = '0') then -- No submarine in this line => create one
+								if(sign_g_y = '1') then -- to choose the direction
+									data_a_sub <= "000010" & (std_logic_vector(to_unsigned(760,10)));
+								else
+									data_a_sub <= "000011" & (std_logic_vector(to_unsigned(0,10)));
 								end if;
---								tmp_random := tmp_random + 1;
-								
-								if(tmp_random = old_random or (tmp_random = old_random + 1) or (tmp_random = old_random - 1) ) then
-									ask_read := '0';
-								elsif(submarines(tmp_random) = '0') then -- No submarine in this line => create one
-									address_tmp := std_logic_vector(to_unsigned(tmp_random,6));
-									address_a_sub <= address_tmp (5 downto 1); -- To divide by 2
-									--address_a_sub <= std_logic_vector(to_unsigned(tmp_random/2,5)); 	
-									rd_en_a_sub <= '1';
-									wr_en_a_sub <= '0';
-									ask_read := '1';
-									submarines(tmp_random) := '1';
-									old_random := tmp_random;
-								else						 -- There is a submarine
-									ask_read := '0';
-									old_random := tmp_random;
-								end if;
+								address_a_sub <= "000000" + tmp_random;
+								wr_en_a_sub <= '1';
+								submarines(tmp_random) := '1';
+								nb_submarines := nb_submarines + 1;
+								generate_subarine <= '0';
+
+							else						 -- There is a submarine
+--								tmp_random = tmp_random + 2;
+--								if(tmp_random > 49) then
+--									tmp_random = 0;
+--								end if;
+								wr_en_a_sub <= '0';
 							end if;
 							
 						else
-							first_data_sub(15 downto 0) := q_a_sub(31 downto 16);
-							second_data_sub(15 downto 0) := q_a_sub(15 downto 0);
-							
-							if(std_logic_vector(to_unsigned(tmp_random,6))(0) = '0') then
-								if ( sign_g_y = '1') then -- too choose the direction
-									first_data_sub := "000010" & (std_logic_vector(to_unsigned(760,10)));
-								else
-									first_data_sub := "000011" & (std_logic_vector(to_unsigned(0,10)));
-								end if;
-							else
-								if ( sign_g_y = '1') then -- too choose the direction
-									second_data_sub := "000010" & (std_logic_vector(to_unsigned(760,10)));
-								else
-									second_data_sub := "000011" & (std_logic_vector(to_unsigned(0,10)));
-								end if;
-							end if;
-							
-							nb_submarines := nb_submarines +1;
-							data_a_sub <= first_data_sub & second_data_sub;
-							address_a_sub <= address_tmp (5 downto 1);
-							wr_en_a_sub <= '1';
-							rd_en_a_sub <= '0';
-							generate_subarine := '0';
-							ask_read := '0';
+							generate_subarine <= '0';
 						end if;
+							
 					end if;
-				
-				-- Generate rockets
---				elsif(generate_rocket = '1') then
---						for i_loop in 0 to 4 loop
---						--for i_loop in 0 to 49 loop
---						
---							index_submarine := shooter + i_loop * 10;
---							address_a_sub <= std_logic_vector(to_unsigned(index_submarine,6));
---							if( q(11) = '1' ) then -- if there is a submarine at this line, it shoots
---							--if( submarines(i_loop)(11) = '1' ) then -- if there is a submarine at this line, it shoots
---								--rockets(i_loop + 25)(to_integer(unsigned(submarines(i_loop)(9 downto 0) + 12) srl 4)) := '1';
---								--rockets(index_submarine + 25)(to_integer(unsigned(submarines(index_submarine)(9 downto 0) + 12) srl 4)) := '1';
---								rockets(index_submarine + 25)(to_integer(unsigned(q(9 downto 0) + 12) srl 4)) := '1';
---							end if;
---						end loop;
---						
---						if(shooter = 9) then
---							shooter := 0;
---						else
---							shooter := shooter + 1;
---						end if;
 				end if;
 			end if;
 		end if;
@@ -421,127 +402,89 @@ begin
 				green_signal <= '1';
 			end if;
 			
-			-- submarines -------------------------------------------------------------------
+		-- submarines -------------------------------------------------------------------
 			
-			-- Load the first line (submarines) from memory before entering for the first time
-			if( v_cnt = 199 and h_cnt = 799) then
-				address_b_sub <= "00000";
-				rd_en_b_sub <= '1';
+			-- Initialize
+			if( (v_cnt = 199) and (h_cnt = 799)) then
+				current_sub_line := 199;
+			
+			-- Ask data
+			elsif ( (v_cnt = current_sub_line) and (h_cnt = 800) ) then
+				address_b_sub <= "000000" + ((current_sub_line - 199)/8);
 				wr_en_b_sub <= '0';
-				current_submarine_line := 199;
+			
+			-- Get the data loaded from memory
+			elsif( (v_cnt = current_sub_line ) and (h_cnt = 803) ) then
+				data_sub_disp := q_b_sub;
+				
+				if(data_sub_disp(11) = '1') then
+					submarines_debug((current_sub_line - 199)/8) := '1';
+				else
+					submarines_debug((current_sub_line - 199)/8) := '0';
+				end if;
+		
 			end if;
 			
-			if( (v_cnt >= 200) and (h_cnt >= 0) and (h_cnt <= 799) ) then
-				
-				-- Get the data loaded from memory
-				if( (v_cnt - current_submarine_line) = 1 and h_cnt = 0) then
-					first_row_sub(15 downto 0) := q_b_sub(31 downto 16);
-					second_row_sub(15 downto 0) := q_b_sub(15 downto 0);
-					rd_en_b_sub <= '0';
-				end if;
-				
-				-- first part
-				if( (v_cnt - current_submarine_line) <= 8 ) then
-					if(first_row_sub(11) = '1') then
-						if( (h_cnt(9 downto 0) >= first_row_sub(9 downto 0)) and (h_cnt(9 downto 0) <= first_row_sub(9 downto 0) + 40) ) then
+			-- Display
+			if( (v_cnt >= current_sub_line + 1 ) and ( v_cnt <= current_sub_line + 8 ) and (h_cnt >= 0) and (h_cnt <= 799) ) then
+				if(data_sub_disp(11) = '1') then
+					if( (h_cnt(9 downto 0) >= data_sub_disp(9 downto 0)) and (h_cnt(9 downto 0) <= data_sub_disp(9 downto 0) + 40) ) then
 							blue_signal <= '0';
 							red_signal <= '0';
 							green_signal <= '0';
-						end if;
 					end if;
-				
-				-- second part
-				elsif( (v_cnt - current_submarine_line) <= 16) then
-					if(second_row_sub(11) = '1') then
-						if( (h_cnt(9 downto 0) >= second_row_sub(9 downto 0)) and (h_cnt(9 downto 0) <= second_row_sub(9 downto 0) + 40) ) then
-							blue_signal <= '0';
-							red_signal <= '0';
-							green_signal <= '0';
-						end if;
-					end if;
-
 				end if;
-				-- Load data for next lines
-				if( (v_cnt - current_submarine_line) = 16 and h_cnt = 799) then
-					address_b_sub <= address_b_sub + 1;
-					rd_en_b_sub <= '1';
-					wr_en_b_sub <= '0';
-					current_submarine_line := current_submarine_line + 16;
-				end if;
+			end if;
+			
+			
+			-- Prepare for loading the next line
+			if( (v_cnt = current_sub_line + 8) and (h_cnt = 799) ) then
+				current_sub_line := current_sub_line + 8;
 			end if;
 			
 
 			
---			-- Rockets -------------------------------------------------------------------
---			
---			-- Load the first line (rockets) from memory before entering for the first time
---			if( v_cnt = 0 and h_cnt = 0) then
---				address_b_roc <= "000000"; 
---				rd_en_b_roc <= '1';
---				wr_en_b_roc <= '0';
---				current_rocket_line := -1;
---			end if;
---			
---			if( (v_cnt >= 0) and (v_cnt <= 599) and (h_cnt > 0) and (h_cnt <= 799) ) then
---
---				-- Get the data loaded from memory
---				if( (v_cnt - current_rocket_line) = 1 and h_cnt = 0) then
---					first_row_roc(127 downto 0) := q_b_roc(255 downto 128);
---					second_row_roc(127 downto 0) := q_b_roc(127 downto 0);
---				end if;
---				
---				-- first part
---				if( (v_cnt - current_rocket_line) <= 8 ) then
---					if(first_row_roc(to_integer(unsigned(h_cnt) srl 3)) = '1') then
---						blue_signal <= '0';
---						red_signal <= '1';
---						green_signal <= '0';
---					end if;
---				
---				-- second part
---				elsif( (v_cnt - current_rocket_line) <= 16) then
---					if(second_row_roc(to_integer(unsigned(h_cnt) srl 3)) = '1') then
---						blue_signal <= '0';
---						red_signal <= '1';
---						green_signal <= '0';
---					end if;
---				end if;
---				
---				-- Load data for next lines
---				if( (v_cnt - current_rocket_line) = 16 and h_cnt = 799) then
---					address_b_roc <= address_b_roc + 1;
---					rd_en_b_roc <= '1';
---					wr_en_b_roc <= '0';
---					current_rocket_line := current_rocket_line + 16;
---				end if;
---				
---			end if;
-
-
-			-- life
-			if(v_cnt = 9 and h_cnt = 799) then
-				address_b_roc <= "001000";
-				data_b_roc <= vector_debug & "1010101010101010101010101010101010101010";
-				wr_en_b_roc <= '1';
-				rd_en_b_roc <= '0';
-			end if;
-				
-			if(v_cnt = 9 and h_cnt = 1039) then
-				address_b_roc <= "001000";
+		-- Rockets -------------------------------------------------------------------
+			
+			-- Initialize
+			if( (v_cnt = 599) and (h_cnt = 799)) then
+				current_rocket_line := -1;
+			
+			-- Ask data
+			elsif ( (v_cnt = current_rocket_line + 1) and (h_cnt = 0) ) then
+				address_b_roc <= "0000000" + ((current_rocket_line + 1)/8);
 				wr_en_b_roc <= '0';
-				rd_en_b_roc <= '1';
+			
+			-- Get the data loaded from memory
+			elsif( (v_cnt = current_rocket_line + 1) and (h_cnt = 2) ) then
+				data_roc_disp := q_b_roc;
 			end if;
 			
-			if(v_cnt >= 10 and v_cnt <= 15 and h_cnt >= 0 and h_cnt <= 255) then
-				if(q_b_roc(to_integer(unsigned(h_cnt))) = '1') then
+			-- Display
+			if( (v_cnt >= current_rocket_line + 1 ) and ( v_cnt <= current_rocket_line + 8 ) and (h_cnt >= 0) and (h_cnt <= 799) ) then
+				if( data_roc_disp(to_integer(unsigned(h_cnt)/8)) = '1' ) then
+					blue_signal <= '0';
 					red_signal <= '1';
 					green_signal <= '0';
-					blue_signal <= '0';
-				else
-					red_signal <= '0';
-					green_signal <= '0';
-					blue_signal <= '0';
 				end if;
+				
+				-- to decrease a life is boat is touched
+				if( (v_cnt = bottom_boat) and ((h_cnt >= left_boat) and (h_cnt <= right_boat)) ) then
+					if( data_roc_disp(to_integer(unsigned(h_cnt)/8)) = '1' ) then
+						life(index_life) <= '0';
+						if(index_life > 9) then
+							index_life <= index_life + 1;
+						end if;
+					end if;
+				end if;
+				
+				
+			end if;
+			
+			
+			-- Prepare for loading the next line
+			if( (v_cnt = current_rocket_line + 8) and (h_cnt = 799) ) then
+				current_rocket_line := current_rocket_line + 8;
 			end if;
 			
 			
@@ -556,7 +499,51 @@ begin
 --					green_signal <= '0';
 --					blue_signal <= '0';
 --				end if;
+--				
+--				if(to_integer(unsigned(h_cnt)) mod 8 = 0) then
+--					red_signal <= '1';
+--					green_signal <= '1';
+--					blue_signal <= '0';
+--				end if;
 --			end if;
+--			
+--			-- DEBUG
+--			if(v_cnt >= 30 and v_cnt <= 41 and h_cnt >= 0 and h_cnt <= 399) then
+--				if (submarines_debug(to_integer(unsigned(h_cnt) srl 3)) = '1') then
+--					red_signal <= '1';
+--					green_signal <= '0';
+--					blue_signal <= '0';
+--				else
+--					red_signal <= '0';
+--					green_signal <= '0';
+--					blue_signal <= '0';
+--				end if;
+--				
+--				if(to_integer(unsigned(h_cnt)) mod 8 = 0) then
+--					red_signal <= '1';
+--					green_signal <= '1';
+--					blue_signal <= '0';
+--				end if;
+--			end if;
+			
+			-- Life
+			if(v_cnt >= 50 and v_cnt <= 61 and h_cnt >= 0 and h_cnt <= 159) then
+				if (life(to_integer(unsigned(h_cnt) srl 4)) = '1') then
+					red_signal <= '0';
+					green_signal <= '1';
+					blue_signal <= '0';
+				else
+					red_signal <= '1';
+					green_signal <= '0';
+					blue_signal <= '0';
+				end if;
+				
+				if(to_integer(unsigned(h_cnt)) mod 16 = 0) then
+					red_signal <= '1';
+					green_signal <= '1';
+					blue_signal <= '0';
+				end if;
+			end if;
 		
 		end if;
 
