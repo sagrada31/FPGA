@@ -93,6 +93,8 @@ architecture vga_arch of vga is
 	signal generate_subarine	: std_logic := '0';
 	signal update_missiles		: std_logic := '0';
 	signal cycle_cnt				: integer range 0 to 100 := 0;
+	signal reset_game				: std_logic := '0';
+	signal reset_timer			: integer range 0 to 144 := 0;
 	
 	-- To update submarines
 	signal current_submarine 			: integer range 0 to 49 := 0;
@@ -180,14 +182,14 @@ begin
 			elsif(v_sync = '0') then
 			
 				-- Check if the player pushed the button (for the moment, shoot every sec)
-				if (cycle_cnt = 100 and boat_shoot = '0') then
+				if (cycle_cnt = 100 and boat_shoot = '0' and reset_game = '0') then
 					boat_shoot := '1';
 				end if;
 		
 				-- Update submarines position (and generate rockets if 1,3 sec elapsed)
 				if (update_submarines = '1') then
 						
-					if(submarines(current_submarine) = '1') then
+					if(submarines(current_submarine) = '1' or reset_game = '1') then
 					
 						if(read_sub = '1') then									-- Read mode
 							address_a_sub <= "000000" + current_submarine; 	
@@ -222,6 +224,12 @@ begin
 							end if;
 							
 							data_a_sub(15 downto 0) <= "00001" & data_tmp_sub(10 downto 0);
+							
+							-- In case of reset
+							if(reset_game = '1') then
+								data_a_sub(15 downto 0) <= "0000000000000000";
+							end if;
+							
 							address_a_sub <= "000000" + current_submarine;
 							wr_en_a_sub <= '1';
 							
@@ -229,8 +237,7 @@ begin
 							--if level 1 : every 50*0,0138 = 0.69 second elapsed 5 lines shoot
 							--if level 2 : every 25*0,0138 = 0.345 second elapsed 5 lines shoot
 							--if level 3 : every 10*0,0138 = 0.138 second elapsed 5 lines shoot
-							if( (level = 1 and cycle_cnt mod 50 = 0) or (level = 2 and cycle_cnt mod 25 = 0) or (level = 3 and cycle_cnt mod 10 = 0) ) then
-							--if (cycle_cnt mod 25 = 0) then
+							if( (level = 1 and cycle_cnt mod 50 = 0) or (level = 2 and cycle_cnt mod 25 = 0) or (level = 3 and cycle_cnt mod 10 = 0)) then
 								-- if there is a sub on one of the five current line designed to shoot it shoots
 								if( (current_submarine = shooter) or (current_submarine = 10+shooter) or (current_submarine = 20+shooter) or (current_submarine = 30+shooter) or (current_submarine = 40+shooter)) then
 									data_tmp_roc( to_integer(unsigned(data_tmp_sub(9 downto 0) + 16))/8 ) := '1';
@@ -291,6 +298,10 @@ begin
 								data_a_roc <= data_tmp_roc;
 							end if;
 							
+							-- In case of reset
+							if(reset_game = '1') then
+								data_a_roc <= new_roc_line;
+							end if;
 							address_a_roc <= "0000000" + current_rocket;
 							wr_en_a_roc <= '1';
 							
@@ -298,7 +309,7 @@ begin
 
 							if(current_rocket = 74) then
 								current_rocket <= 0;
-								update_rockets <= '0'; generate_subarine <= '1';
+								update_rockets <= '0'; update_missiles <= '1';
 							else
 								current_rocket <= current_rocket + 1;
 							end if;
@@ -306,47 +317,7 @@ begin
 					else 
 						current_rocket <= 0;
 						update_rockets <= '0';
-						generate_subarine <= '1';
-					end if;
-				-- Generate submarines
-				elsif(generate_subarine = '1') then
-					
-					if(cycle_cnt = 100) then
-						
-						if(nb_submarines < 10) then -- if there is less than 10 submarines, we try to add one
-							  
-							tmp_random := to_integer(unsigned(magn_g_y(5 downto 0))); -- to take a random number
-							if (tmp_random > 49) then -- 2^6 ==> can be up to 63
-								tmp_random := tmp_random - 14;
-							end if;
---							tmp_random <= tmp_random + 2;
-							
-							if(submarines(tmp_random) = '0') then -- No submarine in this line => create one
-								if(sign_g_y = '1') then -- to choose the direction
-									data_a_sub <= "000010" & (std_logic_vector(to_unsigned(760,10)));
-								else
-									data_a_sub <= "000011" & (std_logic_vector(to_unsigned(0,10)));
-								end if;
-								address_a_sub <= "000000" + tmp_random;
-								wr_en_a_sub <= '1';
-								submarines(tmp_random) := '1';
-								nb_submarines := nb_submarines + 1;
-								generate_subarine <= '0';
-								update_missiles <= '1';
-
-							else						 -- There is a submarine
---								tmp_random = tmp_random + 2;
---								if(tmp_random > 49) then
---									tmp_random = 0;
---								end if;
-								wr_en_a_sub <= '0';
-							end if;
-							
-						else
-							generate_subarine <= '0';
-							update_missiles <= '1';
-						end if;
-							
+						update_missiles <= '1';
 					end if;
 				
 				elsif(update_missiles = '1') then
@@ -378,6 +349,11 @@ begin
 							end if;
 							
 							data_a_mis <= data_tmp_mis;
+							-- In case of reset
+							if(reset_game = '1') then
+								data_a_mis <= new_mis_line;
+							end if;
+							
 							wr_en_a_mis <= '1';
 							
 							read_mis <= '1';
@@ -385,6 +361,7 @@ begin
 							if(current_missile = 0) then
 								current_missile <= 54;
 								update_missiles <= '0';
+								generate_subarine <= '1';
 							else
 								current_missile <= current_missile - 1;
 							end if;
@@ -392,9 +369,55 @@ begin
 					else 
 						current_missile <= 54;
 						update_missiles <= '0';
+						generate_subarine <= '1';
+					end if;
+				
+				
+				-- Generate submarines
+				elsif(generate_subarine = '1') then
+					
+					if(cycle_cnt = 100 and reset_game = '0') then
+						
+						if(nb_submarines < 10) then -- if there is less than 10 submarines, we try to add one
+							  
+							tmp_random := to_integer(unsigned(magn_g_y(5 downto 0))); -- to take a random number
+							if (tmp_random > 49) then -- 2^6 ==> can be up to 63
+								tmp_random := tmp_random - 14;
+							end if;
+--							tmp_random <= tmp_random + 2;
+							
+							if(submarines(tmp_random) = '0') then -- No submarine in this line => create one
+								if(sign_g_y = '1') then -- to choose the direction
+									data_a_sub <= "000010" & (std_logic_vector(to_unsigned(760,10)));
+								else
+									data_a_sub <= "000011" & (std_logic_vector(to_unsigned(0,10)));
+								end if;
+								address_a_sub <= "000000" + tmp_random;
+								wr_en_a_sub <= '1';
+								submarines(tmp_random) := '1';
+								nb_submarines := nb_submarines + 1;
+								generate_subarine <= '0';
+
+							else						 -- There is a submarine
+--								tmp_random = tmp_random + 2;
+--								if(tmp_random > 49) then
+--									tmp_random = 0;
+--								end if;
+								wr_en_a_sub <= '0';
+							end if;
+							
+						else
+							generate_subarine <= '0';
+						end if;
+					else 
+						generate_subarine <= '0';
 					end if;
 					
-				
+					if(reset_game = '1') then
+						nb_submarines := 0;
+						submarines(49 downto 0) := std_logic_vector(to_unsigned(0,50));
+					end if;
+					
 				end if;
 			end if;
 		end if;
@@ -497,8 +520,8 @@ begin
 				if(data_sub_disp(11) = '1') then
 					if( (h_cnt(9 downto 0) >= data_sub_disp(9 downto 0)) and (h_cnt(9 downto 0) <= data_sub_disp(9 downto 0) + 40) ) then
 							blue_signal <= '0';
-							red_signal <= '0';
-							green_signal <= '0';
+							red_signal <= '1';
+							green_signal <= '1';
 					end if;
 				end if;
 			end if;
@@ -532,8 +555,8 @@ begin
 			if( (v_cnt >= current_rocket_line + 1 ) and ( v_cnt <= current_rocket_line + 8 ) and (h_cnt >= 0) and (h_cnt <= 799) ) then
 				if( data_roc_disp(to_integer(unsigned(h_cnt)/8)) = '1' ) then
 					blue_signal <= '0';
-					red_signal <= '0';
-					green_signal <= '0';
+					red_signal <= '1';
+					green_signal <= '1';
 				end if;
 				
 				-- Remove a life if boat is touched
@@ -545,6 +568,10 @@ begin
 							hit <= '1';
 							if(index_life > 0) then
 								index_life <= index_life - 1;
+							else
+								reset_game <= '1';
+								index_life <= 4;
+								life <= "11111";
 							end if;
 						end if;
 					end if;
@@ -672,6 +699,15 @@ begin
 		-- Reset Vertical Counter
 		if (v_cnt >= 665) and (h_cnt >= 1039) then
 			v_cnt <= "00000000000";
+			if(reset_game = '1') then 
+				if(reset_timer = 144) then
+					reset_game <= '0';
+					reset_timer <= 0;
+				else
+					reset_timer <= reset_timer + 1;
+				end if;
+			end if;
+				
 		elsif (h_cnt = 1039) then
 			v_cnt <= v_cnt + 1;
 		end if;

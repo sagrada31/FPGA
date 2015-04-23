@@ -4,7 +4,7 @@ JedecChain;
 	DefaultMfr(6E);
 
 	P ActionCode(Cfg)
-		Device PartName(EP4CE22F17) Path("C:/Users/Greg/GitHub/FPGA/Codes/submarines/output_files/") File("GSensor.sof") MfrSpec(OpMask(1));
+		Device PartName(EP4CE22) Path("C:/Users/Greg/GitHub/FPGA/Codes/submarines/output_files/") File("output_file.jic") MfrSpec(OpMask(1) SEC_Device(EPCS64) Child_OpMask(1 3));
 
 ChainEnd;
 
