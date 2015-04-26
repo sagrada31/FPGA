@@ -1,5 +1,5 @@
 Analysis & Synthesis report for GSensor
-Sat Apr 25 12:19:41 2015
+Sun Apr 26 22:45:38 2015
 Quartus II 64-Bit Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
 
 
@@ -16,31 +16,35 @@ Quartus II 64-Bit Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
   8. Analysis & Synthesis RAM Summary
   9. Analysis & Synthesis IP Cores Summary
  10. Registers Removed During Synthesis
- 11. General Register Statistics
- 12. Inverted Register Statistics
- 13. Multiplexer Restructuring Statistics (Restructuring Performed)
- 14. Source assignments for ram_sub:u_ram_sub|altsyncram:altsyncram_component|altsyncram_i8o3:auto_generated
- 15. Source assignments for ram_rockets:u_ram_rockets|altsyncram:altsyncram_component|altsyncram_qeo3:auto_generated
- 16. Source assignments for ram_missiles:u_ram_missiles|altsyncram:altsyncram_component|altsyncram_mbo3:auto_generated
- 17. Parameter Settings for User Entity Instance: spipll:u_spipll|altpll:altpll_component
- 18. Parameter Settings for User Entity Instance: spi_ee_config:u_spi_ee_config
- 19. Parameter Settings for User Entity Instance: spi_ee_config:u_spi_ee_config|spi_controller:u_spi_controller
- 20. Parameter Settings for User Entity Instance: ram_sub:u_ram_sub|altsyncram:altsyncram_component
- 21. Parameter Settings for User Entity Instance: ram_rockets:u_ram_rockets|altsyncram:altsyncram_component
- 22. Parameter Settings for User Entity Instance: ram_missiles:u_ram_missiles|altsyncram:altsyncram_component
- 23. Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod4
- 24. Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_mult:Mult0
- 25. Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod0
- 26. Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod1
- 27. Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod2
- 28. Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod3
- 29. altpll Parameter Settings by Entity Instance
- 30. altsyncram Parameter Settings by Entity Instance
- 31. lpm_mult Parameter Settings by Entity Instance
- 32. Port Connectivity Checks: "spi_ee_config:u_spi_ee_config"
- 33. Post-Synthesis Netlist Statistics for Top Partition
- 34. Elapsed Time Per Partition
- 35. Analysis & Synthesis Messages
+ 11. Removed Registers Triggering Further Register Optimizations
+ 12. General Register Statistics
+ 13. Inverted Register Statistics
+ 14. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 15. Source assignments for ram_sub:u_ram_sub|altsyncram:altsyncram_component|altsyncram_i8o3:auto_generated
+ 16. Source assignments for ram_rockets:u_ram_rockets|altsyncram:altsyncram_component|altsyncram_qeo3:auto_generated
+ 17. Source assignments for ram_missiles:u_ram_missiles|altsyncram:altsyncram_component|altsyncram_mbo3:auto_generated
+ 18. Parameter Settings for User Entity Instance: spipll:u_spipll|altpll:altpll_component
+ 19. Parameter Settings for User Entity Instance: spi_ee_config:u_spi_ee_config
+ 20. Parameter Settings for User Entity Instance: spi_ee_config:u_spi_ee_config|spi_controller:u_spi_controller
+ 21. Parameter Settings for User Entity Instance: ram_sub:u_ram_sub|altsyncram:altsyncram_component
+ 22. Parameter Settings for User Entity Instance: ram_rockets:u_ram_rockets|altsyncram:altsyncram_component
+ 23. Parameter Settings for User Entity Instance: ram_missiles:u_ram_missiles|altsyncram:altsyncram_component
+ 24. Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Div1
+ 25. Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod4
+ 26. Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod5
+ 27. Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Div0
+ 28. Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod1
+ 29. Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod3
+ 30. Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod0
+ 31. Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod2
+ 32. Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_mult:Mult0
+ 33. altpll Parameter Settings by Entity Instance
+ 34. altsyncram Parameter Settings by Entity Instance
+ 35. lpm_mult Parameter Settings by Entity Instance
+ 36. Port Connectivity Checks: "spi_ee_config:u_spi_ee_config"
+ 37. Post-Synthesis Netlist Statistics for Top Partition
+ 38. Elapsed Time Per Partition
+ 39. Analysis & Synthesis Messages
 
 
 
@@ -67,16 +71,16 @@ agreement for further details.
 +---------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                    ;
 +------------------------------------+--------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sat Apr 25 12:19:41 2015      ;
+; Analysis & Synthesis Status        ; Successful - Sun Apr 26 22:45:38 2015      ;
 ; Quartus II 64-Bit Version          ; 14.1.0 Build 186 12/03/2014 SJ Web Edition ;
 ; Revision Name                      ; GSensor                                    ;
 ; Top-level Entity Name              ; gsensor                                    ;
 ; Family                             ; Cyclone IV E                               ;
-; Total logic elements               ; 2,659                                      ;
-;     Total combinational functions  ; 2,617                                      ;
-;     Dedicated logic registers      ; 918                                        ;
-; Total registers                    ; 918                                        ;
-; Total pins                         ; 12                                         ;
+; Total logic elements               ; 3,388                                      ;
+;     Total combinational functions  ; 3,346                                      ;
+;     Dedicated logic registers      ; 924                                        ;
+; Total registers                    ; 924                                        ;
+; Total pins                         ; 13                                         ;
 ; Total virtual pins                 ; 0                                          ;
 ; Total memory bits                  ; 21,504                                     ;
 ; Embedded Multiplier 9-bit elements ; 0                                          ;
@@ -223,11 +227,20 @@ agreement for further details.
 ; lpm_divide.tdf                   ; yes             ; Megafunction                 ; e:/autres/programmes/altera/quartus/libraries/megafunctions/lpm_divide.tdf          ;         ;
 ; abs_divider.inc                  ; yes             ; Megafunction                 ; e:/autres/programmes/altera/quartus/libraries/megafunctions/abs_divider.inc         ;         ;
 ; sign_div_unsign.inc              ; yes             ; Megafunction                 ; e:/autres/programmes/altera/quartus/libraries/megafunctions/sign_div_unsign.inc     ;         ;
-; db/lpm_divide_q9m.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/lpm_divide_q9m.tdf                    ;         ;
-; db/sign_div_unsign_fkh.tdf       ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/sign_div_unsign_fkh.tdf               ;         ;
-; db/alt_u_div_i4f.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/alt_u_div_i4f.tdf                     ;         ;
+; db/lpm_divide_sim.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/lpm_divide_sim.tdf                    ;         ;
+; db/sign_div_unsign_klh.tdf       ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/sign_div_unsign_klh.tdf               ;         ;
+; db/alt_u_div_s6f.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/alt_u_div_s6f.tdf                     ;         ;
 ; db/add_sub_7pc.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/add_sub_7pc.tdf                       ;         ;
 ; db/add_sub_8pc.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/add_sub_8pc.tdf                       ;         ;
+; db/lpm_divide_ccm.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/lpm_divide_ccm.tdf                    ;         ;
+; db/sign_div_unsign_1nh.tdf       ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/sign_div_unsign_1nh.tdf               ;         ;
+; db/alt_u_div_m9f.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/alt_u_div_m9f.tdf                     ;         ;
+; db/lpm_divide_vim.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/lpm_divide_vim.tdf                    ;         ;
+; db/sign_div_unsign_nlh.tdf       ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/sign_div_unsign_nlh.tdf               ;         ;
+; db/alt_u_div_27f.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/alt_u_div_27f.tdf                     ;         ;
+; db/lpm_divide_o9m.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/lpm_divide_o9m.tdf                    ;         ;
+; db/sign_div_unsign_dkh.tdf       ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/sign_div_unsign_dkh.tdf               ;         ;
+; db/alt_u_div_e4f.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/alt_u_div_e4f.tdf                     ;         ;
 ; lpm_mult.tdf                     ; yes             ; Megafunction                 ; e:/autres/programmes/altera/quartus/libraries/megafunctions/lpm_mult.tdf            ;         ;
 ; lpm_add_sub.inc                  ; yes             ; Megafunction                 ; e:/autres/programmes/altera/quartus/libraries/megafunctions/lpm_add_sub.inc         ;         ;
 ; multcore.inc                     ; yes             ; Megafunction                 ; e:/autres/programmes/altera/quartus/libraries/megafunctions/multcore.inc            ;         ;
@@ -250,9 +263,6 @@ agreement for further details.
 ; db/add_sub_mgh.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/add_sub_mgh.tdf                       ;         ;
 ; db/add_sub_qgh.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/add_sub_qgh.tdf                       ;         ;
 ; altshift.tdf                     ; yes             ; Megafunction                 ; e:/autres/programmes/altera/quartus/libraries/megafunctions/altshift.tdf            ;         ;
-; db/lpm_divide_o9m.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/lpm_divide_o9m.tdf                    ;         ;
-; db/sign_div_unsign_dkh.tdf       ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/sign_div_unsign_dkh.tdf               ;         ;
-; db/alt_u_div_e4f.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/alt_u_div_e4f.tdf                     ;         ;
 +----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------------------+---------+
 
 
@@ -261,23 +271,23 @@ agreement for further details.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimated Total logic elements              ; 2,659          ;
+; Estimated Total logic elements              ; 3,388          ;
 ;                                             ;                ;
-; Total combinational functions               ; 2617           ;
+; Total combinational functions               ; 3346           ;
 ; Logic element usage by number of LUT inputs ;                ;
-;     -- 4 input functions                    ; 1369           ;
-;     -- 3 input functions                    ; 768            ;
-;     -- <=2 input functions                  ; 480            ;
+;     -- 4 input functions                    ; 1898           ;
+;     -- 3 input functions                    ; 824            ;
+;     -- <=2 input functions                  ; 624            ;
 ;                                             ;                ;
 ; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 2135           ;
-;     -- arithmetic mode                      ; 482            ;
+;     -- normal mode                          ; 2720           ;
+;     -- arithmetic mode                      ; 626            ;
 ;                                             ;                ;
-; Total registers                             ; 918            ;
-;     -- Dedicated logic registers            ; 918            ;
+; Total registers                             ; 924            ;
+;     -- Dedicated logic registers            ; 924            ;
 ;     -- I/O registers                        ; 0              ;
 ;                                             ;                ;
-; I/O pins                                    ; 12             ;
+; I/O pins                                    ; 13             ;
 ; Total memory bits                           ; 21504          ;
 ;                                             ;                ;
 ; Embedded Multiplier 9-bit elements          ; 0              ;
@@ -286,9 +296,9 @@ agreement for further details.
 ;     -- PLLs                                 ; 1              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 1042           ;
-; Total fan-out                               ; 16006          ;
-; Average fan-out                             ; 4.22           ;
+; Maximum fan-out                             ; 1048           ;
+; Total fan-out                               ; 18564          ;
+; Average fan-out                             ; 4.10           ;
 +---------------------------------------------+----------------+
 
 
@@ -297,7 +307,7 @@ agreement for further details.
 +---------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------------------------------------------------------+--------------+
 ; Compilation Hierarchy Node                        ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                       ; Library Name ;
 +---------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------------------------------------------------------+--------------+
-; |gsensor                                          ; 2617 (1)          ; 918 (0)      ; 21504       ; 0            ; 0       ; 0         ; 12   ; 0            ; |gsensor                                                                                                                                  ; work         ;
+; |gsensor                                          ; 3346 (1)          ; 924 (0)      ; 21504       ; 0            ; 0       ; 0         ; 13   ; 0            ; |gsensor                                                                                                                                  ; work         ;
 ;    |ram_missiles:u_ram_missiles|                  ; 0 (0)             ; 0 (0)        ; 6912        ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|ram_missiles:u_ram_missiles                                                                                                      ; work         ;
 ;       |altsyncram:altsyncram_component|           ; 0 (0)             ; 0 (0)        ; 6912        ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|ram_missiles:u_ram_missiles|altsyncram:altsyncram_component                                                                      ; work         ;
 ;          |altsyncram_mbo3:auto_generated|         ; 0 (0)             ; 0 (0)        ; 6912        ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|ram_missiles:u_ram_missiles|altsyncram:altsyncram_component|altsyncram_mbo3:auto_generated                                       ; work         ;
@@ -313,27 +323,39 @@ agreement for further details.
 ;    |spipll:u_spipll|                              ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|spipll:u_spipll                                                                                                                  ; work         ;
 ;       |altpll:altpll_component|                   ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|spipll:u_spipll|altpll:altpll_component                                                                                          ; work         ;
 ;          |spipll_altpll:auto_generated|           ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|spipll:u_spipll|altpll:altpll_component|spipll_altpll:auto_generated                                                             ; work         ;
-;    |vga:u_vga|                                    ; 2520 (2224)       ; 821 (821)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga                                                                                                                        ; work         ;
-;       |lpm_divide:Mod0|                           ; 25 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod0                                                                                                        ; work         ;
-;          |lpm_divide_o9m:auto_generated|          ; 25 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod0|lpm_divide_o9m:auto_generated                                                                          ; work         ;
-;             |sign_div_unsign_dkh:divider|         ; 25 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod0|lpm_divide_o9m:auto_generated|sign_div_unsign_dkh:divider                                              ; work         ;
-;                |alt_u_div_e4f:divider|            ; 25 (25)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod0|lpm_divide_o9m:auto_generated|sign_div_unsign_dkh:divider|alt_u_div_e4f:divider                        ; work         ;
-;       |lpm_divide:Mod1|                           ; 43 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod1                                                                                                        ; work         ;
-;          |lpm_divide_o9m:auto_generated|          ; 43 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod1|lpm_divide_o9m:auto_generated                                                                          ; work         ;
-;             |sign_div_unsign_dkh:divider|         ; 43 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod1|lpm_divide_o9m:auto_generated|sign_div_unsign_dkh:divider                                              ; work         ;
-;                |alt_u_div_e4f:divider|            ; 43 (43)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod1|lpm_divide_o9m:auto_generated|sign_div_unsign_dkh:divider|alt_u_div_e4f:divider                        ; work         ;
-;       |lpm_divide:Mod2|                           ; 52 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod2                                                                                                        ; work         ;
-;          |lpm_divide_o9m:auto_generated|          ; 52 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod2|lpm_divide_o9m:auto_generated                                                                          ; work         ;
-;             |sign_div_unsign_dkh:divider|         ; 52 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod2|lpm_divide_o9m:auto_generated|sign_div_unsign_dkh:divider                                              ; work         ;
-;                |alt_u_div_e4f:divider|            ; 52 (52)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod2|lpm_divide_o9m:auto_generated|sign_div_unsign_dkh:divider|alt_u_div_e4f:divider                        ; work         ;
-;       |lpm_divide:Mod3|                           ; 66 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod3                                                                                                        ; work         ;
-;          |lpm_divide_o9m:auto_generated|          ; 66 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod3|lpm_divide_o9m:auto_generated                                                                          ; work         ;
-;             |sign_div_unsign_dkh:divider|         ; 66 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod3|lpm_divide_o9m:auto_generated|sign_div_unsign_dkh:divider                                              ; work         ;
-;                |alt_u_div_e4f:divider|            ; 66 (66)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod3|lpm_divide_o9m:auto_generated|sign_div_unsign_dkh:divider|alt_u_div_e4f:divider                        ; work         ;
-;       |lpm_divide:Mod4|                           ; 74 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod4                                                                                                        ; work         ;
-;          |lpm_divide_q9m:auto_generated|          ; 74 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod4|lpm_divide_q9m:auto_generated                                                                          ; work         ;
-;             |sign_div_unsign_fkh:divider|         ; 74 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod4|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider                                              ; work         ;
-;                |alt_u_div_i4f:divider|            ; 74 (74)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod4|lpm_divide_q9m:auto_generated|sign_div_unsign_fkh:divider|alt_u_div_i4f:divider                        ; work         ;
+;    |vga:u_vga|                                    ; 3249 (2664)       ; 827 (827)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga                                                                                                                        ; work         ;
+;       |lpm_divide:Div0|                           ; 69 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Div0                                                                                                        ; work         ;
+;          |lpm_divide_vim:auto_generated|          ; 69 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Div0|lpm_divide_vim:auto_generated                                                                          ; work         ;
+;             |sign_div_unsign_nlh:divider|         ; 69 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Div0|lpm_divide_vim:auto_generated|sign_div_unsign_nlh:divider                                              ; work         ;
+;                |alt_u_div_27f:divider|            ; 69 (69)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Div0|lpm_divide_vim:auto_generated|sign_div_unsign_nlh:divider|alt_u_div_27f:divider                        ; work         ;
+;       |lpm_divide:Div1|                           ; 82 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Div1                                                                                                        ; work         ;
+;          |lpm_divide_sim:auto_generated|          ; 82 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Div1|lpm_divide_sim:auto_generated                                                                          ; work         ;
+;             |sign_div_unsign_klh:divider|         ; 82 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Div1|lpm_divide_sim:auto_generated|sign_div_unsign_klh:divider                                              ; work         ;
+;                |alt_u_div_s6f:divider|            ; 82 (82)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Div1|lpm_divide_sim:auto_generated|sign_div_unsign_klh:divider|alt_u_div_s6f:divider                        ; work         ;
+;       |lpm_divide:Mod0|                           ; 43 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod0                                                                                                        ; work         ;
+;          |lpm_divide_o9m:auto_generated|          ; 43 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod0|lpm_divide_o9m:auto_generated                                                                          ; work         ;
+;             |sign_div_unsign_dkh:divider|         ; 43 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod0|lpm_divide_o9m:auto_generated|sign_div_unsign_dkh:divider                                              ; work         ;
+;                |alt_u_div_e4f:divider|            ; 43 (43)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod0|lpm_divide_o9m:auto_generated|sign_div_unsign_dkh:divider|alt_u_div_e4f:divider                        ; work         ;
+;       |lpm_divide:Mod1|                           ; 52 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod1                                                                                                        ; work         ;
+;          |lpm_divide_o9m:auto_generated|          ; 52 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod1|lpm_divide_o9m:auto_generated                                                                          ; work         ;
+;             |sign_div_unsign_dkh:divider|         ; 52 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod1|lpm_divide_o9m:auto_generated|sign_div_unsign_dkh:divider                                              ; work         ;
+;                |alt_u_div_e4f:divider|            ; 52 (52)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod1|lpm_divide_o9m:auto_generated|sign_div_unsign_dkh:divider|alt_u_div_e4f:divider                        ; work         ;
+;       |lpm_divide:Mod2|                           ; 66 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod2                                                                                                        ; work         ;
+;          |lpm_divide_o9m:auto_generated|          ; 66 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod2|lpm_divide_o9m:auto_generated                                                                          ; work         ;
+;             |sign_div_unsign_dkh:divider|         ; 66 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod2|lpm_divide_o9m:auto_generated|sign_div_unsign_dkh:divider                                              ; work         ;
+;                |alt_u_div_e4f:divider|            ; 66 (66)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod2|lpm_divide_o9m:auto_generated|sign_div_unsign_dkh:divider|alt_u_div_e4f:divider                        ; work         ;
+;       |lpm_divide:Mod3|                           ; 25 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod3                                                                                                        ; work         ;
+;          |lpm_divide_o9m:auto_generated|          ; 25 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod3|lpm_divide_o9m:auto_generated                                                                          ; work         ;
+;             |sign_div_unsign_dkh:divider|         ; 25 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod3|lpm_divide_o9m:auto_generated|sign_div_unsign_dkh:divider                                              ; work         ;
+;                |alt_u_div_e4f:divider|            ; 25 (25)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod3|lpm_divide_o9m:auto_generated|sign_div_unsign_dkh:divider|alt_u_div_e4f:divider                        ; work         ;
+;       |lpm_divide:Mod4|                           ; 82 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod4                                                                                                        ; work         ;
+;          |lpm_divide_ccm:auto_generated|          ; 82 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod4|lpm_divide_ccm:auto_generated                                                                          ; work         ;
+;             |sign_div_unsign_1nh:divider|         ; 82 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod4|lpm_divide_ccm:auto_generated|sign_div_unsign_1nh:divider                                              ; work         ;
+;                |alt_u_div_m9f:divider|            ; 82 (82)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod4|lpm_divide_ccm:auto_generated|sign_div_unsign_1nh:divider|alt_u_div_m9f:divider                        ; work         ;
+;       |lpm_divide:Mod5|                           ; 130 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod5                                                                                                        ; work         ;
+;          |lpm_divide_ccm:auto_generated|          ; 130 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod5|lpm_divide_ccm:auto_generated                                                                          ; work         ;
+;             |sign_div_unsign_1nh:divider|         ; 130 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod5|lpm_divide_ccm:auto_generated|sign_div_unsign_1nh:divider                                              ; work         ;
+;                |alt_u_div_m9f:divider|            ; 130 (130)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_divide:Mod5|lpm_divide_ccm:auto_generated|sign_div_unsign_1nh:divider|alt_u_div_m9f:divider                        ; work         ;
 ;       |lpm_mult:Mult0|                            ; 36 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_mult:Mult0                                                                                                         ; work         ;
 ;          |multcore:mult_core|                     ; 36 (17)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_mult:Mult0|multcore:mult_core                                                                                      ; work         ;
 ;             |mpar_add:padder|                     ; 19 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |gsensor|vga:u_vga|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder                                                                      ; work         ;
@@ -373,6 +395,672 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------------------------------+--------------------------------------------------+
 ; Register name                              ; Reason for Removal                               ;
 +--------------------------------------------+--------------------------------------------------+
+; vga:u_vga|characters[18][34]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][33]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][32]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][31]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][30]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][29]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][28]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][27]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[18][26]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[18][25]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][24]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][23]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][22]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[18][21]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[18][20]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][19]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][18]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][17]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][16]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][15]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][14]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][13]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][12]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[18][11]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[18][10]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][9]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][8]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][7]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[18][6]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[18][5]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][4]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][3]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][2]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][1]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[18][0]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[17][34]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[17][33]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[17][32]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[17][31]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[17][30]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[17][29]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[17][28]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[17][27]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[17][26]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[17][25]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[17][24]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[17][23]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[17][22]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[17][21]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[17][20]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[17][19]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[17][18]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[17][17]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[17][16]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[17][15]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[17][14]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[17][13]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[17][12]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[17][11]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[17][10]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[17][9]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[17][8]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[17][7]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[17][6]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[17][5]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[17][4]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[17][3]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[17][2]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[17][1]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[17][0]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[16][34]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[16][33]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[16][32]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[16][31]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[16][30]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[16][29]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[16][28]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[16][27]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[16][26]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[16][25]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[16][24]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[16][23]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[16][22]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[16][21]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[16][20]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[16][19]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[16][18]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[16][17]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[16][16]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[16][15]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[16][14]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[16][13]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[16][12]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[16][11]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[16][10]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[16][9]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[16][8]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[16][7]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[16][6]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[16][5]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[16][4]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[16][3]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[16][2]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[16][1]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[16][0]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][34]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][33]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[15][32]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[15][31]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[15][30]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][29]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[15][28]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][27]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][26]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][25]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[15][24]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][23]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][22]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][21]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][20]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[15][19]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][18]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][17]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][16]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][15]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[15][14]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][13]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][12]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][11]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][10]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[15][9]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[15][8]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][7]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][6]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][5]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[15][4]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[15][3]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[15][2]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[15][1]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[15][0]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][34]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][33]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[14][32]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[14][31]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[14][30]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[14][29]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[14][28]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][27]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][26]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][25]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][24]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[14][23]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][22]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][21]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][20]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][19]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][18]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[14][17]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[14][16]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[14][15]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][14]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][13]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][12]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][11]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][10]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[14][9]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][8]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][7]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][6]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[14][5]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[14][4]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[14][3]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[14][2]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[14][1]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[14][0]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[13][34]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[13][33]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[13][32]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[13][31]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[13][30]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[13][29]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[13][28]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[13][27]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[13][26]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[13][25]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[13][24]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[13][23]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[13][22]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[13][21]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[13][20]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[13][19]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[13][18]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[13][17]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[13][16]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[13][15]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[13][14]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[13][13]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[13][12]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[13][11]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[13][10]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[13][9]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[13][8]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[13][7]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[13][6]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[13][5]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[13][4]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[13][3]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[13][2]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[13][1]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[13][0]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[12][34]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][33]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][32]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[12][31]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][30]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][29]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][28]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[12][27]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][26]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[12][25]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][24]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][23]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[12][22]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][21]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[12][20]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][19]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[12][18]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][17]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][16]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][15]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[12][14]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[12][13]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][12]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][11]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][10]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[12][9]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[12][8]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][7]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][6]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][5]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[12][4]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[12][3]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][2]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][1]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[12][0]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[11][34]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[11][33]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[11][32]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[11][31]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[11][30]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[11][29]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][28]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][27]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[11][26]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][25]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][24]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][23]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][22]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[11][21]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][20]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][19]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][18]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][17]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[11][16]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][15]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][14]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][13]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][12]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[11][11]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][10]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][9]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][8]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][7]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[11][6]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][5]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[11][4]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[11][3]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[11][2]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[11][1]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[11][0]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[10][34]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[10][33]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[10][32]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[10][31]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[10][30]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[10][29]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][28]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][27]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][26]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][25]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[10][24]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][23]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][22]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][21]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][20]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[10][19]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][18]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][17]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][16]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][15]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[10][14]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][13]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][12]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][11]               ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][10]               ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[10][9]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][8]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][7]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][6]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][5]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[10][4]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][3]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][2]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][1]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[10][0]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[9][34]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[9][33]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[9][32]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[9][31]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[9][30]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[9][29]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[9][28]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[9][27]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[9][26]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[9][25]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[9][24]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[9][23]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[9][22]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[9][21]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[9][20]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[9][19]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[9][18]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[9][17]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[9][16]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[9][15]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[9][14]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[9][13]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[9][12]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[9][11]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[9][10]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[9][9]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[9][8]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[9][7]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[9][6]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[9][5]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[9][4]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[9][3]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[9][2]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[9][1]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[9][0]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[8][34]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[8][33]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[8][32]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[8][31]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[8][30]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[8][29]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[8][28]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[8][27]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[8][26]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[8][25]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[8][24]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[8][23]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[8][22]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[8][21]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[8][20]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[8][19]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[8][18]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[8][17]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[8][16]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[8][15]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[8][14]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[8][13]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[8][12]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[8][11]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[8][10]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[8][9]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[8][8]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[8][7]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[8][6]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[8][5]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[8][4]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[8][3]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[8][2]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[8][1]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[8][0]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][34]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][33]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][32]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][31]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[7][30]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][29]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][28]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][27]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][26]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[7][25]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][24]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][23]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][22]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][21]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[7][20]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][19]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][18]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][17]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[7][16]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][15]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][14]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][13]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[7][12]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][11]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][10]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][9]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[7][8]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][7]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][6]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][5]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[7][4]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[7][3]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[7][2]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[7][1]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[7][0]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[6][34]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[6][33]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[6][32]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[6][31]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[6][30]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[6][29]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[6][28]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[6][27]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[6][26]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[6][25]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[6][24]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[6][23]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[6][22]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[6][21]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[6][20]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[6][19]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[6][18]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[6][17]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[6][16]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[6][15]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[6][14]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[6][13]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[6][12]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[6][11]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[6][10]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[6][9]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[6][8]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[6][7]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[6][6]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[6][5]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[6][4]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[6][3]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[6][2]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[6][1]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[6][0]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[5][34]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[5][33]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[5][32]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[5][31]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[5][30]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[5][29]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[5][28]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[5][27]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[5][26]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[5][25]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[5][24]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[5][23]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[5][22]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[5][21]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[5][20]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[5][19]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[5][18]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[5][17]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[5][16]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[5][15]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[5][14]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[5][13]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[5][12]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[5][11]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[5][10]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[5][9]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[5][8]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[5][7]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[5][6]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[5][5]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[5][4]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[5][3]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[5][2]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[5][1]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[5][0]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[4][34]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][33]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[4][32]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][31]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][30]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][29]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][28]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[4][27]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][26]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][25]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][24]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[4][23]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[4][22]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[4][21]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[4][20]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[4][19]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][18]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[4][17]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][16]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][15]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[4][14]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][13]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[4][12]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][11]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[4][10]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][9]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][8]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[4][7]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[4][6]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][5]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][4]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][3]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[4][2]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][1]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[4][0]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][34]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][33]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[3][32]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[3][31]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[3][30]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[3][29]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[3][28]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][27]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][26]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][25]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][24]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[3][23]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][22]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][21]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][20]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][19]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][18]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[3][17]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][16]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][15]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][14]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][13]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][12]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[3][11]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][10]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][9]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][8]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[3][7]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][6]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][5]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[3][4]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[3][3]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[3][2]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[3][1]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[3][0]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[2][34]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[2][33]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[2][32]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[2][31]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[2][30]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[2][29]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][28]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][27]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][26]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[2][25]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][24]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][23]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][22]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[2][21]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][20]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][19]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][18]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[2][17]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][16]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][15]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][14]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[2][13]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][12]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][11]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][10]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][9]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[2][8]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][7]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][6]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][5]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[2][4]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[2][3]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[2][2]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[2][1]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[2][0]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][34]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[1][33]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[1][32]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[1][31]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[1][30]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[1][29]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][28]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][27]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[1][26]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][25]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][24]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][23]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][22]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[1][21]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][20]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][19]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][18]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][17]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[1][16]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][15]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][14]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][13]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][12]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[1][11]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][10]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[1][9]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][8]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][7]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[1][6]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[1][5]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][4]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][3]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][2]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[1][1]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[1][0]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[0][34]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[0][33]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[0][32]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[0][31]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[0][30]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[0][29]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[0][28]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[0][27]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[0][26]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[0][25]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[0][24]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[0][23]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[0][22]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[0][21]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[0][20]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[0][19]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[0][18]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[0][17]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[0][16]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[0][15]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[0][14]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[0][13]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[0][12]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[0][11]                ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[0][10]                ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[0][9]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[0][8]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[0][7]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[0][6]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[0][5]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[0][4]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|characters[0][3]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[0][2]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[0][1]                 ; Stuck at VCC due to stuck port data_in           ;
+; vga:u_vga|characters[0][0]                 ; Stuck at GND due to stuck port data_in           ;
+; vga:u_vga|init                             ; Lost fanout                                      ;
 ; vga:u_vga|data_b_sub[12..15]               ; Lost fanout                                      ;
 ; vga:u_vga|data_a_sub[12..15]               ; Lost fanout                                      ;
 ; vga:u_vga|data_b_sub[0..11]                ; Stuck at GND due to stuck port data_in           ;
@@ -384,16 +1072,23 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; spi_ee_config:u_spi_ee_config|spi_state    ; Merged with spi_ee_config:u_spi_ee_config|spi_go ;
 ; vga:u_vga|old_magn_g_y[0]                  ; Merged with vga:u_vga|magn_g_y[0]                ;
 ; vga:u_vga|old_magn_g_y[1]                  ; Merged with vga:u_vga|magn_g_y[1]                ;
-; vga:u_vga|old_magn_g_y[5]                  ; Merged with vga:u_vga|magn_g_y[5]                ;
-; vga:u_vga|old_magn_g_y[4]                  ; Merged with vga:u_vga|magn_g_y[4]                ;
-; vga:u_vga|old_magn_g_y[3]                  ; Merged with vga:u_vga|magn_g_y[3]                ;
 ; vga:u_vga|old_magn_g_y[2]                  ; Merged with vga:u_vga|magn_g_y[2]                ;
 ; vga:u_vga|current_missile_line[0]          ; Stuck at VCC due to stuck port data_in           ;
 ; vga:u_vga|current_sub_line[0]              ; Stuck at VCC due to stuck port data_in           ;
 ; spi_ee_config:u_spi_ee_config|p2s_data[14] ; Stuck at GND due to stuck port data_in           ;
 ; spi_ee_config:u_spi_ee_config|p2s_data[13] ; Stuck at VCC due to stuck port data_in           ;
-; Total Number of Removed Registers = 39     ;                                                  ;
+; Total Number of Removed Registers = 702    ;                                                  ;
 +--------------------------------------------+--------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                       ;
++------------------------------+---------------------------+----------------------------------------+
+; Register name                ; Reason for Removal        ; Registers Removed due to This Register ;
++------------------------------+---------------------------+----------------------------------------+
+; vga:u_vga|characters[18][34] ; Stuck at GND              ; vga:u_vga|init                         ;
+;                              ; due to stuck port data_in ;                                        ;
++------------------------------+---------------------------+----------------------------------------+
 
 
 +------------------------------------------------------+
@@ -401,12 +1096,12 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 918   ;
+; Total registers                              ; 924   ;
 ; Number of registers using Synchronous Clear  ; 137   ;
-; Number of registers using Synchronous Load   ; 250   ;
+; Number of registers using Synchronous Load   ; 251   ;
 ; Number of registers using Asynchronous Clear ; 56    ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 817   ;
+; Number of registers using Clock Enable       ; 827   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -421,61 +1116,64 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; spi_ee_config:u_spi_ee_config|spi_controller:u_spi_controller|spi_count[0] ; 11      ;
 ; spi_ee_config:u_spi_ee_config|spi_controller:u_spi_controller|spi_count[2] ; 5       ;
 ; spi_ee_config:u_spi_ee_config|spi_controller:u_spi_controller|spi_count[1] ; 5       ;
-; vga:u_vga|life[4]                                                          ; 3       ;
-; vga:u_vga|life[2]                                                          ; 3       ;
-; vga:u_vga|life[1]                                                          ; 3       ;
-; vga:u_vga|life[0]                                                          ; 2       ;
-; vga:u_vga|life[3]                                                          ; 3       ;
-; vga:u_vga|current_sub_line[6]                                              ; 7       ;
-; vga:u_vga|current_sub_line[7]                                              ; 6       ;
-; vga:u_vga|current_missile_line[4]                                          ; 5       ;
-; vga:u_vga|current_missile_line[3]                                          ; 5       ;
 ; vga:u_vga|current_missile_line[7]                                          ; 6       ;
-; vga:u_vga|index_life[2]                                                    ; 5       ;
-; vga:u_vga|level[0]                                                         ; 11      ;
-; vga:u_vga|read_roc                                                         ; 15      ;
-; vga:u_vga|read_sub                                                         ; 12      ;
+; vga:u_vga|current_missile_line[3]                                          ; 5       ;
+; vga:u_vga|current_missile_line[4]                                          ; 5       ;
+; vga:u_vga|current_sub_line[7]                                              ; 6       ;
+; vga:u_vga|current_sub_line[6]                                              ; 7       ;
+; vga:u_vga|level[0]                                                         ; 20      ;
+; vga:u_vga|lives[0]                                                         ; 3       ;
+; vga:u_vga|lives[2]                                                         ; 4       ;
+; vga:u_vga|reset_game                                                       ; 27      ;
 ; vga:u_vga|read_mis                                                         ; 10      ;
-; vga:u_vga|current_missile[5]                                               ; 5       ;
-; vga:u_vga|current_missile[4]                                               ; 7       ;
+; vga:u_vga|current_missile[5]                                               ; 3       ;
+; vga:u_vga|current_missile[4]                                               ; 5       ;
 ; vga:u_vga|current_missile[2]                                               ; 4       ;
 ; vga:u_vga|current_missile[1]                                               ; 6       ;
-; Total number of inverted registers = 24                                    ;         ;
+; vga:u_vga|read_sub                                                         ; 11      ;
+; vga:u_vga|read_roc                                                         ; 12      ;
+; vga:u_vga|shift_shooter[0]                                                 ; 6       ;
+; Total number of inverted registers = 22                                    ;         ;
 +----------------------------------------------------------------------------+---------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                          ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------+
-; 3:1                ; 11 bits   ; 22 LEs        ; 11 LEs               ; 11 LEs                 ; Yes        ; |gsensor|vga:u_vga|v_cnt[7]                               ;
-; 4:1                ; 15 bits   ; 30 LEs        ; 15 LEs               ; 15 LEs                 ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|read_idle_count[7] ;
-; 4:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |gsensor|vga:u_vga|current_rocket[0]                      ;
-; 4:1                ; 108 bits  ; 216 LEs       ; 216 LEs              ; 0 LEs                  ; Yes        ; |gsensor|vga:u_vga|data_a_mis[87]                         ;
-; 4:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |gsensor|vga:u_vga|current_missile[3]                     ;
-; 7:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|p2s_data[13]       ;
-; 7:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|p2s_data[11]       ;
-; 7:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|p2s_data[9]        ;
-; 5:1                ; 6 bits    ; 18 LEs        ; 12 LEs               ; 6 LEs                  ; Yes        ; |gsensor|vga:u_vga|address_a_mis[4]                       ;
-; 6:1                ; 108 bits  ; 432 LEs       ; 108 LEs              ; 324 LEs                ; Yes        ; |gsensor|vga:u_vga|data_mis_disp[35]                      ;
-; 6:1                ; 6 bits    ; 24 LEs        ; 6 LEs                ; 18 LEs                 ; Yes        ; |gsensor|vga:u_vga|current_submarine[1]                   ;
-; 4:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |gsensor|vga:u_vga|address_b_sub[1]                       ;
-; 4:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |gsensor|vga:u_vga|address_b_mis[5]                       ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 2 LEs                ; 8 LEs                  ; Yes        ; |gsensor|vga:u_vga|index_life[1]                          ;
-; 8:1                ; 10 bits   ; 50 LEs        ; 10 LEs               ; 40 LEs                 ; Yes        ; |gsensor|vga:u_vga|score[7]                               ;
-; 11:1               ; 7 bits    ; 49 LEs        ; 14 LEs               ; 35 LEs                 ; Yes        ; |gsensor|vga:u_vga|address_a_roc[3]                       ;
-; 12:1               ; 6 bits    ; 48 LEs        ; 6 LEs                ; 42 LEs                 ; Yes        ; |gsensor|vga:u_vga|address_a_sub[0]                       ;
-; 13:1               ; 6 bits    ; 48 LEs        ; 12 LEs               ; 36 LEs                 ; Yes        ; |gsensor|vga:u_vga|nb_submarines[1]                       ;
-; 13:1               ; 6 bits    ; 48 LEs        ; 12 LEs               ; 36 LEs                 ; Yes        ; |gsensor|vga:u_vga|data_a_sub[5]                          ;
-; 17:1               ; 3 bits    ; 33 LEs        ; 9 LEs                ; 24 LEs                 ; Yes        ; |gsensor|vga:u_vga|data_a_sub[1]                          ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |gsensor|vga:u_vga|current_missile[2]                     ;
-; 4:1                ; 11 bits   ; 22 LEs        ; 11 LEs               ; 11 LEs                 ; No         ; |gsensor|vga:u_vga|data_sub_disp                          ;
-; 4:1                ; 108 bits  ; 216 LEs       ; 108 LEs              ; 108 LEs                ; No         ; |gsensor|vga:u_vga|data_roc_disp                          ;
-; 4:1                ; 108 bits  ; 216 LEs       ; 108 LEs              ; 108 LEs                ; No         ; |gsensor|vga:u_vga|data_mis_disp                          ;
-; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; No         ; |gsensor|vga:u_vga|data_tmp_sub                           ;
-; 108:1              ; 2 bits    ; 144 LEs       ; 144 LEs              ; 0 LEs                  ; No         ; |gsensor|vga:u_vga|Mux2                                   ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------+
+; 3:1                ; 11 bits   ; 22 LEs        ; 11 LEs               ; 11 LEs                 ; Yes        ; |gsensor|vga:u_vga|v_cnt[9]                                ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |gsensor|vga:u_vga|shooter[3]                              ;
+; 3:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |gsensor|vga:u_vga|timer_button[4]                         ;
+; 4:1                ; 15 bits   ; 30 LEs        ; 15 LEs               ; 15 LEs                 ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|read_idle_count[14] ;
+; 4:1                ; 7 bits    ; 14 LEs        ; 7 LEs                ; 7 LEs                  ; Yes        ; |gsensor|vga:u_vga|current_rocket[1]                       ;
+; 4:1                ; 108 bits  ; 216 LEs       ; 216 LEs              ; 0 LEs                  ; Yes        ; |gsensor|vga:u_vga|data_a_mis[87]                          ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |gsensor|vga:u_vga|current_missile[3]                      ;
+; 3:1                ; 11 bits   ; 22 LEs        ; 11 LEs               ; 11 LEs                 ; Yes        ; |gsensor|vga:u_vga|score[0]                                ;
+; 7:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|p2s_data[15]        ;
+; 7:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|p2s_data[11]        ;
+; 7:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |gsensor|spi_ee_config:u_spi_ee_config|p2s_data[10]        ;
+; 5:1                ; 6 bits    ; 18 LEs        ; 12 LEs               ; 6 LEs                  ; Yes        ; |gsensor|vga:u_vga|address_a_mis[0]                        ;
+; 6:1                ; 108 bits  ; 432 LEs       ; 108 LEs              ; 324 LEs                ; Yes        ; |gsensor|vga:u_vga|data_mis_disp[105]                      ;
+; 6:1                ; 6 bits    ; 24 LEs        ; 6 LEs                ; 18 LEs                 ; Yes        ; |gsensor|vga:u_vga|current_submarine[0]                    ;
+; 4:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |gsensor|vga:u_vga|address_b_sub[0]                        ;
+; 4:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |gsensor|vga:u_vga|address_b_mis[1]                        ;
+; 11:1               ; 7 bits    ; 49 LEs        ; 14 LEs               ; 35 LEs                 ; Yes        ; |gsensor|vga:u_vga|address_a_roc[4]                        ;
+; 12:1               ; 6 bits    ; 48 LEs        ; 6 LEs                ; 42 LEs                 ; Yes        ; |gsensor|vga:u_vga|address_a_sub[3]                        ;
+; 13:1               ; 6 bits    ; 48 LEs        ; 12 LEs               ; 36 LEs                 ; Yes        ; |gsensor|vga:u_vga|nb_submarines[5]                        ;
+; 13:1               ; 6 bits    ; 48 LEs        ; 12 LEs               ; 36 LEs                 ; Yes        ; |gsensor|vga:u_vga|data_a_sub[9]                           ;
+; 17:1               ; 3 bits    ; 33 LEs        ; 9 LEs                ; 24 LEs                 ; Yes        ; |gsensor|vga:u_vga|data_a_sub[0]                           ;
+; 30:1               ; 2 bits    ; 40 LEs        ; 8 LEs                ; 32 LEs                 ; Yes        ; |gsensor|vga:u_vga|red_signal                              ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |gsensor|vga:u_vga|current_missile[4]                      ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |gsensor|vga:u_vga|lives[2]                                ;
+; 4:1                ; 11 bits   ; 22 LEs        ; 11 LEs               ; 11 LEs                 ; No         ; |gsensor|vga:u_vga|data_sub_disp                           ;
+; 4:1                ; 108 bits  ; 216 LEs       ; 108 LEs              ; 108 LEs                ; No         ; |gsensor|vga:u_vga|data_roc_disp                           ;
+; 4:1                ; 108 bits  ; 216 LEs       ; 108 LEs              ; 108 LEs                ; No         ; |gsensor|vga:u_vga|data_mis_disp                           ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; No         ; |gsensor|vga:u_vga|data_tmp_sub                            ;
+; 6:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; No         ; |gsensor|vga:u_vga|lives                                   ;
+; 6:1                ; 10 bits   ; 40 LEs        ; 10 LEs               ; 30 LEs                 ; No         ; |gsensor|vga:u_vga|score                                   ;
+; 108:1              ; 2 bits    ; 144 LEs       ; 144 LEs              ; 0 LEs                  ; No         ; |gsensor|vga:u_vga|Mux2                                    ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------------+
@@ -1133,18 +1831,18 @@ Note: In order to hide this table in the UI and the text report file, please set
 
 
 +----------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod4 ;
+; Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Div1 ;
 +------------------------+----------------+----------------------------------+
 ; Parameter Name         ; Value          ; Type                             ;
 +------------------------+----------------+----------------------------------+
-; LPM_WIDTHN             ; 8              ; Untyped                          ;
-; LPM_WIDTHD             ; 8              ; Untyped                          ;
+; LPM_WIDTHN             ; 10             ; Untyped                          ;
+; LPM_WIDTHD             ; 4              ; Untyped                          ;
 ; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
 ; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
 ; LPM_PIPELINE           ; 0              ; Untyped                          ;
 ; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                          ;
 ; MAXIMIZE_SPEED         ; 5              ; Untyped                          ;
-; CBXI_PARAMETER         ; lpm_divide_q9m ; Untyped                          ;
+; CBXI_PARAMETER         ; lpm_divide_sim ; Untyped                          ;
 ; CARRY_CHAIN            ; MANUAL         ; Untyped                          ;
 ; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                          ;
 ; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                       ;
@@ -1155,43 +1853,77 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+-------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_mult:Mult0           ;
-+------------------------------------------------+--------------+---------------------+
-; Parameter Name                                 ; Value        ; Type                ;
-+------------------------------------------------+--------------+---------------------+
-; AUTO_CARRY_CHAINS                              ; ON           ; AUTO_CARRY          ;
-; IGNORE_CARRY_BUFFERS                           ; OFF          ; IGNORE_CARRY        ;
-; AUTO_CASCADE_CHAINS                            ; ON           ; AUTO_CASCADE        ;
-; IGNORE_CASCADE_BUFFERS                         ; OFF          ; IGNORE_CASCADE      ;
-; LPM_WIDTHA                                     ; 9            ; Untyped             ;
-; LPM_WIDTHB                                     ; 9            ; Untyped             ;
-; LPM_WIDTHP                                     ; 18           ; Untyped             ;
-; LPM_WIDTHR                                     ; 18           ; Untyped             ;
-; LPM_WIDTHS                                     ; 1            ; Untyped             ;
-; LPM_REPRESENTATION                             ; UNSIGNED     ; Untyped             ;
-; LPM_PIPELINE                                   ; 0            ; Untyped             ;
-; LATENCY                                        ; 0            ; Untyped             ;
-; INPUT_A_IS_CONSTANT                            ; YES          ; Untyped             ;
-; INPUT_B_IS_CONSTANT                            ; NO           ; Untyped             ;
-; USE_EAB                                        ; OFF          ; Untyped             ;
-; MAXIMIZE_SPEED                                 ; 5            ; Untyped             ;
-; DEVICE_FAMILY                                  ; Cyclone IV E ; Untyped             ;
-; CARRY_CHAIN                                    ; MANUAL       ; Untyped             ;
-; APEX20K_TECHNOLOGY_MAPPER                      ; LUT          ; TECH_MAPPER_APEX20K ;
-; DEDICATED_MULTIPLIER_CIRCUITRY                 ; AUTO         ; Untyped             ;
-; DEDICATED_MULTIPLIER_MIN_INPUT_WIDTH_FOR_AUTO  ; 0            ; Untyped             ;
-; DEDICATED_MULTIPLIER_MIN_OUTPUT_WIDTH_FOR_AUTO ; 0            ; Untyped             ;
-; CBXI_PARAMETER                                 ; NOTHING      ; Untyped             ;
-; INPUT_A_FIXED_VALUE                            ; Bx           ; Untyped             ;
-; INPUT_B_FIXED_VALUE                            ; Bx           ; Untyped             ;
-; USE_AHDL_IMPLEMENTATION                        ; OFF          ; Untyped             ;
-+------------------------------------------------+--------------+---------------------+
++----------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod4 ;
++------------------------+----------------+----------------------------------+
+; Parameter Name         ; Value          ; Type                             ;
++------------------------+----------------+----------------------------------+
+; LPM_WIDTHN             ; 10             ; Untyped                          ;
+; LPM_WIDTHD             ; 10             ; Untyped                          ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
+; LPM_PIPELINE           ; 0              ; Untyped                          ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                          ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                          ;
+; CBXI_PARAMETER         ; lpm_divide_ccm ; Untyped                          ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                          ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                          ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                       ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                     ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                     ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                   ;
++------------------------+----------------+----------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
 +----------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod0 ;
+; Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod5 ;
++------------------------+----------------+----------------------------------+
+; Parameter Name         ; Value          ; Type                             ;
++------------------------+----------------+----------------------------------+
+; LPM_WIDTHN             ; 10             ; Untyped                          ;
+; LPM_WIDTHD             ; 10             ; Untyped                          ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
+; LPM_PIPELINE           ; 0              ; Untyped                          ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                          ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                          ;
+; CBXI_PARAMETER         ; lpm_divide_ccm ; Untyped                          ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                          ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                          ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                       ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                     ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                     ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                   ;
++------------------------+----------------+----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Div0 ;
++------------------------+----------------+----------------------------------+
+; Parameter Name         ; Value          ; Type                             ;
++------------------------+----------------+----------------------------------+
+; LPM_WIDTHN             ; 10             ; Untyped                          ;
+; LPM_WIDTHD             ; 7              ; Untyped                          ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
+; LPM_PIPELINE           ; 0              ; Untyped                          ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                          ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                          ;
+; CBXI_PARAMETER         ; lpm_divide_vim ; Untyped                          ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                          ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                          ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                       ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                     ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                     ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                   ;
++------------------------+----------------+----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod1 ;
 +------------------------+----------------+----------------------------------+
 ; Parameter Name         ; Value          ; Type                             ;
 +------------------------+----------------+----------------------------------+
@@ -1214,7 +1946,30 @@ Note: In order to hide this table in the UI and the text report file, please set
 
 
 +----------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod1 ;
+; Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod3 ;
++------------------------+----------------+----------------------------------+
+; Parameter Name         ; Value          ; Type                             ;
++------------------------+----------------+----------------------------------+
+; LPM_WIDTHN             ; 7              ; Untyped                          ;
+; LPM_WIDTHD             ; 7              ; Untyped                          ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
+; LPM_PIPELINE           ; 0              ; Untyped                          ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                          ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                          ;
+; CBXI_PARAMETER         ; lpm_divide_o9m ; Untyped                          ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                          ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                          ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                       ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                     ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                     ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                   ;
++------------------------+----------------+----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod0 ;
 +------------------------+----------------+----------------------------------+
 ; Parameter Name         ; Value          ; Type                             ;
 +------------------------+----------------+----------------------------------+
@@ -1259,26 +2014,38 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+----------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_divide:Mod3 ;
-+------------------------+----------------+----------------------------------+
-; Parameter Name         ; Value          ; Type                             ;
-+------------------------+----------------+----------------------------------+
-; LPM_WIDTHN             ; 7              ; Untyped                          ;
-; LPM_WIDTHD             ; 7              ; Untyped                          ;
-; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
-; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                          ;
-; LPM_PIPELINE           ; 0              ; Untyped                          ;
-; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                          ;
-; MAXIMIZE_SPEED         ; 5              ; Untyped                          ;
-; CBXI_PARAMETER         ; lpm_divide_o9m ; Untyped                          ;
-; CARRY_CHAIN            ; MANUAL         ; Untyped                          ;
-; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                          ;
-; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                       ;
-; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                     ;
-; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                     ;
-; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                   ;
-+------------------------+----------------+----------------------------------+
++-------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: vga:u_vga|lpm_mult:Mult0           ;
++------------------------------------------------+--------------+---------------------+
+; Parameter Name                                 ; Value        ; Type                ;
++------------------------------------------------+--------------+---------------------+
+; AUTO_CARRY_CHAINS                              ; ON           ; AUTO_CARRY          ;
+; IGNORE_CARRY_BUFFERS                           ; OFF          ; IGNORE_CARRY        ;
+; AUTO_CASCADE_CHAINS                            ; ON           ; AUTO_CASCADE        ;
+; IGNORE_CASCADE_BUFFERS                         ; OFF          ; IGNORE_CASCADE      ;
+; LPM_WIDTHA                                     ; 9            ; Untyped             ;
+; LPM_WIDTHB                                     ; 9            ; Untyped             ;
+; LPM_WIDTHP                                     ; 18           ; Untyped             ;
+; LPM_WIDTHR                                     ; 18           ; Untyped             ;
+; LPM_WIDTHS                                     ; 1            ; Untyped             ;
+; LPM_REPRESENTATION                             ; UNSIGNED     ; Untyped             ;
+; LPM_PIPELINE                                   ; 0            ; Untyped             ;
+; LATENCY                                        ; 0            ; Untyped             ;
+; INPUT_A_IS_CONSTANT                            ; YES          ; Untyped             ;
+; INPUT_B_IS_CONSTANT                            ; NO           ; Untyped             ;
+; USE_EAB                                        ; OFF          ; Untyped             ;
+; MAXIMIZE_SPEED                                 ; 5            ; Untyped             ;
+; DEVICE_FAMILY                                  ; Cyclone IV E ; Untyped             ;
+; CARRY_CHAIN                                    ; MANUAL       ; Untyped             ;
+; APEX20K_TECHNOLOGY_MAPPER                      ; LUT          ; TECH_MAPPER_APEX20K ;
+; DEDICATED_MULTIPLIER_CIRCUITRY                 ; AUTO         ; Untyped             ;
+; DEDICATED_MULTIPLIER_MIN_INPUT_WIDTH_FOR_AUTO  ; 0            ; Untyped             ;
+; DEDICATED_MULTIPLIER_MIN_OUTPUT_WIDTH_FOR_AUTO ; 0            ; Untyped             ;
+; CBXI_PARAMETER                                 ; NOTHING      ; Untyped             ;
+; INPUT_A_FIXED_VALUE                            ; Bx           ; Untyped             ;
+; INPUT_B_FIXED_VALUE                            ; Bx           ; Untyped             ;
+; USE_AHDL_IMPLEMENTATION                        ; OFF          ; Untyped             ;
++------------------------------------------------+--------------+---------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -1376,33 +2143,34 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; boundary_port         ; 12                          ;
-; cycloneiii_ff         ; 918                         ;
+; boundary_port         ; 13                          ;
+; cycloneiii_ff         ; 924                         ;
 ;     CLR               ; 21                          ;
-;     ENA               ; 534                         ;
+;     ENA               ; 543                         ;
 ;     ENA CLR           ; 20                          ;
 ;     ENA CLR SCLR      ; 15                          ;
 ;     ENA SCLR          ; 8                           ;
 ;     ENA SCLR SLD      ; 114                         ;
-;     ENA SLD           ; 126                         ;
+;     ENA SLD           ; 127                         ;
 ;     SLD               ; 10                          ;
-;     plain             ; 70                          ;
+;     plain             ; 66                          ;
 ; cycloneiii_io_obuf    ; 1                           ;
-; cycloneiii_lcell_comb ; 2618                        ;
-;     arith             ; 482                         ;
-;         2 data inputs ; 211                         ;
-;         3 data inputs ; 271                         ;
-;     normal            ; 2136                        ;
-;         0 data inputs ; 29                          ;
-;         1 data inputs ; 32                          ;
-;         2 data inputs ; 209                         ;
-;         3 data inputs ; 497                         ;
-;         4 data inputs ; 1369                        ;
+; cycloneiii_lcell_comb ; 3347                        ;
+;     arith             ; 626                         ;
+;         1 data inputs ; 3                           ;
+;         2 data inputs ; 236                         ;
+;         3 data inputs ; 387                         ;
+;     normal            ; 2721                        ;
+;         0 data inputs ; 45                          ;
+;         1 data inputs ; 36                          ;
+;         2 data inputs ; 305                         ;
+;         3 data inputs ; 437                         ;
+;         4 data inputs ; 1898                        ;
 ; cycloneiii_pll        ; 1                           ;
 ; cycloneiii_ram_block  ; 228                         ;
 ;                       ;                             ;
-; Max LUT depth         ; 16.70                       ;
-; Average LUT depth     ; 8.25                        ;
+; Max LUT depth         ; 39.30                       ;
+; Average LUT depth     ; 16.16                       ;
 +-----------------------+-----------------------------+
 
 
@@ -1411,7 +2179,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:08     ;
+; Top            ; 00:00:13     ;
 +----------------+--------------+
 
 
@@ -1421,7 +2189,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
-    Info: Processing started: Sat Apr 25 12:19:20 2015
+    Info: Processing started: Sun Apr 26 22:45:13 2015
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off GSensor -c GSensor
 Info (11104): Parallel Compilation has detected 8 hyper-threaded processors. However, the extra hyper-threaded processors will not be used by default. Parallel Compilation will use 4 of the 4 physical processors detected instead.
 Info (12021): Found 2 design units, including 1 entities, in source file vga.vhd
@@ -1525,12 +2293,11 @@ Info (12128): Elaborating entity "spi_ee_config" for hierarchy "spi_ee_config:u_
 Warning (10540): VHDL Signal Declaration warning at spi_ee_config.vhd(118): used explicit default value for signal "X" because signal was never assigned a value
 Info (12128): Elaborating entity "spi_controller" for hierarchy "spi_ee_config:u_spi_ee_config|spi_controller:u_spi_controller"
 Info (12128): Elaborating entity "vga" for hierarchy "vga:u_vga"
-Warning (10541): VHDL Signal Declaration warning at vga.vhd(34): used implicit default value for signal "data_b_roc" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
-Warning (10540): VHDL Signal Declaration warning at vga.vhd(75): used explicit default value for signal "top_boat" because signal was never assigned a value
-Warning (10540): VHDL Signal Declaration warning at vga.vhd(76): used explicit default value for signal "bottom_boat" because signal was never assigned a value
-Warning (10036): Verilog HDL or VHDL warning at vga.vhd(85): object "submarines_debug" assigned a value but never read
-Warning (10542): VHDL Variable Declaration warning at vga.vhd(112): used initial value expression for variable "new_roc_line" because variable was never assigned a value
-Warning (10542): VHDL Variable Declaration warning at vga.vhd(120): used initial value expression for variable "new_mis_line" because variable was never assigned a value
+Warning (10541): VHDL Signal Declaration warning at vga.vhd(35): used implicit default value for signal "data_b_roc" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
+Warning (10540): VHDL Signal Declaration warning at vga.vhd(76): used explicit default value for signal "top_boat" because signal was never assigned a value
+Warning (10540): VHDL Signal Declaration warning at vga.vhd(77): used explicit default value for signal "bottom_boat" because signal was never assigned a value
+Warning (10542): VHDL Variable Declaration warning at vga.vhd(114): used initial value expression for variable "new_roc_line" because variable was never assigned a value
+Warning (10542): VHDL Variable Declaration warning at vga.vhd(122): used initial value expression for variable "new_mis_line" because variable was never assigned a value
 Info (12128): Elaborating entity "ram_sub" for hierarchy "ram_sub:u_ram_sub"
 Info (12128): Elaborating entity "altsyncram" for hierarchy "ram_sub:u_ram_sub|altsyncram:altsyncram_component"
 Info (12130): Elaborated megafunction instantiation "ram_sub:u_ram_sub|altsyncram:altsyncram_component"
@@ -1708,29 +2475,86 @@ Warning (14284): Synthesized away the following node(s):
         Warning (14320): Synthesized away node "ram_sub:u_ram_sub|altsyncram:altsyncram_component|altsyncram_i8o3:auto_generated|q_a[13]"
         Warning (14320): Synthesized away node "ram_sub:u_ram_sub|altsyncram:altsyncram_component|altsyncram_i8o3:auto_generated|q_a[14]"
         Warning (14320): Synthesized away node "ram_sub:u_ram_sub|altsyncram:altsyncram_component|altsyncram_i8o3:auto_generated|q_a[15]"
-Info (278001): Inferred 6 megafunctions from design logic
+Info (278001): Inferred 9 megafunctions from design logic
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "vga:u_vga|Div1"
     Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "vga:u_vga|Mod4"
-    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "vga:u_vga|Mult0"
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "vga:u_vga|Mod0"
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "vga:u_vga|Mod5"
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "vga:u_vga|Div0"
     Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "vga:u_vga|Mod1"
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "vga:u_vga|Mod2"
     Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "vga:u_vga|Mod3"
-Info (12130): Elaborated megafunction instantiation "vga:u_vga|lpm_divide:Mod4"
-Info (12133): Instantiated megafunction "vga:u_vga|lpm_divide:Mod4" with the following parameter:
-    Info (12134): Parameter "LPM_WIDTHN" = "8"
-    Info (12134): Parameter "LPM_WIDTHD" = "8"
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "vga:u_vga|Mod0"
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "vga:u_vga|Mod2"
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "vga:u_vga|Mult0"
+Info (12130): Elaborated megafunction instantiation "vga:u_vga|lpm_divide:Div1"
+Info (12133): Instantiated megafunction "vga:u_vga|lpm_divide:Div1" with the following parameter:
+    Info (12134): Parameter "LPM_WIDTHN" = "10"
+    Info (12134): Parameter "LPM_WIDTHD" = "4"
     Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
     Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
-Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_q9m.tdf
-    Info (12023): Found entity 1: lpm_divide_q9m
-Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_fkh.tdf
-    Info (12023): Found entity 1: sign_div_unsign_fkh
-Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_i4f.tdf
-    Info (12023): Found entity 1: alt_u_div_i4f
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_sim.tdf
+    Info (12023): Found entity 1: lpm_divide_sim
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_klh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_klh
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_s6f.tdf
+    Info (12023): Found entity 1: alt_u_div_s6f
 Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_7pc.tdf
     Info (12023): Found entity 1: add_sub_7pc
 Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_8pc.tdf
     Info (12023): Found entity 1: add_sub_8pc
+Info (12130): Elaborated megafunction instantiation "vga:u_vga|lpm_divide:Mod4"
+Info (12133): Instantiated megafunction "vga:u_vga|lpm_divide:Mod4" with the following parameter:
+    Info (12134): Parameter "LPM_WIDTHN" = "10"
+    Info (12134): Parameter "LPM_WIDTHD" = "10"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_ccm.tdf
+    Info (12023): Found entity 1: lpm_divide_ccm
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_1nh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_1nh
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_m9f.tdf
+    Info (12023): Found entity 1: alt_u_div_m9f
+Info (12130): Elaborated megafunction instantiation "vga:u_vga|lpm_divide:Div0"
+Info (12133): Instantiated megafunction "vga:u_vga|lpm_divide:Div0" with the following parameter:
+    Info (12134): Parameter "LPM_WIDTHN" = "10"
+    Info (12134): Parameter "LPM_WIDTHD" = "7"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_vim.tdf
+    Info (12023): Found entity 1: lpm_divide_vim
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_nlh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_nlh
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_27f.tdf
+    Info (12023): Found entity 1: alt_u_div_27f
+Info (12130): Elaborated megafunction instantiation "vga:u_vga|lpm_divide:Mod1"
+Info (12133): Instantiated megafunction "vga:u_vga|lpm_divide:Mod1" with the following parameter:
+    Info (12134): Parameter "LPM_WIDTHN" = "7"
+    Info (12134): Parameter "LPM_WIDTHD" = "7"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_o9m.tdf
+    Info (12023): Found entity 1: lpm_divide_o9m
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_dkh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_dkh
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_e4f.tdf
+    Info (12023): Found entity 1: alt_u_div_e4f
+Info (12130): Elaborated megafunction instantiation "vga:u_vga|lpm_divide:Mod3"
+Info (12133): Instantiated megafunction "vga:u_vga|lpm_divide:Mod3" with the following parameter:
+    Info (12134): Parameter "LPM_WIDTHN" = "7"
+    Info (12134): Parameter "LPM_WIDTHD" = "7"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12130): Elaborated megafunction instantiation "vga:u_vga|lpm_divide:Mod0"
+Info (12133): Instantiated megafunction "vga:u_vga|lpm_divide:Mod0" with the following parameter:
+    Info (12134): Parameter "LPM_WIDTHN" = "7"
+    Info (12134): Parameter "LPM_WIDTHD" = "7"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12130): Elaborated megafunction instantiation "vga:u_vga|lpm_divide:Mod2"
+Info (12133): Instantiated megafunction "vga:u_vga|lpm_divide:Mod2" with the following parameter:
+    Info (12134): Parameter "LPM_WIDTHN" = "7"
+    Info (12134): Parameter "LPM_WIDTHD" = "7"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
 Info (12130): Elaborated megafunction instantiation "vga:u_vga|lpm_mult:Mult0"
 Info (12133): Instantiated megafunction "vga:u_vga|lpm_mult:Mult0" with the following parameter:
     Info (12134): Parameter "LPM_WIDTHA" = "9"
@@ -1752,55 +2576,25 @@ Info (12131): Elaborated megafunction instantiation "vga:u_vga|lpm_mult:Mult0|mu
 Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_qgh.tdf
     Info (12023): Found entity 1: add_sub_qgh
 Info (12131): Elaborated megafunction instantiation "vga:u_vga|lpm_mult:Mult0|altshift:external_latency_ffs", which is child of megafunction instantiation "vga:u_vga|lpm_mult:Mult0"
-Info (12130): Elaborated megafunction instantiation "vga:u_vga|lpm_divide:Mod0"
-Info (12133): Instantiated megafunction "vga:u_vga|lpm_divide:Mod0" with the following parameter:
-    Info (12134): Parameter "LPM_WIDTHN" = "7"
-    Info (12134): Parameter "LPM_WIDTHD" = "7"
-    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
-    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
-Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_o9m.tdf
-    Info (12023): Found entity 1: lpm_divide_o9m
-Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_dkh.tdf
-    Info (12023): Found entity 1: sign_div_unsign_dkh
-Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_e4f.tdf
-    Info (12023): Found entity 1: alt_u_div_e4f
-Info (12130): Elaborated megafunction instantiation "vga:u_vga|lpm_divide:Mod1"
-Info (12133): Instantiated megafunction "vga:u_vga|lpm_divide:Mod1" with the following parameter:
-    Info (12134): Parameter "LPM_WIDTHN" = "7"
-    Info (12134): Parameter "LPM_WIDTHD" = "7"
-    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
-    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
-Info (12130): Elaborated megafunction instantiation "vga:u_vga|lpm_divide:Mod2"
-Info (12133): Instantiated megafunction "vga:u_vga|lpm_divide:Mod2" with the following parameter:
-    Info (12134): Parameter "LPM_WIDTHN" = "7"
-    Info (12134): Parameter "LPM_WIDTHD" = "7"
-    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
-    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
-Info (12130): Elaborated megafunction instantiation "vga:u_vga|lpm_divide:Mod3"
-Info (12133): Instantiated megafunction "vga:u_vga|lpm_divide:Mod3" with the following parameter:
-    Info (12134): Parameter "LPM_WIDTHN" = "7"
-    Info (12134): Parameter "LPM_WIDTHD" = "7"
-    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
-    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
 Info (13000): Registers with preset signals will power-up high
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
 Info (286030): Timing-Driven Synthesis is running
-Info (17049): 8 registers lost all their fanouts during netlist optimizations.
+Info (17049): 9 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 1 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 1 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "KEY[1]"
-Info (21057): Implemented 3262 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 4 input pins
+Info (21057): Implemented 3993 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 5 input pins
     Info (21059): Implemented 7 output pins
     Info (21060): Implemented 1 bidirectional pins
-    Info (21061): Implemented 3021 logic cells
+    Info (21061): Implemented 3751 logic cells
     Info (21064): Implemented 228 RAM segments
     Info (21065): Implemented 1 PLLs
-Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 15 warnings
-    Info: Peak virtual memory: 710 megabytes
-    Info: Processing ended: Sat Apr 25 12:19:41 2015
-    Info: Elapsed time: 00:00:21
-    Info: Total CPU time (on all processors): 00:00:35
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 14 warnings
+    Info: Peak virtual memory: 717 megabytes
+    Info: Processing ended: Sun Apr 26 22:45:38 2015
+    Info: Elapsed time: 00:00:25
+    Info: Total CPU time (on all processors): 00:00:40
 
 

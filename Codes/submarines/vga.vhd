@@ -11,6 +11,7 @@ entity vga is
 		-- FOR THE ACCELEROMETER DATA
 		data_x		: in std_logic_vector(9 downto 0);
 		data_y		: in std_logic_vector(9 downto 0);
+		Button		: in std_logic;
 		
 		-- FOR THE OUTPUT SIGNALS
 		out_red		: out std_logic;
@@ -70,31 +71,32 @@ architecture vga_arch of vga is
 	signal v_cnt			: std_logic_vector(10 downto 0) := (others => '0');
 	
 	-- Signal positionning the boat
-	signal left_boat		: std_logic_vector(9 downto 0);
-	signal right_boat	: std_logic_vector(9 downto 0);
-	signal top_boat		: std_logic_vector(9 downto 0) := std_logic_vector(to_unsigned(152,10)); -- Fixed height
-	signal bottom_boat	: std_logic_vector(9 downto 0) := std_logic_vector(to_unsigned(159,10)); -- Fixed height
+	signal left_boat			: std_logic_vector(9 downto 0);
+	signal right_boat			: std_logic_vector(9 downto 0);
+	signal top_boat			: std_logic_vector(9 downto 0) := std_logic_vector(to_unsigned(152,10)); -- Fixed height
+	signal bottom_boat		: std_logic_vector(9 downto 0) := std_logic_vector(to_unsigned(159,10)); -- Fixed height
 	
-	-- To represent acceleration of both directions
+	-- To represent acceleration along y axis
 	shared variable sign_g_y		: std_logic;
 	shared variable magn_g_y		: std_logic_vector(8 downto 0);
 	signal old_magn_g_y				: std_logic_vector(8 downto 0);
 	shared variable tmp_magn_g_y	: std_logic_vector(11 downto 0);
 	
 	shared variable submarines : std_logic_vector(49 downto 0) := (others => '0');  -- 1 bit for signaling if there is a boat
-	shared variable submarines_debug : std_logic_vector(50 downto 0) := (others => '0');
 	
-	shared variable index 					: integer range 0 to 200; -- normally 75 enough
-	shared variable i_loop 					: integer range 0 to 200;
+	-- Hard coded characters
+	type char_tab is array(18 downto 0) of std_logic_vector(34 downto 0);
+	signal characters				: char_tab;
+	signal init						: std_logic := '1';
 	
 	-- Modes
 	signal update_submarines 	: std_logic := '0';
 	signal update_rockets 		: std_logic := '0';
 	signal generate_subarine	: std_logic := '0';
 	signal update_missiles		: std_logic := '0';
-	signal cycle_cnt				: integer range 0 to 101 := 0;
-	signal reset_game				: std_logic := '0';
-	signal reset_timer			: integer range 0 to 144 := 0;
+	signal cycle_cnt				: integer range 0 to 100 := 0;
+	signal reset_game				: std_logic := '1';
+	signal reset_timer			: integer range 0 to 288 := 0;
 	
 	-- To update submarines
 	signal current_submarine 			: integer range 0 to 49 := 0;
@@ -128,22 +130,27 @@ architecture vga_arch of vga is
 	shared variable nb_submarines    : integer range 0 to 50 := 0; -- To count the number of submarines
 	
 	-- For the boat shoots
-	shared variable boat_shoot			: std_logic := '0';
+	signal boat_shoot			: std_logic := '0';
 	
 	-- For the display process
 	shared variable current_sub_line			: integer range 199 to 599 := 199;
 	shared variable current_rocket_line		: integer range -1 to 599 := 0;
 	shared variable current_missile_line		: integer range 159 to 599 := 159;
 	
-	-- For the level configuration
+	-- For the level
 	signal level							: integer range 0 to 3 := 1;						
 	
-	-- For the life
-	signal life 							: std_logic_vector(4 downto 0) := (others => '1');
-	signal index_life						: integer range 0 to 4 := 4;
+	-- For the lives
+	shared variable lives				: integer range 0 to 5 := 5;
 	signal hit								: std_logic := '0';
 	
+	-- For the score
 	shared variable score				: integer range 0 to 999 := 0;
+	shared variable index_score		: integer range 0 to 9 := 0;
+	
+	-- For the button
+	signal timer_button		: integer range 0 to 25 := 0;
+	signal pushed_button		: std_logic := '0';
 	
 begin
 
@@ -159,9 +166,21 @@ begin
 				update_missiles <= '0';
 				current_submarine <= 0;
 				
-				boat_shoot := '0';
+				-- Check if the player pushed the button
+				if (Button = '0' and reset_game = '0') then
+					pushed_button <= '1';
+				end if;
+				if(timer_button < 25) then
+					timer_button <= timer_button + 1;
+				end if;
+				if(pushed_button = '1' and timer_button = 25) then
+					boat_shoot <= '1';
+					timer_button <= 0;
+					pushed_button <= '0';
+				end if;
 				
-				if(cycle_cnt = 100) then
+				
+				if(cycle_cnt = 99) then
 					cycle_cnt <= 0;
 				else
 					cycle_cnt <= cycle_cnt + 1;
@@ -169,24 +188,19 @@ begin
 				
 				if(cycle_cnt mod 50 = 0) then -- every 0.65s we change the submarines who shoot
 					if(shooter < 9) then
-						shooter <= shooter + 1; -- sub at index shooter, 10 + shooter , ... , 40 + shooter  will shoot every time we decide
+						shooter <= shooter + 1; -- sub at shooter, 10 + shooter , ... , 40 + shooter  will shoot every time we decide
 					else
---						if(shift_shooter < 9) then
---							shooter <= shift_shooter; -- next time sub at index (shooter + shift_shooter), (10 + shooter shift_shooter) , ... , (40 + shooter + shift_shooter) will shoot every time we decide
---							shift_shooter <= shift_shooter + 1;
---						else 
+						if(shift_shooter < 9) then
+							shooter <= shift_shooter; -- next time sub at (shooter + shift_shooter), (10 + shooter shift_shooter) , ... , (40 + shooter + shift_shooter) will shoot every time we decide
+							shift_shooter <= shift_shooter + 1;
+						else 
 							shooter <= 0;
---							shift_shooter <=1;
---						end if;
+							shift_shooter <=1;
+						end if;
 					end if;
 				end if; 
 				
 			elsif(v_sync = '0') then
-			
-				-- Check if the player pushed the button (for the moment, shoot every sec)
-				if (cycle_cnt = 100 and boat_shoot = '0' and reset_game = '0') then
-					boat_shoot := '1';
-				end if;
 		
 				-- Update submarines position (and generate rockets if 1,3 sec elapsed)
 				if (update_submarines = '1') then
@@ -288,7 +302,6 @@ begin
 					-- Level 2 : every 5*0.0138 = 0.069 s
 					-- Level 3 : every 2*0.0138 = 0.0276 s
 					if( (level = 1 and cycle_cnt mod 10 = 0) or (level = 2 and cycle_cnt mod 5 = 0) or (level = 3 and cycle_cnt mod 2 = 0) ) then
-					--if(cycle_cnt mod 5 = 0) then -- To update the rockets position every 5*13 = 65 ms
 						if(read_roc = '1') then									-- Read mode
 							
 							address_a_roc <= "0000001" + current_rocket;
@@ -352,6 +365,7 @@ begin
 								address_a_mis <= "000000";
 								if(boat_shoot = '1') then
 									data_tmp_mis(to_integer(unsigned(left_boat + 16))/8) := '1';
+									boat_shoot <= '0';
 								end if;
 							else
 								data_tmp_mis := q_a_mis;
@@ -386,15 +400,14 @@ begin
 				-- Generate submarines
 				elsif(generate_subarine = '1') then
 					
-					if(cycle_cnt = 100 and reset_game = '0') then
+					if(cycle_cnt mod 50 = 0 and reset_game = '0') then
 						
-						if(nb_submarines < 5) then -- if there is less than 10 submarines, we try to add one
+						if(nb_submarines < 10) then -- if there is less than 10 submarines, we try to add one
 							  
-							tmp_random := to_integer(unsigned(magn_g_y(5 downto 0))); -- to take a random number
+							tmp_random := to_integer(unsigned(magn_g_y(2 downto 0) & h_cnt(2) & h_cnt(1) & h_cnt(0))); -- to take a random number
 							if (tmp_random > 49) then -- 2^6 ==> can be up to 63
 								tmp_random := tmp_random - 14;
 							end if;
---							tmp_random <= tmp_random + 2;
 							
 							if(submarines(tmp_random) = '0') then -- No submarine in this line => create one
 								if(sign_g_y = '1') then -- to choose the direction
@@ -409,10 +422,6 @@ begin
 								generate_subarine <= '0';
 
 							else						 -- There is a submarine
---								tmp_random = tmp_random + 2;
---								if(tmp_random > 49) then
---									tmp_random = 0;
---								end if;
 								wr_en_a_sub <= '0';
 							end if;
 							
@@ -437,15 +446,16 @@ begin
 		end if;
 	end process;
 	
+	--- Retreive data from accelerometer for positioning the boat ----------------------------------------
 	boat : process(v_sync)
 	begin
 
 		if (v_sync = '0') then
 	
-			-- Get the sign of the acceleration over y
+			-- Get the sign of the acceleration along y
 			sign_g_y := data_y(9);
 			
-			-- Get the magnitude of the acceleration over y
+			-- Get the magnitude of the acceleration along y
 			if (sign_g_y = '0') then
 				magn_g_y := (data_y(8 downto 0));
 			else 
@@ -458,12 +468,10 @@ begin
 
 			
 			-- Compute the horizontal position of the square
-			if(sign_g_y = '0') then -- si positif
+			if(sign_g_y = '0') then
 				left_boat <= std_logic_vector(to_unsigned(380-((380*(to_integer(unsigned(magn_g_y))))/256),10));
-				--left_boat <= "0100101100" + magn_g_y(8 downto 1);
 			else
 				left_boat <= std_logic_vector(to_unsigned(380+((380*(to_integer(unsigned(magn_g_y))))/256),10));
-				--left_boat <= "0100101100" - magn_g_y(8 downto 1);
 			end if;
 			right_boat <= left_boat + 40;
 		
@@ -511,7 +519,8 @@ begin
 				green_signal <= '0';
 			end if;
 			
-		-- submarines -------------------------------------------------------------------
+			
+			-- submarines -------------------------------------------------------------------
 			
 			-- Initialize
 			if( (v_cnt = 199) and (h_cnt = 799)) then
@@ -525,13 +534,6 @@ begin
 			-- Get the data loaded from memory
 			elsif( (v_cnt = current_sub_line ) and (h_cnt = 803) ) then
 				data_sub_disp := q_b_sub;
-				
-				if(data_sub_disp(11) = '1') then
-					submarines_debug((current_sub_line - 199)/8) := '1';
-				else
-					submarines_debug((current_sub_line - 199)/8) := '0';
-				end if;
-		
 			end if;
 			
 			-- Display
@@ -551,7 +553,6 @@ begin
 				current_sub_line := current_sub_line + 8;
 			end if;
 			
-
 			
 		-- Rockets -------------------------------------------------------------------
 			
@@ -559,7 +560,7 @@ begin
 			if( (v_cnt = 599) and (h_cnt = 799)) then
 				current_rocket_line := -1;
 				-- We loose only one life at a time and we have a delay of 0,13s of immunity when we loose 1
-				if( (cycle_cnt+1) mod 10 = 0) then
+				if( (cycle_cnt) mod 10 = 0) then
 					hit <= '0';
 				end if;
 				
@@ -584,11 +585,11 @@ begin
 					if( (v_cnt >= bottom_boat) and (v_cnt <= bottom_boat) and ((h_cnt >= left_boat) and (h_cnt <= right_boat)) ) then	
 						-- To consider only the first time the rocket collides the boat
 						if(hit = '0') then
-							life(index_life) <= '0';
 							hit <= '1';
-							if(index_life > 0) then
-								index_life <= index_life - 1;
+							if(lives > 1) then
+								lives := lives - 1;
 							else
+								lives := 0;
 								reset_game <= '1';
 							end if;
 						end if;
@@ -654,37 +655,186 @@ begin
 				end if;
 			end if;
 			
-			
 			-- Prepare for loading the next line
 			if( (v_cnt = current_missile_line + 8) and (h_cnt = 799) ) then
 				current_missile_line := current_missile_line + 8;
 			end if;
-
-			
-			-- Life
-			if(v_cnt >= 15 and v_cnt <= 30) then
-				-- Display remaining life
-				if (h_cnt >= 10 and h_cnt <= 89) then
-					if (life(to_integer(unsigned(h_cnt - 10) srl 4)) = '1') then
+	
+			-- Lives, level and score ----------------------------------------------------------------------------
+			if(v_cnt >= 20 and v_cnt < 34) then
+				-- lives ---------------------------------------------------------------------
+				-- L
+				if(h_cnt >= 50 and h_cnt < 60 and characters(10)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-50)/2)) = '1') then
 						red_signal <= '1';
 						green_signal <= '0';
 						blue_signal <= '1';
-					else
-						red_signal <= '0';
-						green_signal <= '1';
-						blue_signal <= '1';
-					end if;
 				end if;
-				-- Display separators
-				if(h_cnt >= 10 and h_cnt <= 90 and to_integer(unsigned(h_cnt-10)) mod 16 = 0) then
-					red_signal <= '1';
-					green_signal <= '1';
-					blue_signal <= '0';
+				-- I
+				if(h_cnt >= 62 and h_cnt < 72 and characters(11)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-62)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				-- V
+				if(h_cnt >= 74 and h_cnt < 84 and characters(12)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-74)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				-- E
+				if(h_cnt >= 86 and h_cnt < 96 and characters(13)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-86)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				-- S
+				if(h_cnt >= 98 and h_cnt < 108 and characters(14)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-98)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				-- :
+				if(h_cnt >= 110 and h_cnt < 120 and characters(18)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-110)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				-- Value
+				if(h_cnt >= 122 and h_cnt < 132 and characters(lives)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-122)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				
+				-- level ---------------------------------------------------------------------
+				-- L
+				if(h_cnt >= 340 and h_cnt < 350 and characters(10)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-340)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				-- E
+				if(h_cnt >= 352 and h_cnt < 362 and characters(13)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-352)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				-- V
+				if(h_cnt >= 364 and h_cnt < 374 and characters(12)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-364)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				-- E
+				if(h_cnt >= 376 and h_cnt < 386 and characters(13)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-376)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				-- L
+				if(h_cnt >= 388 and h_cnt < 398 and characters(10)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-388)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				-- :
+				if(h_cnt >= 400 and h_cnt < 410 and characters(18)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-400)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				-- Value
+				if(h_cnt >= 412 and h_cnt < 422 and characters(level)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-412)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				
+				-- Score ---------------------------------------------------------------------
+				-- S
+				if(h_cnt >= 630 and h_cnt < 640 and characters(14)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-630)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				-- C
+				if(h_cnt >= 642 and h_cnt < 652 and characters(15)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-642)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				-- O
+				if(h_cnt >= 654 and h_cnt < 664 and characters(16)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-654)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				-- R
+				if(h_cnt >= 666 and h_cnt < 676 and characters(17)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-666)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				-- E
+				if(h_cnt >= 678 and h_cnt < 688 and characters(13)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-678)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				-- :
+				if(h_cnt >= 690 and h_cnt < 700 and characters(18)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-690)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				-- Value (hundred)
+				index_score := score/100;
+				if(h_cnt >= 702 and h_cnt < 712 and characters(index_score)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-702)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				-- Value (ten)
+				index_score := (score/10)mod 10;
+				if(h_cnt >= 714 and h_cnt < 724 and characters(index_score)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-714)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
+				end if;
+				-- Value (unit)
+				index_score := score mod 10;
+				if(h_cnt >= 726 and h_cnt < 736 and characters(index_score)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-726)/2)) = '1') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '1';
 				end if;
 			end if;
 		
 		end if;
-
+		
+		-- Hard coded characters:
+		if(init = '1') then
+			characters(0) <= "01110100011001110101110011000101110"; -- 0
+			characters(1) <= "11111001000010000100001010011000100"; -- 1
+			characters(2) <= "11111000100010001000100001000101110"; -- 2
+			characters(3) <= "01111100001000001000001000100011111"; -- 3
+			characters(4) <= "01000010001111101001010100110001000"; -- 4
+			characters(5) <= "01110100011000010000011110000111111"; -- 5
+			characters(6) <= "01110100011000101111000010001001100"; -- 6
+			characters(7) <= "00010000100001000100010001000011111"; -- 7
+			characters(8) <= "01110100011000101110100011000101110"; -- 8
+			characters(9) <= "01110100001000011110100011000101110"; -- 9
+			characters(10) <= "11111000010000100001000010000100001"; -- L
+			characters(11) <= "11111001000010000100001000010011111"; -- I
+			characters(12) <= "00100010100101010001100011000110001"; -- V
+			characters(13) <= "11111000010000101111000010000111111"; -- E
+			characters(14) <= "01111100001000001110000010000111110"; -- S
+			characters(15) <= "01110100010000100001000011000101110"; -- C
+			characters(16) <= "01110100011000110001100011000101110"; -- O
+			characters(17) <= "10001010010010101111100011000101111"; -- R
+			characters(18) <= "00000001100011000000001100011000000"; -- :
+			init <= '0';
+		end if;
 		
 		-- Generate Horizontal Sync
 		if(h_cnt <= 975) and (h_cnt >= 855) then
@@ -704,11 +854,10 @@ begin
 		if (v_cnt >= 665) and (h_cnt >= 1039) then
 			v_cnt <= "00000000000";
 			if(reset_game = '1') then 
-				if(reset_timer = 144) then
+				if(reset_timer = 288) then
 					reset_game <= '0';
 					reset_timer <= 0;
-					index_life <= 4;
-					life <= "11111";
+					lives := 5;
 					score := 0;
 					level <= 1;
 				else

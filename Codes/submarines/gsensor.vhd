@@ -16,6 +16,7 @@ entity gsensor is
 	   CLOCK_50                : IN std_logic;
 		KEY                     : IN std_logic_vector(1 DOWNTO 0);   
       G_SENSOR_INT            : IN std_logic;   -- G_Sensor Interrupt PIN_M2
+		Button						: IN std_logic;
 		
 		I2C_SDAT                : INOUT std_logic; -- EEPROM data PIN_F1
 		I2C_SCLK                : OUT std_logic;  -- EEPROM clock PIN_F2
@@ -121,6 +122,7 @@ BEGIN
 			out_green	=> out_green,
 			out_h_sync	=> out_h_sync,
 			out_v_sync	=> out_v_sync,
+			Button		=> Button,
 			
 			-- FOR THE SUBMARINE RAM
 			data_a_sub		=> wire_data_a_sub,
