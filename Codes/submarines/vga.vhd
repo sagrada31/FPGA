@@ -72,14 +72,14 @@ architecture vga_arch of vga is
 	-- Signal positionning the boat
 	signal left_boat		: std_logic_vector(9 downto 0);
 	signal right_boat	: std_logic_vector(9 downto 0);
-	signal top_boat		: std_logic_vector(9 downto 0) := std_logic_vector(to_unsigned(150,10)); -- Fixed height
-	signal bottom_boat	: std_logic_vector(9 downto 0) := std_logic_vector(to_unsigned(160,10)); -- Fixed height
+	signal top_boat		: std_logic_vector(9 downto 0) := std_logic_vector(to_unsigned(152,10)); -- Fixed height
+	signal bottom_boat	: std_logic_vector(9 downto 0) := std_logic_vector(to_unsigned(159,10)); -- Fixed height
 	
 	-- To represent acceleration of both directions
 	shared variable sign_g_y		: std_logic;
 	shared variable magn_g_y		: std_logic_vector(8 downto 0);
-	shared variable old_magn_g_y	: std_logic_vector(8 downto 0);
-	shared variable tmp_magn_g_y	: std_logic_vector(10 downto 0);
+	signal old_magn_g_y				: std_logic_vector(8 downto 0);
+	shared variable tmp_magn_g_y	: std_logic_vector(11 downto 0);
 	
 	shared variable submarines : std_logic_vector(49 downto 0) := (others => '0');  -- 1 bit for signaling if there is a boat
 	shared variable submarines_debug : std_logic_vector(50 downto 0) := (others => '0');
@@ -92,7 +92,7 @@ architecture vga_arch of vga is
 	signal update_rockets 		: std_logic := '0';
 	signal generate_subarine	: std_logic := '0';
 	signal update_missiles		: std_logic := '0';
-	signal cycle_cnt				: integer range 0 to 100 := 0;
+	signal cycle_cnt				: integer range 0 to 101 := 0;
 	signal reset_game				: std_logic := '0';
 	signal reset_timer			: integer range 0 to 144 := 0;
 	
@@ -143,6 +143,8 @@ architecture vga_arch of vga is
 	signal index_life						: integer range 0 to 4 := 4;
 	signal hit								: std_logic := '0';
 	
+	shared variable score				: integer range 0 to 999 := 0;
+	
 begin
 
 	update_elements_position : process(CLOCK_50)
@@ -169,13 +171,13 @@ begin
 					if(shooter < 9) then
 						shooter <= shooter + 1; -- sub at index shooter, 10 + shooter , ... , 40 + shooter  will shoot every time we decide
 					else
-						if(shift_shooter < 9) then
-							shooter <= shift_shooter; -- next time sub at index (shooter + shift_shooter), (10 + shooter shift_shooter) , ... , (40 + shooter + shift_shooter) will shoot every time we decide
-							shift_shooter <= shift_shooter + 1;
-						else 
+--						if(shift_shooter < 9) then
+--							shooter <= shift_shooter; -- next time sub at index (shooter + shift_shooter), (10 + shooter shift_shooter) , ... , (40 + shooter + shift_shooter) will shoot every time we decide
+--							shift_shooter <= shift_shooter + 1;
+--						else 
 							shooter <= 0;
-							shift_shooter <=1;
-						end if;
+--							shift_shooter <=1;
+--						end if;
 					end if;
 				end if; 
 				
@@ -208,46 +210,54 @@ begin
 							data_tmp_sub := q_a_sub;
 							data_tmp_roc := q_a_roc;
 							
-							-- Update position (or direction if submarine on the edge)
-							if(data_tmp_sub(10) = '1') then 					-- if it goes to the right
-								if(data_tmp_sub(9 downto 0) = 760)then		-- if max at right
-									data_tmp_sub(10) := '0';						-- reverse direction
-								else
-									data_tmp_sub(9 downto 0) := data_tmp_sub(9 downto 0) + 1; -- go to right
+							if(data_tmp_sub(11) = '1') then
+								-- Update position (or direction if submarine on the edge)
+								if(data_tmp_sub(10) = '1') then 					-- if it goes to the right
+									if(data_tmp_sub(9 downto 0) >= 760)then		-- if max at right
+										data_tmp_sub(10) := '0';						-- reverse direction
+									else
+										data_tmp_sub(9 downto 0) := data_tmp_sub(9 downto 0) + level; -- go to right
+									end if;
+								else 														-- if it goes to the left
+									if(data_tmp_sub(9 downto 0) = 0)then		-- if max at left
+										data_tmp_sub(10) := '1';						-- reverse direction
+									else
+										if(data_tmp_sub(9 downto 0) >= level) then
+											data_tmp_sub(9 downto 0) := data_tmp_sub(9 downto 0) - level;	-- go to left
+										else
+											data_tmp_sub(9 downto 0) := "0000000000";
+										end if;
+									end if;
 								end if;
-							else 														-- if it goes to the left
-								if(data_tmp_sub(9 downto 0) = 0)then		-- if max at left
-									data_tmp_sub(10) := '1';						-- reverse direction
-								else
-									data_tmp_sub(9 downto 0) := data_tmp_sub(9 downto 0) - 1;	-- go to left
+								
+								data_a_sub(15 downto 0) <= "00001" & data_tmp_sub(10 downto 0);
+								
+								-- In case of reset
+								if(reset_game = '1') then
+									data_a_sub(15 downto 0) <= "0000000000000000";
 								end if;
-							end if;
-							
-							data_a_sub(15 downto 0) <= "00001" & data_tmp_sub(10 downto 0);
-							
-							-- In case of reset
-							if(reset_game = '1') then
-								data_a_sub(15 downto 0) <= "0000000000000000";
-							end if;
-							
-							address_a_sub <= "000000" + current_submarine;
-							wr_en_a_sub <= '1';
-							
-							-- Generate rockets : 
-							--if level 1 : every 50*0,0138 = 0.69 second elapsed 5 lines shoot
-							--if level 2 : every 25*0,0138 = 0.345 second elapsed 5 lines shoot
-							--if level 3 : every 10*0,0138 = 0.138 second elapsed 5 lines shoot
-							if( (level = 1 and cycle_cnt mod 50 = 0) or (level = 2 and cycle_cnt mod 25 = 0) or (level = 3 and cycle_cnt mod 10 = 0)) then
-								-- if there is a sub on one of the five current line designed to shoot it shoots
-								if( (current_submarine = shooter) or (current_submarine = 10+shooter) or (current_submarine = 20+shooter) or (current_submarine = 30+shooter) or (current_submarine = 40+shooter)) then
-									data_tmp_roc( to_integer(unsigned(data_tmp_sub(9 downto 0) + 16))/8 ) := '1';
+								
+								address_a_sub <= "000000" + current_submarine;
+								wr_en_a_sub <= '1';
+								
+								-- Generate rockets : 
+								--if level 1 : every 50*0,0138 = 0.69 second elapsed 5 lines shoot
+								--if level 2 : every 25*0,0138 = 0.345 second elapsed 5 lines shoot
+								--if level 3 : every 10*0,0138 = 0.138 second elapsed 5 lines shoot
+								if( (level = 1 and cycle_cnt mod 50 = 0) or (level = 2 and cycle_cnt mod 25 = 0) or (level = 3 and cycle_cnt mod 10 = 0)) then
+									-- if there is a sub on one of the five current line designed to shoot it shoots
+									if( (current_submarine = shooter) or (current_submarine = 10+shooter) or (current_submarine = 20+shooter) or (current_submarine = 30+shooter) or (current_submarine = 40+shooter)) then
+										data_tmp_roc( to_integer(unsigned(data_tmp_sub(9 downto 0) + 16))/8 ) := '1';
+									end if;
+									-- Re-write the updated rocket line in the RAM (even if there is no modifications)
+									data_a_roc <= data_tmp_roc;
+									address_a_roc <= "0000000" + current_submarine + 25;
+									wr_en_a_roc <= '1';
 								end if;
-								-- Re-write the updated rocket line in the RAM (even if there is no modifications)
-								data_a_roc <= data_tmp_roc;
-								address_a_roc <= "0000000" + current_submarine + 25;
-								wr_en_a_roc <= '1';
+							else
+								submarines(current_submarine) := '0';
+								nb_submarines := nb_submarines - 1;
 							end if;
-							
 							read_sub <= '1';
 							
 							if(current_submarine = 49) then
@@ -378,7 +388,7 @@ begin
 					
 					if(cycle_cnt = 100 and reset_game = '0') then
 						
-						if(nb_submarines < 10) then -- if there is less than 10 submarines, we try to add one
+						if(nb_submarines < 5) then -- if there is less than 10 submarines, we try to add one
 							  
 							tmp_random := to_integer(unsigned(magn_g_y(5 downto 0))); -- to take a random number
 							if (tmp_random > 49) then -- 2^6 ==> can be up to 63
@@ -419,6 +429,10 @@ begin
 					end if;
 					
 				end if;
+			else
+				wr_en_a_sub <= '0';
+				wr_en_a_mis <= '0';
+				wr_en_a_roc <= '0';
 			end if;
 		end if;
 	end process;
@@ -439,9 +453,8 @@ begin
 			end if;
 			
 			-- Filter
-			tmp_magn_g_y := "00" & old_magn_g_y;
-			tmp_magn_g_y := tmp_magn_g_y + tmp_magn_g_y + tmp_magn_g_y + ("00" & magn_g_y);
-			magn_g_y := tmp_magn_g_y(10 downto 2); -- Division by 4
+			tmp_magn_g_y := ("000" & old_magn_g_y) + ("000" & old_magn_g_y) + ("000" & old_magn_g_y) + ("000" & old_magn_g_y) + ("000" & old_magn_g_y) + ("000" & old_magn_g_y) + ("000" & old_magn_g_y) + ("000" & magn_g_y);
+			magn_g_y := tmp_magn_g_y(11 downto 3); -- Division by 8
 
 			
 			-- Compute the horizontal position of the square
@@ -454,7 +467,7 @@ begin
 			end if;
 			right_boat <= left_boat + 40;
 		
-			old_magn_g_y := magn_g_y;
+			old_magn_g_y <= magn_g_y;
 			
 		end if;
 	end process;
@@ -480,9 +493,15 @@ begin
 			
 			-- boat
 			if( ((v_cnt >= top_boat) and (v_cnt <= bottom_boat)) and ((h_cnt >= left_boat) and (h_cnt <= right_boat)) ) then
-				red_signal <= '1';
-				green_signal <= '0';
-				blue_signal <= '0';
+				if(hit = '0') then
+					red_signal <= '1';
+					green_signal <= '0';
+					blue_signal <= '0';
+				else
+					red_signal <= '1';
+					green_signal <= '1';
+					blue_signal <= '0';
+				end if;
 			end if;
 			
 			-- sea
@@ -519,9 +538,9 @@ begin
 			if( (v_cnt >= current_sub_line + 1 ) and ( v_cnt <= current_sub_line + 8 ) and (h_cnt >= 0) and (h_cnt <= 799) ) then
 				if(data_sub_disp(11) = '1') then
 					if( (h_cnt(9 downto 0) >= data_sub_disp(9 downto 0)) and (h_cnt(9 downto 0) <= data_sub_disp(9 downto 0) + 40) ) then
-							blue_signal <= '0';
-							red_signal <= '1';
-							green_signal <= '1';
+						blue_signal <= '0';
+						red_signal <= '1';
+						green_signal <= '1';
 					end if;
 				end if;
 			end if;
@@ -539,8 +558,11 @@ begin
 			-- Initialize
 			if( (v_cnt = 599) and (h_cnt = 799)) then
 				current_rocket_line := -1;
-				hit <= '0';
-			
+				-- We loose only one life at a time and we have a delay of 0,13s of immunity when we loose 1
+				if( (cycle_cnt+1) mod 10 = 0) then
+					hit <= '0';
+				end if;
+				
 			-- Ask data
 			elsif ( (v_cnt = current_rocket_line + 1) and (h_cnt = 0) ) then
 				address_b_roc <= "0000000" + ((current_rocket_line + 1)/8);
@@ -557,27 +579,21 @@ begin
 					blue_signal <= '0';
 					red_signal <= '1';
 					green_signal <= '1';
-				end if;
-				
-				-- Remove a life if boat is touched
-				if( (v_cnt = bottom_boat) and ((h_cnt >= left_boat) and (h_cnt <= right_boat)) ) then
-					if( data_roc_disp(to_integer(unsigned(h_cnt)/8)) = '1' ) then
-						-- We loose only one life at a time and we have a delay of 13ms of immunity when we lost 1
-						if(hit = '0' and (cycle_cnt mod 10 = 0)) then
+					
+					-- Remove a life if boat is touched
+					if( (v_cnt >= bottom_boat) and (v_cnt <= bottom_boat) and ((h_cnt >= left_boat) and (h_cnt <= right_boat)) ) then	
+						-- To consider only the first time the rocket collides the boat
+						if(hit = '0') then
 							life(index_life) <= '0';
 							hit <= '1';
 							if(index_life > 0) then
 								index_life <= index_life - 1;
 							else
 								reset_game <= '1';
-								index_life <= 4;
-								life <= "11111";
 							end if;
 						end if;
 					end if;
 				end if;
-				
-				
 			end if;
 			
 			-- Prepare for loading the next line
@@ -608,6 +624,33 @@ begin
 					blue_signal <= '0';
 					red_signal <= '1';
 					green_signal <= '0';
+					
+					-- Remove subarine if touched by missile
+					if( (v_cnt >= current_sub_line + 1 ) and ( v_cnt <= current_sub_line + 8 ) and (h_cnt >= 0) and (h_cnt <= 799) ) then
+						if(data_sub_disp(11) = '1') then
+							if( (h_cnt(9 downto 0) >= data_sub_disp(9 downto 0)) and (h_cnt(9 downto 0) <= data_sub_disp(9 downto 0) + 40) ) then
+								-- remove submarine
+								address_b_sub <= "000000" + ((current_sub_line - 199)/8);
+								data_b_sub <= "0000000000000000";
+								wr_en_b_sub <= '1';
+								-- remove missile
+								address_b_mis <= "000000" + ((current_missile_line - 159)/8);
+								data_mis_disp(to_integer(unsigned(h_cnt)/8)) := '0';
+								data_b_mis <= data_mis_disp;
+								wr_en_b_mis <= '1';
+								-- update score and level
+								score := score + 1;
+								if(score < 5) then
+									level <= 1;
+								elsif(score >= 5 and score < 10) then
+									level <= 2;
+								elsif(score >= 10) then
+									level <= 3;
+								end if;
+							end if;
+						end if;
+					end if;
+					
 				end if;
 			end if;
 			
@@ -616,46 +659,7 @@ begin
 			if( (v_cnt = current_missile_line + 8) and (h_cnt = 799) ) then
 				current_missile_line := current_missile_line + 8;
 			end if;
-			
 
-			
---			-- DEBUG
---			if(v_cnt >= 10 and v_cnt <= 21 and h_cnt >= 0 and h_cnt <= 399) then
---				if (submarines(to_integer(unsigned(h_cnt) srl 3)) = '1') then
---					red_signal <= '1';
---					green_signal <= '0';
---					blue_signal <= '0';
---				else
---					red_signal <= '0';
---					green_signal <= '0';
---					blue_signal <= '0';
---				end if;
---				
---				if(to_integer(unsigned(h_cnt)) mod 8 = 0) then
---					red_signal <= '1';
---					green_signal <= '1';
---					blue_signal <= '0';
---				end if;
---			end if;
---			
---			-- DEBUG
---			if(v_cnt >= 30 and v_cnt <= 41 and h_cnt >= 0 and h_cnt <= 399) then
---				if (submarines_debug(to_integer(unsigned(h_cnt) srl 3)) = '1') then
---					red_signal <= '1';
---					green_signal <= '0';
---					blue_signal <= '0';
---				else
---					red_signal <= '0';
---					green_signal <= '0';
---					blue_signal <= '0';
---				end if;
---				
---				if(to_integer(unsigned(h_cnt)) mod 8 = 0) then
---					red_signal <= '1';
---					green_signal <= '1';
---					blue_signal <= '0';
---				end if;
---			end if;
 			
 			-- Life
 			if(v_cnt >= 15 and v_cnt <= 30) then
@@ -703,6 +707,10 @@ begin
 				if(reset_timer = 144) then
 					reset_game <= '0';
 					reset_timer <= 0;
+					index_life <= 4;
+					life <= "11111";
+					score := 0;
+					level <= 1;
 				else
 					reset_timer <= reset_timer + 1;
 				end if;
