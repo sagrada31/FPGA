@@ -89,6 +89,13 @@ architecture vga_arch of vga is
 	signal characters				: char_tab;
 	signal init						: std_logic := '1';
 	
+	-- Boat drawing
+	type boat_design is array(7 downto 0) of std_logic_vector(39 downto 0);
+	signal my_boat_design				: boat_design;
+	
+	-- Submarines drawing
+	signal my_sub_design				: boat_design;
+	
 	-- Modes
 	signal update_submarines 	: std_logic := '0';
 	signal update_rockets 		: std_logic := '0';
@@ -501,17 +508,19 @@ begin
 			
 			-- boat
 			if( ((v_cnt >= top_boat) and (v_cnt <= bottom_boat)) and ((h_cnt >= left_boat) and (h_cnt <= right_boat)) ) then
-				if(hit = '0') then
-					red_signal <= '1';
-					green_signal <= '0';
-					blue_signal <= '0';
-				else
-					red_signal <= '1';
-					green_signal <= '1';
-					blue_signal <= '0';
+				if(my_boat_design(to_integer(unsigned(v_cnt) - unsigned(top_boat)))(to_integer(unsigned(h_cnt) - unsigned(left_boat))) = '1') then
+					if(hit = '0') then
+						red_signal <= '1';
+						green_signal <= '0';
+						blue_signal <= '0';
+					else
+						red_signal <= '1';
+						green_signal <= '1';
+						blue_signal <= '0';
+					end if;
 				end if;
 			end if;
-			
+		 
 			-- sea
 			if( ((v_cnt >= 160) and (v_cnt <= 599)) and ((h_cnt >= 0) and (h_cnt <= 799)) ) then
 				blue_signal <= '1';
@@ -540,9 +549,11 @@ begin
 			if( (v_cnt >= current_sub_line + 1 ) and ( v_cnt <= current_sub_line + 8 ) and (h_cnt >= 0) and (h_cnt <= 799) ) then
 				if(data_sub_disp(11) = '1') then
 					if( (h_cnt(9 downto 0) >= data_sub_disp(9 downto 0)) and (h_cnt(9 downto 0) <= data_sub_disp(9 downto 0) + 40) ) then
-						blue_signal <= '0';
-						red_signal <= '1';
-						green_signal <= '1';
+						if(my_sub_design( to_integer(unsigned(v_cnt) - current_sub_line - 1))(to_integer(unsigned(h_cnt) - unsigned(data_sub_disp(9 downto 0)))) = '1') then				
+							blue_signal <= '0';
+							red_signal <= '1';
+							green_signal <= '1';
+						end if;
 					end if;
 				end if;
 			end if;
@@ -582,7 +593,7 @@ begin
 					green_signal <= '1';
 					
 					-- Remove a life if boat is touched
-					if( (v_cnt >= bottom_boat) and (v_cnt <= bottom_boat) and ((h_cnt >= left_boat) and (h_cnt <= right_boat)) ) then	
+					if( (v_cnt >= bottom_boat) and (v_cnt <= top_boat) and ((h_cnt >= left_boat) and (h_cnt <= right_boat)) ) then	
 						-- To consider only the first time the rocket collides the boat
 						if(hit = '0') then
 							hit <= '1';
@@ -833,6 +844,22 @@ begin
 			characters(16) <= "01110100011000110001100011000101110"; -- O
 			characters(17) <= "10001010010010101111100011000101111"; -- R
 			characters(18) <= "00000001100011000000001100011000000"; -- :
+			my_boat_design(0) <= "0000000000000000110011000000000000000000";
+			my_boat_design(1) <= "0000000000000000110011000000000000000000";
+			my_boat_design(2) <= "0000000000001111110011000000000000000000";
+			my_boat_design(3) <= "0000000000111111111011000000111000000000";
+			my_boat_design(4) <= "0000000001111111111111100011111111100000";
+			my_boat_design(5) <= "1111111111111111111111111111111111111111";
+			my_boat_design(6) <= "0111111111111111111111111111111111111110";
+			my_boat_design(7) <= "0011111111111111111111111111111111111100";
+			my_sub_design(0) <= "0000000000000000000011000000000000000000";
+			my_sub_design(1) <= "0000000000000000000011000000000000000000";
+			my_sub_design(2) <= "0000000000000000011111000000000000000000";
+			my_sub_design(3) <= "0000000000000000111111110011000000000000";
+			my_sub_design(4) <= "0011111111111111111111111111111111111100";
+			my_sub_design(5) <= "1111111111111111111111111111111111111111";
+			my_sub_design(6) <= "1111111111111111111111111111111111111111";
+			my_sub_design(7) <= "0011111111111111111111111111111111111100";
 			init <= '0';
 		end if;
 		
