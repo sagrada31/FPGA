@@ -7,52 +7,93 @@ z2
 !i10e 25
 !i10f 100
 cModel Technology
-Z0 dC:/Users/Greg/GitHub/FPGA/Codes/submarines/simulation/modelsim
+Z0 dC:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/simulation/modelsim
 Egsensor
-w1429548623
+w1430131857
 Z1 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z2 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
 R0
-8C:/Users/Greg/GitHub/FPGA/Codes/submarines/gsensor.vhd
-FC:/Users/Greg/GitHub/FPGA/Codes/submarines/gsensor.vhd
+8C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/gsensor.vhd
+FC:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/gsensor.vhd
 l0
 L12
-V?[JF5CWDi2A=AP0V364RC3
-!s100 Fa9?KSQdREn7Ymd:mDLjY1
+V7X4T53@K:0:_ib62C3F>N2
+!s100 KnT?E>k>@Rn5G`D?;a3NY1
 Z3 OV;C;10.3c;59
 31
-Z4 !s110 1429612264
+!s110 1430251228
 !i10b 1
-!s108 1429612264.877000
-!s90 -reportprogress|300|-93|-work|work|C:/Users/Greg/GitHub/FPGA/Codes/submarines/gsensor.vhd|
-!s107 C:/Users/Greg/GitHub/FPGA/Codes/submarines/gsensor.vhd|
+!s108 1430251228.005000
+!s90 -reportprogress|300|-93|-work|work|C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/gsensor.vhd|
+!s107 C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/gsensor.vhd|
 !i113 1
-Z5 o-93 -work work
-Z6 tExplicit 1
-Eram_rockets
-Z7 w1429612121
-Z8 DPx9 altera_mf 20 altera_mf_components 0 22 BcHSMKj:G1nRHbg_[4bW[2
+Z4 o-93 -work work
+Z5 tExplicit 1
+Eram_missiles
+Z6 w1429873265
+Z7 DPx9 altera_mf 20 altera_mf_components 0 22 BcHSMKj:G1nRHbg_[4bW[2
 R1
 R2
 R0
-Z9 8C:/Users/Greg/GitHub/FPGA/Codes/submarines/ram_rockets.vhd
-Z10 FC:/Users/Greg/GitHub/FPGA/Codes/submarines/ram_rockets.vhd
+Z8 8C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/ram_missiles.vhd
+Z9 FC:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/ram_missiles.vhd
+l0
+L43
+V@aF=RG;ljP?jc3K7?j9mh3
+!s100 4WX@`=K:GYjgI4NX>eL_70
+R3
+31
+Z10 !s110 1430251226
+!i10b 1
+Z11 !s108 1430251226.658000
+Z12 !s90 -reportprogress|300|-93|-work|work|C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/ram_missiles.vhd|
+Z13 !s107 C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/ram_missiles.vhd|
+!i113 1
+R4
+R5
+Asyn
+R7
+R1
+R2
+DEx4 work 12 ram_missiles 0 22 @aF=RG;ljP?jc3K7?j9mh3
+l64
+L59
+V[gW^Fb_hNW9LFIhl;niFg3
+!s100 T@V2nW0QzA2=HT?[D:jm53
+R3
+31
+R10
+!i10b 1
+R11
+R12
+R13
+!i113 1
+R4
+R5
+Eram_rockets
+Z14 w1429612970
+R7
+R1
+R2
+R0
+Z15 8C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/ram_rockets.vhd
+Z16 FC:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/ram_rockets.vhd
 l0
 L43
 VGz_JA^8W3QXk5SRem>bW^0
 !s100 2KjU^gj^IzbL<b]cNf;a;2
 R3
 31
-R4
+Z17 !s110 1430251225
 !i10b 1
-Z11 !s108 1429612264.471000
-Z12 !s90 -reportprogress|300|-93|-work|work|C:/Users/Greg/GitHub/FPGA/Codes/submarines/ram_rockets.vhd|
-Z13 !s107 C:/Users/Greg/GitHub/FPGA/Codes/submarines/ram_rockets.vhd|
+Z18 !s108 1430251225.317000
+Z19 !s90 -reportprogress|300|-93|-work|work|C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/ram_rockets.vhd|
+Z20 !s107 C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/ram_rockets.vhd|
 !i113 1
+R4
 R5
-R6
 Asyn
-R8
+R7
 R1
 R2
 DEx4 work 11 ram_rockets 0 22 Gz_JA^8W3QXk5SRem>bW^0
@@ -62,38 +103,38 @@ VSCFKXY=JXQ1;7nQC36W<@2
 !s100 Bgl4iIaAio;X742_gBIK^3
 R3
 31
-R4
+R17
 !i10b 1
-R11
-R12
-R13
+R18
+R19
+R20
 !i113 1
+R4
 R5
-R6
 Eram_sub
-Z14 w1429612059
-R8
+R14
+R7
 R1
 R2
 R0
-Z15 8C:/Users/Greg/GitHub/FPGA/Codes/submarines/ram_sub.vhd
-Z16 FC:/Users/Greg/GitHub/FPGA/Codes/submarines/ram_sub.vhd
+Z21 8C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/ram_sub.vhd
+Z22 FC:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/ram_sub.vhd
 l0
 L43
 V?mzAO21?88VGKIe0aG@NR0
 !s100 ch7F782=fj27;`e]3fBj_1
 R3
 31
-R4
+Z23 !s110 1430251224
 !i10b 1
-Z17 !s108 1429612264.050000
-Z18 !s90 -reportprogress|300|-93|-work|work|C:/Users/Greg/GitHub/FPGA/Codes/submarines/ram_sub.vhd|
-Z19 !s107 C:/Users/Greg/GitHub/FPGA/Codes/submarines/ram_sub.vhd|
+Z24 !s108 1430251223.906000
+Z25 !s90 -reportprogress|300|-93|-work|work|C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/ram_sub.vhd|
+Z26 !s107 C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/ram_sub.vhd|
 !i113 1
+R4
 R5
-R6
 Asyn
-R8
+R7
 R1
 R2
 DEx4 work 7 ram_sub 0 22 ?mzAO21?88VGKIe0aG@NR0
@@ -103,40 +144,40 @@ V53[f7a`NToZW1319Ulfkk2
 !s100 _KbKR;03>OL]Y;B[FmB`^0
 R3
 31
-R4
+R23
 !i10b 1
-R17
-R18
-R19
+R24
+R25
+R26
 !i113 1
+R4
 R5
-R6
 Ereset_delay
-Z20 w1426785248
-Z21 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
-Z22 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
+Z27 w1428773991
+Z28 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
+Z29 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
 R1
 R2
 R0
-Z23 8C:/Users/Greg/GitHub/FPGA/Codes/submarines/reset_delay.vhd
-Z24 FC:/Users/Greg/GitHub/FPGA/Codes/submarines/reset_delay.vhd
+Z30 8C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/reset_delay.vhd
+Z31 FC:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/reset_delay.vhd
 l0
 L13
 V23NP_HS5m9cAg^@@c0[Wo2
 !s100 O[KSeASeZd[il;L[1f@^T2
 R3
 31
-Z25 !s110 1429612262
+Z32 !s110 1430251217
 !i10b 1
-Z26 !s108 1429612262.147000
-Z27 !s90 -reportprogress|300|-93|-work|work|C:/Users/Greg/GitHub/FPGA/Codes/submarines/reset_delay.vhd|
-Z28 !s107 C:/Users/Greg/GitHub/FPGA/Codes/submarines/reset_delay.vhd|
+Z33 !s108 1430251217.917000
+Z34 !s90 -reportprogress|300|-93|-work|work|C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/reset_delay.vhd|
+Z35 !s107 C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/reset_delay.vhd|
 !i113 1
+R4
 R5
-R6
 Atranslated
-R21
-R22
+R28
+R29
 R1
 R2
 DEx4 work 11 reset_delay 0 22 23NP_HS5m9cAg^@@c0[Wo2
@@ -146,44 +187,44 @@ VQS8IgQ=;UZ1z60=hi`_n?2
 !s100 EFo83<:=1LVR76=Ti4mCc1
 R3
 31
-R25
+R32
 !i10b 1
-R26
-R27
-R28
+R33
+R34
+R35
 !i113 1
+R4
 R5
-R6
 Espi_controller
-Z29 w1390551490
-Z30 DPx8 synopsys 10 attributes 0 22 liCm]LV3<lX4Zl>o6^8IV1
-Z31 DPx4 ieee 14 std_logic_misc 0 22 BLzBaQbXS>Q1z>5YO]m[52
-R21
-R22
+Z36 w1428773992
+Z37 DPx8 synopsys 10 attributes 0 22 liCm]LV3<lX4Zl>o6^8IV1
+Z38 DPx4 ieee 14 std_logic_misc 0 22 BLzBaQbXS>Q1z>5YO]m[52
+R28
+R29
 R1
 R2
 R0
-Z32 8C:/Users/Greg/GitHub/FPGA/Codes/submarines/spi_controller.vhd
-Z33 FC:/Users/Greg/GitHub/FPGA/Codes/submarines/spi_controller.vhd
+Z39 8C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/spi_controller.vhd
+Z40 FC:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/spi_controller.vhd
 l0
 L13
 ValGmOcziY3I8dUjMW1Qa^2
 !s100 1c?=49Da3HA2k`J`kgbjk0
 R3
 31
-Z34 !s110 1429612263
+Z41 !s110 1430251222
 !i10b 1
-Z35 !s108 1429612263.582000
-Z36 !s90 -reportprogress|300|-93|-work|work|C:/Users/Greg/GitHub/FPGA/Codes/submarines/spi_controller.vhd|
-Z37 !s107 C:/Users/Greg/GitHub/FPGA/Codes/submarines/spi_controller.vhd|
+Z42 !s108 1430251222.405000
+Z43 !s90 -reportprogress|300|-93|-work|work|C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/spi_controller.vhd|
+Z44 !s107 C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/spi_controller.vhd|
 !i113 1
+R4
 R5
-R6
 Atranslated
-R30
-R31
-R21
-R22
+R37
+R38
+R28
+R29
 R1
 R2
 DEx4 work 14 spi_controller 0 22 alGmOcziY3I8dUjMW1Qa^2
@@ -193,40 +234,40 @@ VS3Clz?S6<l6RVj]nR7_b>2
 !s100 NLXeWNS_TOB>KR[gmL?Yj3
 R3
 31
-R34
+R41
 !i10b 1
-R35
-R36
-R37
+R42
+R43
+R44
 !i113 1
+R4
 R5
-R6
 Espi_ee_config
-Z38 w1427064480
-R21
-R22
+R36
+R28
+R29
 R1
 R2
 R0
-Z39 8C:/Users/Greg/GitHub/FPGA/Codes/submarines/spi_ee_config.vhd
-Z40 FC:/Users/Greg/GitHub/FPGA/Codes/submarines/spi_ee_config.vhd
+Z45 8C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/spi_ee_config.vhd
+Z46 FC:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/spi_ee_config.vhd
 l0
 L12
 V;z1zFeM0LZQ1zHBNO`^X:1
 !s100 @9J_bRf7BYF8>PVTfH?Pg2
 R3
 31
-R34
+Z47 !s110 1430251221
 !i10b 1
-Z41 !s108 1429612263.036000
-Z42 !s90 -reportprogress|300|-93|-work|work|C:/Users/Greg/GitHub/FPGA/Codes/submarines/spi_ee_config.vhd|
-Z43 !s107 C:/Users/Greg/GitHub/FPGA/Codes/submarines/spi_ee_config.vhd|
+Z48 !s108 1430251220.967000
+Z49 !s90 -reportprogress|300|-93|-work|work|C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/spi_ee_config.vhd|
+Z50 !s107 C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/spi_ee_config.vhd|
 !i113 1
+R4
 R5
-R6
 Atranslated
-R21
-R22
+R28
+R29
 R1
 R2
 DEx4 work 13 spi_ee_config 0 22 ;z1zFeM0LZQ1zHBNO`^X:1
@@ -236,35 +277,35 @@ V3TY5BC5S@X9aN9EnIGEBi0
 !s100 CQJ;jemGJQ=CFl>aDN6TM1
 R3
 31
-R34
+R47
 !i10b 1
-R41
-R42
-R43
+R48
+R49
+R50
 !i113 1
+R4
 R5
-R6
 Espipll
-Z44 w1426789376
+R36
 R1
 R2
 R0
-Z45 8C:/Users/Greg/GitHub/FPGA/Codes/submarines/spipll.vhd
-Z46 FC:/Users/Greg/GitHub/FPGA/Codes/submarines/spipll.vhd
+Z51 8C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/spipll.vhd
+Z52 FC:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/spipll.vhd
 l0
 L14
 VaXU1A6oGMcn[cXhi^h:RT1
 !s100 czP39_SnTBhQDAe]hWTBY0
 R3
 31
-R25
+Z53 !s110 1430251219
 !i10b 1
-Z47 !s108 1429612262.537000
-Z48 !s90 -reportprogress|300|-93|-work|work|C:/Users/Greg/GitHub/FPGA/Codes/submarines/spipll.vhd|
-Z49 !s107 C:/Users/Greg/GitHub/FPGA/Codes/submarines/spipll.vhd|
+Z54 !s108 1430251219.220000
+Z55 !s90 -reportprogress|300|-93|-work|work|C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/spipll.vhd|
+Z56 !s107 C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/spipll.vhd|
 !i113 1
+R4
 R5
-R6
 Asyn
 R1
 R2
@@ -275,77 +316,77 @@ V^2i3iVKEaQgh9QRW[S`M10
 !s100 1>;6f5z:KJ5G377z[3^jO3
 R3
 31
-R25
+R53
 !i10b 1
-R47
-R48
-R49
+R54
+R55
+R56
 !i113 1
+R4
 R5
-R6
 vspipll_altpll
-Z50 !s110 1429612261
+Z57 !s110 1430251216
 !i10b 1
 !s100 DQ2AAYYdN]AKRnNeK`0YU0
-IC`S?nzE5lzSl5@kfbQR3z1
+Inn[B;ZX05e;;[55S6b9oG0
 V`JN@9S9cnhjKRR_L]QIcM3
 R0
-w1429186890
-8C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/spipll_altpll.v
-FC:/Users/Greg/GitHub/FPGA/Codes/submarines/db/spipll_altpll.v
+w1429210583
+8C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/db/spipll_altpll.v
+FC:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/db/spipll_altpll.v
 L0 30
 OV;L;10.3c;59
 r1
 !s85 0
 31
-!s108 1429612261.632000
-!s107 C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/spipll_altpll.v|
-!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/Greg/GitHub/FPGA/Codes/submarines/db|C:/Users/Greg/GitHub/FPGA/Codes/submarines/db/spipll_altpll.v|
+!s108 1430251216.111000
+!s107 C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/db/spipll_altpll.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/db|C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/db/spipll_altpll.v|
 !i113 1
 o-vlog01compat -work work
-!s92 -vlog01compat -work work +incdir+C:/Users/Greg/GitHub/FPGA/Codes/submarines/db
+!s92 -vlog01compat -work work +incdir+C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/db
 Evga
-Z51 w1429608635
-Z52 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
-R21
-R22
+Z58 w1430249598
+Z59 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+R28
+R29
 R1
 R2
 R0
-Z53 8C:/Users/Greg/GitHub/FPGA/Codes/submarines/vga.vhd
-Z54 FC:/Users/Greg/GitHub/FPGA/Codes/submarines/vga.vhd
+Z60 8C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/vga.vhd
+Z61 FC:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/vga.vhd
 l0
 L7
-VI?;61KPWDUh4J5Ek0S3`I1
-!s100 I]CRXI@ecE8Fld5ehL[Zh3
+VT6bS;hglFSzA4Y161Rf570
+!s100 C@Tm3SBJDW`oG?V5K;NR20
 R3
 31
-R50
+R57
 !i10b 1
-Z55 !s108 1429612261.710000
-Z56 !s90 -reportprogress|300|-93|-work|work|C:/Users/Greg/GitHub/FPGA/Codes/submarines/vga.vhd|
-Z57 !s107 C:/Users/Greg/GitHub/FPGA/Codes/submarines/vga.vhd|
+Z62 !s108 1430251216.406000
+Z63 !s90 -reportprogress|300|-93|-work|work|C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/vga.vhd|
+Z64 !s107 C:/Users/Florent/Documents/GitHub/FPGA/Codes/submarines/vga.vhd|
 !i113 1
+R4
 R5
-R6
 Avga_arch
-R52
-R21
-R22
+R59
+R28
+R29
 R1
 R2
-DEx4 work 3 vga 0 22 I?;61KPWDUh4J5Ek0S3`I1
-l106
-L46
-VNMD8mOi]HoBNn?=3O=7QD0
-!s100 @<XkMHRTG__=fz4cP;2Ni0
+DEx4 work 3 vga 0 22 T6bS;hglFSzA4Y161Rf570
+l162
+L57
+VOL0]6h`=;>_jdTEeWXa7?2
+!s100 W7gF4Al;@4XbHXVP>9E?j3
 R3
 31
-R50
-!i10b 1
-R55
-R56
 R57
+!i10b 1
+R62
+R63
+R64
 !i113 1
+R4
 R5
-R6

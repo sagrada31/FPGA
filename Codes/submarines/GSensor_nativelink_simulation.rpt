@@ -5,8 +5,8 @@ Info: NativeLink has detected a mixed Verilog and VHDL design -- vhdl simulation
 
 Sim Mode              :  RTL
 Family                :  cycloneive
-Quartus root          :  e:/autres/programmes/altera/quartus/bin64/
-Quartus sim root      :  e:/autres/programmes/altera/quartus/eda/sim_lib
+Quartus root          :  c:/altera/quartus/bin64/
+Quartus sim root      :  c:/altera/quartus/eda/sim_lib
 Simulation Tool       :  modelsim-altera
 Simulation Language   :  vhdl
 Version               :  93
@@ -18,6 +18,6 @@ Sim dir               :  simulation\modelsim
 =======================================================
 
 Info: Starting NativeLink simulation with ModelSim-Altera software
-Sourced NativeLink script e:/autres/programmes/altera/quartus/common/tcl/internal/nativelink/modelsim.tcl
+Sourced NativeLink script c:/altera/quartus/common/tcl/internal/nativelink/modelsim.tcl
 Warning: File GSensor_run_msim_rtl_vhdl.do already exists - backing up current file as GSensor_run_msim_rtl_vhdl.do.bak11
 Info: Spawning ModelSim-Altera Simulation software 

@@ -78,7 +78,7 @@ architecture vga_arch of vga is
 	
 	-- To represent acceleration along y axis
 	shared variable sign_g_y		: std_logic;
-	shared variable magn_g_y		: std_logic_vector(8 downto 0);
+	shared variable magn_g_y		: std_logic_vector(8 downto 0) := (others => '1');
 	signal old_magn_g_y				: std_logic_vector(8 downto 0);
 	shared variable tmp_magn_g_y	: std_logic_vector(11 downto 0);
 	
@@ -101,7 +101,7 @@ architecture vga_arch of vga is
 	signal update_rockets 		: std_logic := '0';
 	signal generate_subarine	: std_logic := '0';
 	signal update_missiles		: std_logic := '0';
-	signal cycle_cnt				: integer range 0 to 100 := 0;
+	signal cycle_cnt				: integer range 0 to 100 := 49;
 	signal reset_game				: std_logic := '1';
 	signal reset_timer			: integer range 0 to 288 := 0;
 	
@@ -277,7 +277,9 @@ begin
 								end if;
 							else
 								submarines(current_submarine) := '0';
-								nb_submarines := nb_submarines - 1;
+								if(nb_submarines > 0) then
+									nb_submarines := nb_submarines - 1;
+								end if;
 							end if;
 							read_sub <= '1';
 							
@@ -507,7 +509,7 @@ begin
 			end if;
 			
 			-- boat
-			if( ((v_cnt >= top_boat) and (v_cnt <= bottom_boat)) and ((h_cnt >= left_boat) and (h_cnt <= right_boat)) ) then
+			if( ((v_cnt >= top_boat) and (v_cnt <= bottom_boat)) and ((h_cnt >= left_boat) and (h_cnt < right_boat)) ) then
 				if(my_boat_design(to_integer(unsigned(v_cnt) - unsigned(top_boat)))(to_integer(unsigned(h_cnt) - unsigned(left_boat))) = '1') then
 					if(hit = '0') then
 						red_signal <= '1';
@@ -593,7 +595,8 @@ begin
 					green_signal <= '1';
 					
 					-- Remove a life if boat is touched
-					if( (v_cnt >= bottom_boat) and (v_cnt <= top_boat) and ((h_cnt >= left_boat) and (h_cnt <= right_boat)) ) then	
+					--if( (v_cnt >= bottom_boat) and (v_cnt <= top_boat) and ((h_cnt >= left_boat) and (h_cnt <= right_boat)) ) then	
+					if( (v_cnt = bottom_boat) and ((h_cnt >= left_boat) and (h_cnt <= right_boat)) ) then	
 						-- To consider only the first time the rocket collides the boat
 						if(hit = '0') then
 							hit <= '1';
@@ -929,3 +932,4 @@ begin
 	end process vga_gen;
 
 end architecture vga_arch;
+			
