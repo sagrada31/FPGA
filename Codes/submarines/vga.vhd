@@ -71,16 +71,13 @@ architecture vga_arch of vga is
 	signal v_cnt			: std_logic_vector(10 downto 0) := (others => '0');
 	
 	-- Signal positionning the boat
-	signal left_boat			: std_logic_vector(9 downto 0);
-	signal right_boat			: std_logic_vector(9 downto 0);
-	signal top_boat			: std_logic_vector(9 downto 0) := std_logic_vector(to_unsigned(152,10)); -- Fixed height
-	signal bottom_boat		: std_logic_vector(9 downto 0) := std_logic_vector(to_unsigned(159,10)); -- Fixed height
+	signal left_boat					: std_logic_vector(9 downto 0);
+	signal top_boat					: std_logic_vector(9 downto 0) := std_logic_vector(to_unsigned(152,10)); -- Fixed height
+	shared variable tmp_left_boat	: std_logic_vector(12 downto 0);
 	
 	-- To represent acceleration along y axis
 	shared variable sign_g_y		: std_logic;
 	shared variable magn_g_y		: std_logic_vector(8 downto 0);
-	signal old_magn_g_y				: std_logic_vector(8 downto 0);
-	shared variable tmp_magn_g_y	: std_logic_vector(11 downto 0);
 	
 	shared variable submarines : std_logic_vector(49 downto 0) := (others => '0');  -- 1 bit for signaling if there is a boat
 	
@@ -145,19 +142,21 @@ architecture vga_arch of vga is
 	shared variable current_missile_line		: integer range 159 to 599 := 159;
 	
 	-- For the level
-	signal level							: integer range 0 to 3 := 1;						
+	signal level							: integer range 0 to 5 := 1;					
 	
 	-- For the lives
 	shared variable lives				: integer range 0 to 5 := 5;
 	signal hit								: std_logic := '0';
+	signal timer_hit						: integer range 0 to 49 := 0;
 	
 	-- For the score
 	shared variable score				: integer range 0 to 999 := 0;
 	shared variable index_score		: integer range 0 to 9 := 0;
 	
 	-- For the button
-	signal timer_button		: integer range 0 to 25 := 0;
-	signal pushed_button		: std_logic := '0';
+	signal timer_button	: integer range 0 to 39 := 0;
+	signal old_button		: std_logic := '0';
+	signal pushed_button	: std_logic := '0';
 	
 begin
 
@@ -174,18 +173,19 @@ begin
 				current_submarine <= 0;
 				
 				-- Check if the player pushed the button
-				if (Button = '0' and reset_game = '0') then
+				--if (Button = '0' and old_button = '1' and reset_game = '0') then
+				if (Button = '0' and timer_button > 8 and reset_game = '0') then
 					pushed_button <= '1';
 				end if;
-				if(timer_button < 25) then
+				--old_button <= button;
+				if(timer_button < 19) then
 					timer_button <= timer_button + 1;
 				end if;
-				if(pushed_button = '1' and timer_button = 25) then
+				if(pushed_button = '1' and timer_button = 19) then
 					boat_shoot <= '1';
 					timer_button <= 0;
 					pushed_button <= '0';
 				end if;
-				
 				
 				if(cycle_cnt = 99) then
 					cycle_cnt <= 0;
@@ -263,9 +263,14 @@ begin
 								
 								-- Generate rockets : 
 								--if level 1 : every 50*0,0138 = 0.69 second elapsed 5 lines shoot
-								--if level 2 : every 25*0,0138 = 0.345 second elapsed 5 lines shoot
-								--if level 3 : every 10*0,0138 = 0.138 second elapsed 5 lines shoot
-								if( (level = 1 and cycle_cnt mod 50 = 0) or (level = 2 and cycle_cnt mod 25 = 0) or (level = 3 and cycle_cnt mod 10 = 0)) then
+								--if level 2 : every 30*0,0138 = 0.414 second elapsed 5 lines shoot
+								--if level 3 : every 20*0,0138 = 0.276 second elapsed 5 lines shoot
+								--if level 4 : every 10*0,0138 = 0.138 second elapsed 5 lines shoot
+								--if level 5 : every 5*0,0138 = 0.069 second elapsed 5 lines shoot
+								
+								if( (level = 1 and cycle_cnt mod 50 = 0) or (level = 2 and cycle_cnt mod 30 = 0) 
+									or (level = 3 and cycle_cnt mod 20 = 0) or (level = 4 and cycle_cnt mod 10 = 0)
+									or (level = 5 and cycle_cnt mod 5 = 0) ) then
 									-- if there is a sub on one of the five current line designed to shoot it shoots
 									if( (current_submarine = shooter) or (current_submarine = 10+shooter) or (current_submarine = 20+shooter) or (current_submarine = 30+shooter) or (current_submarine = 40+shooter)) then
 										data_tmp_roc( to_integer(unsigned(data_tmp_sub(9 downto 0) + 16))/8 ) := '1';
@@ -307,8 +312,12 @@ begin
 					-- Function of the level, the update is at a different rate :
 					-- Level 1 : every 10*0.0138 = 0.138 s
 					-- Level 2 : every 5*0.0138 = 0.069 s
-					-- Level 3 : every 2*0.0138 = 0.0276 s
-					if( (level = 1 and cycle_cnt mod 10 = 0) or (level = 2 and cycle_cnt mod 5 = 0) or (level = 3 and cycle_cnt mod 2 = 0) ) then
+					-- Level 3 : every 5*0.0138 = 0.069 s
+					-- Level 4 : every 2*0.0138 = 0.0276 s
+					-- Level 5 : every 2*0.0138 = 0.0276 s
+					if( (level = 1 and cycle_cnt mod 10 = 0) or (level = 2 and cycle_cnt mod 5 = 0) 
+						  or (level = 3 and cycle_cnt mod 5 = 0) or (level = 4 and cycle_cnt mod 2 = 0)
+						  or (level = 5 and cycle_cnt mod 2 = 0)) then
 						if(read_roc = '1') then									-- Read mode
 							
 							address_a_roc <= "0000001" + current_rocket;
@@ -352,7 +361,7 @@ begin
 				
 				elsif(update_missiles = '1') then
 					
-					if(cycle_cnt mod 2 = 0) then -- To update the missiles positions every 5*13 = 65 ms
+					if(cycle_cnt mod 2 = 0) then -- To update the missiles positions every 2*13 = 26 ms
 						if(read_mis = '1') then									-- Read mode
 							
 							if(current_missile > 0) then
@@ -407,11 +416,18 @@ begin
 				-- Generate submarines
 				elsif(generate_subarine = '1') then
 					
-					if(cycle_cnt mod 50 = 0 and reset_game = '0') then
+					-- Generate faster or slower according to the level
+					if( ( (level = 1 and cycle_cnt mod 50 = 0) or (level = 2 and cycle_cnt mod 50 = 0)
+						 or (level = 3 and cycle_cnt mod 25 = 0) or (level = 4 and cycle_cnt mod 25 = 0)
+						 or (level = 5 and cycle_cnt mod 25 = 0) ) and reset_game = '0') then
 						
-						if(nb_submarines < 10) then -- if there is less than 10 submarines, we try to add one
+						-- 10 submarines at level 1 and 2, 20 at level 3 and 4, and 30 at level 5
+						if( ((level = 1 or level = 2) and nb_submarines < 10)
+							or ((level = 3 or level = 4) and nb_submarines < 20) 
+							or (level = 5 and nb_submarines < 30) )then 
 							  
-							tmp_random := to_integer(unsigned(magn_g_y(2 downto 0) & h_cnt(2) & h_cnt(1) & h_cnt(0))); -- to take a random number
+							--tmp_random := to_integer(unsigned(magn_g_y(2 downto 0) & h_cnt(2) & h_cnt(1) & h_cnt(0))); -- to take a random number
+							tmp_random := to_integer(unsigned(magn_g_y(5 downto 0))); -- to take a random number
 							if (tmp_random > 49) then -- 2^6 ==> can be up to 63
 								tmp_random := tmp_random - 14;
 							end if;
@@ -462,27 +478,28 @@ begin
 			-- Get the sign of the acceleration along y
 			sign_g_y := data_y(9);
 			
-			-- Get the magnitude of the acceleration along y
+			-- Get the magnitude of the acceleration along y and compute the horizontal position of the boat
 			if (sign_g_y = '0') then
 				magn_g_y := (data_y(8 downto 0));
+				tmp_left_boat := std_logic_vector(380 - to_unsigned((95*to_integer(unsigned(magn_g_y)))/64,13)); -- 380 / 256 = 95/64				
 			else 
 				magn_g_y := (NOT(data_y(8 downto 0))) + "000000001"; -- 2's complement
+				tmp_left_boat := std_logic_vector(380 + to_unsigned((95*to_integer(unsigned(magn_g_y)))/64,13)); -- 380 / 256 = 95/64
 			end if;
 			
 			-- Filter
-			tmp_magn_g_y := ("000" & old_magn_g_y) + ("000" & old_magn_g_y) + ("000" & old_magn_g_y) + ("000" & old_magn_g_y) + ("000" & old_magn_g_y) + ("000" & old_magn_g_y) + ("000" & old_magn_g_y) + ("000" & magn_g_y);
-			magn_g_y := tmp_magn_g_y(11 downto 3); -- Division by 8
-
+			tmp_left_boat := ("000" & left_boat) + ("000" & left_boat) + ("000" & left_boat) + ("000" & left_boat) + ("000" & left_boat) + ("000" & left_boat) + ("000" & left_boat) + tmp_left_boat;
+			left_boat <= tmp_left_boat(12 downto 3);
 			
-			-- Compute the horizontal position of the square
-			if(sign_g_y = '0') then
-				left_boat <= std_logic_vector(to_unsigned(380-((380*(to_integer(unsigned(magn_g_y))))/256),10));
-			else
-				left_boat <= std_logic_vector(to_unsigned(380+((380*(to_integer(unsigned(magn_g_y))))/256),10));
-			end if;
-			right_boat <= left_boat + 40;
+--			-- Compute the horizontal position of the boat
+--			if(sign_g_y = '0') then
+--				--left_boat <= std_logic_vector(to_unsigned(380-((380*(to_integer(unsigned(magn_g_y))))/256),10));
+--				left_boat <= std_logic_vector(380 - to_unsigned((95*to_integer(unsigned(magn_g_y)))/64,10));
+--			else
+--				--left_boat <= std_logic_vector(to_unsigned(380+((380*(to_integer(unsigned(magn_g_y))))/256),10));
+--				left_boat <= std_logic_vector(380 + to_unsigned((95*to_integer(unsigned(magn_g_y)))/64,10));
+--			end if;
 		
-			old_magn_g_y <= magn_g_y;
 			
 		end if;
 	end process;
@@ -507,16 +524,23 @@ begin
 			end if;
 			
 			-- boat
-			if( ((v_cnt >= top_boat) and (v_cnt <= bottom_boat)) and ((h_cnt >= left_boat) and (h_cnt <= right_boat)) ) then
+			if( ((v_cnt >= top_boat) and (v_cnt < top_boat + 8)) and ((h_cnt >= left_boat) and (h_cnt < left_boat + 40)) ) then
 				if(my_boat_design(to_integer(unsigned(v_cnt) - unsigned(top_boat)))(to_integer(unsigned(h_cnt) - unsigned(left_boat))) = '1') then
 					if(hit = '0') then
 						red_signal <= '1';
 						green_signal <= '0';
 						blue_signal <= '0';
 					else
-						red_signal <= '1';
-						green_signal <= '1';
-						blue_signal <= '0';
+						-- To make it blink when touched
+						if((timer_hit/10) mod 2 = 0) then
+							red_signal <= '1';
+							green_signal <= '1';
+							blue_signal <= '0';
+						else
+							red_signal <= '1';
+							green_signal <= '0';
+							blue_signal <= '0';
+						end if;
 					end if;
 				end if;
 			end if;
@@ -548,7 +572,7 @@ begin
 			-- Display
 			if( (v_cnt >= current_sub_line + 1 ) and ( v_cnt <= current_sub_line + 8 ) and (h_cnt >= 0) and (h_cnt <= 799) ) then
 				if(data_sub_disp(11) = '1') then
-					if( (h_cnt(9 downto 0) >= data_sub_disp(9 downto 0)) and (h_cnt(9 downto 0) <= data_sub_disp(9 downto 0) + 40) ) then
+					if( (h_cnt(9 downto 0) >= data_sub_disp(9 downto 0)) and (h_cnt(9 downto 0) < data_sub_disp(9 downto 0) + 40) ) then
 						if(my_sub_design( to_integer(unsigned(v_cnt) - current_sub_line - 1))(to_integer(unsigned(h_cnt) - unsigned(data_sub_disp(9 downto 0)))) = '1') then				
 							blue_signal <= '0';
 							red_signal <= '1';
@@ -570,9 +594,11 @@ begin
 			-- Initialize
 			if( (v_cnt = 599) and (h_cnt = 799)) then
 				current_rocket_line := -1;
-				-- We loose only one life at a time and we have a delay of 0,13s of immunity when we loose 1
-				if( (cycle_cnt) mod 10 = 0) then
+				-- We loose only one life at a time and we have a delay of 0,40 of immunity when we loose 1
+				if( timer_hit = 29) then
 					hit <= '0';
+				else
+					timer_hit <= timer_hit + 1;
 				end if;
 				
 			-- Ask data
@@ -593,10 +619,11 @@ begin
 					green_signal <= '1';
 					
 					-- Remove a life if boat is touched
-					if( (v_cnt >= bottom_boat) and (v_cnt <= top_boat) and ((h_cnt >= left_boat) and (h_cnt <= right_boat)) ) then	
+					if( (v_cnt >= top_boat) and (v_cnt < top_boat + 8) and ((h_cnt >= left_boat) and (h_cnt < left_boat + 40)) ) then	
 						-- To consider only the first time the rocket collides the boat
 						if(hit = '0') then
 							hit <= '1';
+							timer_hit <= 0;
 							if(lives > 1) then
 								lives := lives - 1;
 							else
@@ -652,12 +679,16 @@ begin
 								wr_en_b_mis <= '1';
 								-- update score and level
 								score := score + 1;
-								if(score < 5) then
+								if(score < 10) then
 									level <= 1;
-								elsif(score >= 5 and score < 10) then
+								elsif(score >= 10 and score < 20) then
 									level <= 2;
-								elsif(score >= 10) then
+								elsif(score >= 20 and score < 30) then
 									level <= 3;
+								elsif(score >= 30 and score < 40) then
+									level <= 4;
+								elsif(score >= 40) then
+									level <= 5;
 								end if;
 							end if;
 						end if;
