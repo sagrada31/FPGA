@@ -71,9 +71,10 @@ architecture vga_arch of vga is
 	signal v_cnt			: std_logic_vector(10 downto 0) := (others => '0');
 	
 	-- Signal positionning the boat
-	signal left_boat					: std_logic_vector(9 downto 0);
+	signal left_boat					: std_logic_vector(10 downto 0);
 	signal top_boat					: std_logic_vector(9 downto 0) := std_logic_vector(to_unsigned(152,10)); -- Fixed height
-	shared variable tmp_left_boat	: std_logic_vector(12 downto 0);
+	shared variable tmp_left_boat	: std_logic_vector(13 downto 0);
+	shared variable tmp_left_boat_filter	: std_logic_vector(13 downto 0);
 	
 	-- To represent acceleration along y axis
 	shared variable sign_g_y		: std_logic;
@@ -150,8 +151,9 @@ architecture vga_arch of vga is
 	signal timer_hit						: integer range 0 to 49 := 0;
 	
 	-- For the score
-	shared variable score				: integer range 0 to 999 := 0;
-	shared variable index_score		: integer range 0 to 9 := 0;
+	shared variable score_unit			: integer range 0 to 9 := 0;
+	shared variable score_decade		: integer range 0 to 9 := 0;
+	shared variable score_hundred		: integer range 0 to 9 := 0;
 	
 	-- For the button
 	signal timer_button	: integer range 0 to 39 := 0;
@@ -481,26 +483,22 @@ begin
 			-- Get the magnitude of the acceleration along y and compute the horizontal position of the boat
 			if (sign_g_y = '0') then
 				magn_g_y := (data_y(8 downto 0));
-				tmp_left_boat := std_logic_vector(380 - to_unsigned((95*to_integer(unsigned(magn_g_y)))/64,13)); -- 380 / 256 = 95/64				
+				tmp_left_boat := std_logic_vector(380 - to_unsigned((95*to_integer(unsigned(magn_g_y)))/64,14)); -- 380 / 256 = 95/64				
 			else 
-				magn_g_y := (NOT(data_y(8 downto 0))) + "000000001"; -- 2's complement
-				tmp_left_boat := std_logic_vector(380 + to_unsigned((95*to_integer(unsigned(magn_g_y)))/64,13)); -- 380 / 256 = 95/64
+				magn_g_y := (NOT(data_y(8 downto 0))); -- 2's complement
+				tmp_left_boat := std_logic_vector(380 + to_unsigned((95*to_integer(unsigned(magn_g_y)))/64,14)); -- 380 / 256 = 95/64
 			end if;
 			
 			-- Filter
-			tmp_left_boat := ("000" & left_boat) + ("000" & left_boat) + ("000" & left_boat) + ("000" & left_boat) + ("000" & left_boat) + ("000" & left_boat) + ("000" & left_boat) + tmp_left_boat;
-			left_boat <= tmp_left_boat(12 downto 3);
-			
---			-- Compute the horizontal position of the boat
---			if(sign_g_y = '0') then
---				--left_boat <= std_logic_vector(to_unsigned(380-((380*(to_integer(unsigned(magn_g_y))))/256),10));
---				left_boat <= std_logic_vector(380 - to_unsigned((95*to_integer(unsigned(magn_g_y)))/64,10));
---			else
---				--left_boat <= std_logic_vector(to_unsigned(380+((380*(to_integer(unsigned(magn_g_y))))/256),10));
---				left_boat <= std_logic_vector(380 + to_unsigned((95*to_integer(unsigned(magn_g_y)))/64,10));
---			end if;
+			tmp_left_boat_filter := ("000" & left_boat) + ("000" & left_boat) + ("000" & left_boat) + ("000" & left_boat) + ("000" & left_boat) + ("000" & left_boat) + ("000" & left_boat) + tmp_left_boat;
+			if(tmp_left_boat_filter(13 downto 3) >= 760) then
+				left_boat <= std_logic_vector(to_unsigned(760,11));
+			elsif(tmp_left_boat_filter(13 downto 3) <= 0) then
+				left_boat <= std_logic_vector(to_unsigned(0,11));
+			else
+				left_boat <= tmp_left_boat_filter(13 downto 3);
+			end if;
 		
-			
 		end if;
 	end process;
 
@@ -614,9 +612,29 @@ begin
 			-- Display
 			if( (v_cnt >= current_rocket_line + 1 ) and ( v_cnt <= current_rocket_line + 8 ) and (h_cnt >= 0) and (h_cnt <= 799) ) then
 				if( data_roc_disp(to_integer(unsigned(h_cnt)/8)) = '1' ) then
-					blue_signal <= '0';
-					red_signal <= '1';
-					green_signal <= '1';
+					if(v_cnt >= current_rocket_line + 1 and v_cnt < current_rocket_line + 3) then
+							if(to_integer(unsigned(h_cnt)) mod 8 >= 3 and to_integer(unsigned(h_cnt)) mod 8 < 5) then
+							blue_signal <= '0';
+							red_signal <= '1';
+							green_signal <= '1';
+						end if;
+					elsif(v_cnt >= current_rocket_line + 3 and v_cnt < current_rocket_line + 5) then
+						if(to_integer(unsigned(h_cnt)) mod 8 >= 2 and to_integer(unsigned(h_cnt)) mod 8 < 6) then
+							blue_signal <= '0';
+							red_signal <= '1';
+							green_signal <= '1';
+						end if;
+					elsif(v_cnt >= current_rocket_line + 5 and v_cnt < current_rocket_line + 7) then
+						if(to_integer(unsigned(h_cnt)) mod 8 >= 1 or to_integer(unsigned(h_cnt)) mod 8 < 7) then
+							blue_signal <= '0';
+							red_signal <= '0';
+							green_signal <= '0';
+						end if;
+					elsif(v_cnt >= current_rocket_line + 6 and v_cnt < current_rocket_line + 9) then
+						blue_signal <= '0';
+						red_signal <= '0';
+						green_signal <= '0';
+					end if;
 					
 					-- Remove a life if boat is touched
 					if( (v_cnt >= top_boat) and (v_cnt < top_boat + 8) and ((h_cnt >= left_boat) and (h_cnt < left_boat + 40)) ) then	
@@ -660,10 +678,29 @@ begin
 			-- Display
 			if( (v_cnt >= current_missile_line + 1 ) and ( v_cnt <= current_missile_line + 8 ) and (h_cnt >= 0) and (h_cnt <= 799) ) then
 				if( data_mis_disp(to_integer(unsigned(h_cnt)/8)) = '1' ) then
-					blue_signal <= '0';
-					red_signal <= '1';
-					green_signal <= '0';
-					
+					if(v_cnt >= current_missile_line + 1 and v_cnt < current_missile_line + 3) then
+							blue_signal <= '0';
+							red_signal <= '1';
+							green_signal <= '0';
+					elsif(v_cnt >= current_missile_line + 3 and v_cnt < current_missile_line + 5) then
+						if(to_integer(unsigned(h_cnt)) mod 8 >= 1 or to_integer(unsigned(h_cnt)) mod 8 < 7) then
+							blue_signal <= '0';
+							red_signal <= '1';
+							green_signal <= '0';
+						end if;
+					elsif(v_cnt >= current_missile_line + 5 and v_cnt < current_missile_line + 7) then
+						if(to_integer(unsigned(h_cnt)) mod 8 >= 2 and to_integer(unsigned(h_cnt)) mod 8 < 6) then
+							blue_signal <= '1';
+							red_signal <= '1';
+							green_signal <= '1';
+						end if;
+					elsif(v_cnt >= current_missile_line + 6 and v_cnt < current_missile_line + 9) then
+						if(to_integer(unsigned(h_cnt)) mod 8 >= 3 and to_integer(unsigned(h_cnt)) mod 8 < 5) then
+							blue_signal <= '1';
+							red_signal <= '1';
+							green_signal <= '1';
+						end if;
+					end if;
 					-- Remove subarine if touched by missile
 					if( (v_cnt >= current_sub_line + 1 ) and ( v_cnt <= current_sub_line + 8 ) and (h_cnt >= 0) and (h_cnt <= 799) ) then
 						if(data_sub_disp(11) = '1') then
@@ -678,22 +715,33 @@ begin
 								data_b_mis <= data_mis_disp;
 								wr_en_b_mis <= '1';
 								-- update score and level
-								score := score + 1;
-								if(score < 10) then
-									level <= 1;
-								elsif(score >= 10 and score < 20) then
-									level <= 2;
-								elsif(score >= 20 and score < 30) then
-									level <= 3;
-								elsif(score >= 30 and score < 40) then
-									level <= 4;
-								elsif(score >= 40) then
-									level <= 5;
+								if(score_unit < 9) then
+									score_unit := score_unit + 1;
+								elsif(score_unit = 9 and score_decade < 9) then
+									score_decade := score_decade + 1;
+									score_unit := 0;
+								elsif(score_unit = 9 and score_decade = 9 and score_hundred < 9) then
+									score_unit := 0;
+									score_decade := 0;
+									score_hundred := score_hundred + 1;
+								end if;
+								
+								if(score_hundred < 1) then
+									if(score_decade = 0) then
+										level <= 1;
+									elsif(score_decade = 1) then
+										level <= 2;
+									elsif(score_decade = 2) then
+										level <= 3;
+									elsif(score_decade = 3) then
+										level <= 4;
+									elsif(score_decade >= 4) then
+										level <= 5;
+									end if;
 								end if;
 							end if;
 						end if;
 					end if;
-					
 				end if;
 			end if;
 			
@@ -747,8 +795,10 @@ begin
 						green_signal <= '0';
 						blue_signal <= '1';
 				end if;
-				
-				-- level ---------------------------------------------------------------------
+			end if;
+			-- Level and score ----------------------------------------------------------------------------
+			if(v_cnt >= 20 and v_cnt < 34) then
+				-- Level ---------------------------------------------------------------------
 				-- L
 				if(h_cnt >= 340 and h_cnt < 350 and characters(10)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-340)/2)) = '1') then
 						red_signal <= '1';
@@ -830,22 +880,19 @@ begin
 						blue_signal <= '1';
 				end if;
 				-- Value (hundred)
-				index_score := score/100;
-				if(h_cnt >= 702 and h_cnt < 712 and characters(index_score)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-702)/2)) = '1') then
+				if(h_cnt >= 702 and h_cnt < 712 and characters(score_hundred)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-702)/2)) = '1') then
 						red_signal <= '1';
 						green_signal <= '0';
 						blue_signal <= '1';
 				end if;
-				-- Value (ten)
-				index_score := (score/10)mod 10;
-				if(h_cnt >= 714 and h_cnt < 724 and characters(index_score)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-714)/2)) = '1') then
+				-- Value (decade)
+				if(h_cnt >= 714 and h_cnt < 724 and characters(score_decade)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-714)/2)) = '1') then
 						red_signal <= '1';
 						green_signal <= '0';
 						blue_signal <= '1';
 				end if;
 				-- Value (unit)
-				index_score := score mod 10;
-				if(h_cnt >= 726 and h_cnt < 736 and characters(index_score)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-726)/2)) = '1') then
+				if(h_cnt >= 726 and h_cnt < 736 and characters(score_unit)(to_integer((unsigned(v_cnt-20)/2)*5 + unsigned(h_cnt-726)/2)) = '1') then
 						red_signal <= '1';
 						green_signal <= '0';
 						blue_signal <= '1';
@@ -916,7 +963,7 @@ begin
 					reset_game <= '0';
 					reset_timer <= 0;
 					lives := 5;
-					score := 0;
+					score_unit := 0; score_decade := 0; score_hundred := 0;
 					level <= 1;
 				else
 					reset_timer <= reset_timer + 1;

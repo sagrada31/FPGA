@@ -20,7 +20,7 @@
 ## PROGRAM "Quartus II"
 ## VERSION "Version 14.1.0 Build 186 12/03/2014 SJ Web Edition"
 
-## DATE    "Thu Apr 16 15:09:39 2015"
+## DATE    "Sat May 02 09:51:34 2015"
 
 ##
 ## DEVICE  "EP4CE22F17C6"
@@ -39,7 +39,7 @@ set_time_format -unit ns -decimal_places 3
 # Create Clock
 #**************************************************************
 
-create_clock -name {CLOCK50} -period 20.000 -waveform { 0.000 10.000 } [get_ports {CLOCK_50}]
+create_clock -name {DEO_CLK} -period 20.000 -waveform { 0.000 10.000 } [get_ports {CLOCK_50}]
 
 
 #**************************************************************
@@ -70,11 +70,11 @@ create_clock -name {CLOCK50} -period 20.000 -waveform { 0.000 10.000 } [get_port
 # Set Output Delay
 #**************************************************************
 
-set_output_delay -add_delay -max -clock [get_clocks {CLOCK50}]  10.000 [get_ports {out_blue}]
-set_output_delay -add_delay -max -clock [get_clocks {CLOCK50}]  10.000 [get_ports {out_green}]
-set_output_delay -add_delay -max -clock [get_clocks {CLOCK50}]  10.000 [get_ports {out_h_sync}]
-set_output_delay -add_delay -max -clock [get_clocks {CLOCK50}]  10.000 [get_ports {out_red}]
-set_output_delay -add_delay -max -clock [get_clocks {CLOCK50}]  10.000 [get_ports {out_v_sync}]
+set_output_delay -add_delay -max -clock [get_clocks {DEO_CLK}]  5.000 [get_ports {out_blue}]
+set_output_delay -add_delay -max -clock [get_clocks {DEO_CLK}]  5.000 [get_ports {out_green}]
+set_output_delay -add_delay -max -clock [get_clocks {DEO_CLK}]  5.000 [get_ports {out_h_sync}]
+set_output_delay -add_delay -max -clock [get_clocks {DEO_CLK}]  5.000 [get_ports {out_red}]
+set_output_delay -add_delay -max -clock [get_clocks {DEO_CLK}]  5.000 [get_ports {out_v_sync}]
 
 
 #**************************************************************

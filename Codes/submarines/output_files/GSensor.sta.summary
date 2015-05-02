@@ -2,64 +2,64 @@
 TimeQuest Timing Analyzer Summary
 ------------------------------------------------------------
 
-Type  : Slow 1200mV 85C Model Setup 'CLOCK50'
-Slack : -10.404
-TNS   : -30.623
-
-Type  : Slow 1200mV 85C Model Hold 'CLOCK50'
-Slack : 0.318
+Type  : Slow 1200mV 85C Model Setup 'DEO_CLK'
+Slack : 3.225
 TNS   : 0.000
 
-Type  : Slow 1200mV 85C Model Recovery 'CLOCK50'
-Slack : 15.719
+Type  : Slow 1200mV 85C Model Hold 'DEO_CLK'
+Slack : 0.302
 TNS   : 0.000
 
-Type  : Slow 1200mV 85C Model Removal 'CLOCK50'
-Slack : 3.380
+Type  : Slow 1200mV 85C Model Recovery 'DEO_CLK'
+Slack : 15.755
 TNS   : 0.000
 
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'CLOCK50'
-Slack : 9.487
+Type  : Slow 1200mV 85C Model Removal 'DEO_CLK'
+Slack : 3.204
 TNS   : 0.000
 
-Type  : Slow 1200mV 0C Model Setup 'CLOCK50'
-Slack : -7.300
-TNS   : -21.348
-
-Type  : Slow 1200mV 0C Model Hold 'CLOCK50'
-Slack : 0.299
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'DEO_CLK'
+Slack : 9.482
 TNS   : 0.000
 
-Type  : Slow 1200mV 0C Model Recovery 'CLOCK50'
-Slack : 16.226
+Type  : Slow 1200mV 0C Model Setup 'DEO_CLK'
+Slack : 4.906
 TNS   : 0.000
 
-Type  : Slow 1200mV 0C Model Removal 'CLOCK50'
-Slack : 3.019
+Type  : Slow 1200mV 0C Model Hold 'DEO_CLK'
+Slack : 0.295
 TNS   : 0.000
 
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'CLOCK50'
-Slack : 9.488
+Type  : Slow 1200mV 0C Model Recovery 'DEO_CLK'
+Slack : 16.261
 TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Setup 'CLOCK50'
-Slack : 2.878
+Type  : Slow 1200mV 0C Model Removal 'DEO_CLK'
+Slack : 2.846
 TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Hold 'CLOCK50'
-Slack : 0.154
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'DEO_CLK'
+Slack : 9.485
 TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Recovery 'CLOCK50'
-Slack : 17.471
+Type  : Fast 1200mV 0C Model Setup 'DEO_CLK'
+Slack : 10.454
 TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Removal 'CLOCK50'
-Slack : 1.937
+Type  : Fast 1200mV 0C Model Hold 'DEO_CLK'
+Slack : 0.146
 TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'CLOCK50'
-Slack : 9.208
+Type  : Fast 1200mV 0C Model Recovery 'DEO_CLK'
+Slack : 17.493
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Removal 'DEO_CLK'
+Slack : 1.827
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'DEO_CLK'
+Slack : 9.206
 TNS   : 0.000
 
 ------------------------------------------------------------
